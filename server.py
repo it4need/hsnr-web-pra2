@@ -40,9 +40,9 @@ def jsonify_error(status, message, traceback, version):
     response.headers['Content-Type'] = 'application/json'
 
     if AppConfig.mode == 'development':
-        return json.dumps({'code': status, 'message': message, 'traceback': traceback})
+        return json.dumps({'code': status, 'message': message, 'traceback': traceback, "status": "error"})
     else:
-        return json.dumps({'code': status, 'message': message})
+        return json.dumps({'code': status, 'message': message, "status": "error"})
 
 
 if __name__ == '__main__':
