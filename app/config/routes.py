@@ -31,11 +31,6 @@ class RouterConfig:
             'condition': {'method': ['DELETE']}
         },
         {
-            'name': 'swentwickler',
-            'route': '/swentwickler',
-            'method': 'EmployeeController@index',
-        },
-        {
             'name': 'swentwickler.index',
             'route': '/swentwickler',
             'method': 'EmployeeController@index',
