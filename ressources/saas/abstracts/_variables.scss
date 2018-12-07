@@ -1,0 +1,44 @@
+/*
+|--------------------------------------------------------------------------
+| Colors
+|--------------------------------------------------------------------------
+*/
+$color-primary: darken(rgb(235, 240, 244), 10);
+$color-primary-light: rgb(235, 240, 244);
+$color-primary-dark: darken($color-primary, 20);
+
+/* ---- Standard colors ---- */
+$color-grey-light-1: #f7f7f7;
+$color-grey-light-2: #eee;
+$color-grey-dark: #777;
+$color-grey-dark-2: #999;
+$color-grey-dark-3: #333;
+$color-white: #fff;
+$color-black: #000;
+
+/* ---- Status colors ---- */
+$color-status-success: green;
+$color-status-danger: red;
+$color-status-warning: darken(yellow, .1);
+$color-status-info: blue;
+
+/* ---- Additional ---- */
+$color-border: darken($color-grey-light-1, 20);
+
+
+/*
+|--------------------------------------------------------------------------
+| Fonts
+|--------------------------------------------------------------------------
+*/
+$default-font-size: 1.6rem;
+
+
+/*
+|--------------------------------------------------------------------------
+| Grid
+|--------------------------------------------------------------------------
+*/
+$grid-width: 114rem; // 1140px grid
+$gutter-vertical: 8rem;
+$gutter-horizontal: 6rem;
