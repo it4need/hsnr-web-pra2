@@ -53,7 +53,7 @@ class BaseController(object):
         self.__setStatusCode(code)
         message = {'status': type, 'message': message, 'code': code}
 
-        if appendRessource:
+        if appendRessource or code is 200:
             message['data'] = appendRessource
 
         return message
