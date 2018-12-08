@@ -22,11 +22,14 @@ def main():
             'error_page.404': jsonify_error,
             'error_page.500': jsonify_error,
             'error_page.400': jsonify_error,
+            'tools.Functions.on': True,
             'request.dispatch': RouteDispatcher().getAllRoutes(RouterConfig.routes),
         }
     }
 
     cherrypy.tree.mount(root=None, config=static_config)
+
+    cherrypy.tools.Functions = cherrypy.Tool('before_handler', check_testing);
 
     if AppConfig.mode != 'development':
         cherrypy.config.update({'request.show_tracebacks': False})
@@ -34,6 +37,11 @@ def main():
     cherrypy.engine.start()
     cherrypy.engine.block()
 
+
+def check_testing(self=None):
+    # check if testing is enabled
+    if cherrypy.request.headers.get('Env') == 'testing':
+        AppConfig.mode = 'testing'
 
 def jsonify_error(status, message, traceback, version):
     response = cherrypy.response

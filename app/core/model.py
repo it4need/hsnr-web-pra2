@@ -63,7 +63,7 @@ class BaseModel:
 
         return entry
 
-    def all(self, where = None):
+    def all(self, where=None):
         all_data = list()
 
         for data in self.data['data']:
@@ -117,9 +117,14 @@ class BaseModel:
 
     def __read(self):
         try:
-            openedFile = codecs.open(
-                os.path.join(AppConfig.database_folder, self.file_name + AppConfig.database_extension), 'r',
-                'utf-8')
+            if AppConfig.mode == 'testing':
+                openedFile = codecs.open(
+                    os.path.join(AppConfig.database_folder_test, self.file_name + AppConfig.database_extension), 'r',
+                    'utf-8')
+            else:
+                openedFile = codecs.open(
+                    os.path.join(AppConfig.database_folder, self.file_name + AppConfig.database_extension), 'r',
+                    'utf-8')
         except:
             self.data = self.__newJSONStructure()
             self.__save(0)
@@ -128,8 +133,15 @@ class BaseModel:
                 self.data = json.load(openedFile)
 
     def __save(self, maxId=None):
-        openedFile = codecs.open(os.path.join(AppConfig.database_folder, self.file_name + AppConfig.database_extension),
-                                 'w', 'utf-8')
+        if AppConfig.mode == 'testing':
+            openedFile = codecs.open(
+                os.path.join(AppConfig.database_folder_test, self.file_name + AppConfig.database_extension),
+                'w', 'utf-8')
+        else:
+            openedFile = codecs.open(
+                os.path.join(AppConfig.database_folder, self.file_name + AppConfig.database_extension),
+                'w', 'utf-8')
+
         with openedFile:
             self.__setMaxId(maxId)
             json.dump(self.data, openedFile, indent=3)
@@ -158,5 +170,7 @@ class BaseModel:
         }
 
     def __createDatabaseFolderIfNotExist(self):
-        if not os.path.exists(AppConfig.database_folder):
+        if AppConfig.mode == 'testing' and not os.path.exists(AppConfig.database_folder_test):
+            os.makedirs(AppConfig.database_folder_test)
+        elif not os.path.exists(AppConfig.database_folder):
             os.makedirs(AppConfig.database_folder)

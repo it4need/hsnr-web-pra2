@@ -8,4 +8,5 @@ class AppConfig:
     view_extension = '.html'
     database_folder = os.path.join(root_dir, "data")
     database_extension = '.json'
+    database_folder_test = os.path.join(root_dir, "data_test")
     mode = 'development'
