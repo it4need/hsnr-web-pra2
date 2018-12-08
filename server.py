@@ -29,7 +29,7 @@ def main():
 
     cherrypy.tree.mount(root=None, config=static_config)
 
-    cherrypy.tools.Functions = cherrypy.Tool('before_handler', check_testing);
+    cherrypy.tools.Functions = cherrypy.Tool('before_handler', check_testing)
 
     if AppConfig.mode != 'development':
         cherrypy.config.update({'request.show_tracebacks': False})

@@ -34,7 +34,7 @@ TEST_COUNTS_TEST=$((TEST_COUNTS_TEST+$?))
 
 
 
-
+rm -Rf data_test
 echo -e "\n\n$(red --------------- FINAL TEST RESULT ---------------)"
 if [[ $TEST_COUNTS_TEST -eq $TEST_COUNTS ]]
 then
