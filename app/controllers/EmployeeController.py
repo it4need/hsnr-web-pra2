@@ -33,7 +33,7 @@ class EmployeeController(BaseController):
         except Exception as e:
             return self.withError(str(e))
 
-        return self.withSuccessfullyCreated(employee)
+        return self.withSuccessfullyCreated(employee[0])
 
     @cherrypy.tools.json_out()
     def show(self, id):
@@ -57,7 +57,7 @@ class EmployeeController(BaseController):
             employee = Employee().update(id, cherrypy.request.json)
 
             if employee:
-                return self.withSuccess(Employee().find(id)[0])
+                return self.withSuccessfullyUpdated(employee[0])
             else:
                 return self.withError()
         except Exception as e:
@@ -71,7 +71,7 @@ class EmployeeController(BaseController):
         if not Employee().delete(id):
             return self.withError()
 
-        return self.withSuccess()
+        return self.withSuccessfullyDeleted()
 
     def __isQSEmployee(self):
         return cherrypy.url().endswith('qsmitarbeiter')

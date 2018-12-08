@@ -34,11 +34,20 @@ class BaseController(object):
     def withNotFound(self, message="The requested ressource was not found", code=404):
         return self.withError(message, code)
 
-    def withSuccess(self, appendRessource={}, message="Operation successful.", code=200):
+    def withSuccess(self, appendRessource=None, message="Operation successful.", code=200):
         return self.__messageWithHTTPStatusCode(message, code, 'success', appendRessource)
 
-    def withSuccessfullyCreated(self, appendRessource={}, message = "You have successfully created the requested ressource."):
+    def withSuccessfullyCreated(self, appendRessource=None,
+                                message="You have successfully created the requested ressource."):
         return self.withSuccess(appendRessource, message, 201)
+
+    def withSuccessfullyDeleted(self, appendRessource=None,
+                                message="You have successfully deleted the ressource."):
+        return self.withSuccess(appendRessource, message)
+
+    def withSuccessfullyUpdated(self, appendRessource=None,
+                                message="You have successfully updated the ressource."):
+        return self.withSuccess(appendRessource, message)
 
     def __messageWithHTTPStatusCode(self, message, code, type, appendRessource=None):
         self.__setStatusCode(code)
