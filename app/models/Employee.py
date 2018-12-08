@@ -22,14 +22,19 @@ class Employee(BaseModel):
         formattedEmployees = list(employees)
 
         for employee in formattedEmployees:
-            employee['name'] = ''
-
-            if employee['last_name'] is not None:
-                employee['name'] = employee['last_name']
-
-            if employee['first_name'] is not None:
-                employee['name'] += ', ' + employee['first_name']
-
-            employee['name'] = employee['name'].lstrip(', ')
+            employee = self.__generateFormattedName(employee)
 
         return formattedEmployees
+
+    def __generateFormattedName(self, employee):
+        employee['name'] = ''
+
+        if employee['last_name'] is not None:
+            employee['name'] = employee['last_name']
+
+        if employee['first_name'] is not None:
+            employee['name'] += ', ' + employee['first_name']
+
+        employee['name'] = employee['name'].lstrip(', ')
+
+        return employee
