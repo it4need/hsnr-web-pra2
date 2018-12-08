@@ -102,7 +102,7 @@ class BaseModel:
                         self.data['data'][key][attr_position] = values[attribute]
 
                 self.__save(self.__getMaxId())
-                return True
+                return self.find(self.__getMaxId())
 
         return False
 
