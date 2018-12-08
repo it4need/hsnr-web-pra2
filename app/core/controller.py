@@ -12,7 +12,7 @@ class BaseController(object):
     def __init__(self):
         self.view = View(AppConfig.view_folder)
 
-    def redirect(self, toUrl, params = {}, notificationData = {}):
+    def redirect(self, toUrl, params={}, notificationData={}):
         if toUrl in RouterConfig.getAllRoutes():
             for key, data in notificationData.items():
                 cherrypy.session['notifications_' + str(key)] = data
@@ -20,7 +20,7 @@ class BaseController(object):
         else:
             raise cherrypy.HTTPRedirect(toUrl)
 
-    def route(self, route, params = {}):
+    def route(self, route, params={}):
         final_route = route
 
         for key, value in params.items():
@@ -40,11 +40,14 @@ class BaseController(object):
     def withSuccessfullyCreated(self, appendRessource={}, message = "You have successfully created the requested ressource."):
         return self.withSuccess(appendRessource, message, 201)
 
-    def __messageWithHTTPStatusCode(self, message, code, type, appendRessource = None):
-        cherrypy.response.status = code
+    def __messageWithHTTPStatusCode(self, message, code, type, appendRessource=None):
+        self.__setStatusCode(code)
         message = {'status': type, 'message': message, 'code': code}
 
         if appendRessource:
             message['data'] = appendRessource
 
         return message
+
+    def __setStatusCode(self, code=200):
+        cherrypy.response.status = code
