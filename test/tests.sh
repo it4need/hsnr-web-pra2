@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 green() { echo "$(tput setaf 2)$*$(tput setaf 7)"; }
 red() { echo "$(tput setaf 1)$*$(tput setaf 7)"; }
 
