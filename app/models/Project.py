@@ -15,4 +15,4 @@ class Project(BaseModel):
         for project in formattedProjects:
             project['components'] = ProjectComponents().withoutTransform().all({'project_id': project['id']})
 
-            return formattedProjects
+        return formattedProjects

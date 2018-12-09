@@ -3,8 +3,8 @@
 from app.core.BaseModel import BaseModel
 
 
-class BugCategory(BaseModel):
+class Cause(BaseModel):
     def __init__(self):
-        file_name = 'bug_categories'
+        file_name = 'causes'
         data_attributes = ['name']
         BaseModel.__init__(self, file_name, data_attributes)

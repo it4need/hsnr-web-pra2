@@ -6,9 +6,11 @@ import cherrypy
 
 class RESTController(BaseController):
     model = None
+    required_attr = []
 
-    def __init__(self):
+    def __init__(self, required_attr = []):
         BaseController.__init__(self)
+        self.__setRequiredAttributes(required_attr)
 
     @cherrypy.tools.json_out()
     def index(self):
@@ -18,11 +20,20 @@ class RESTController(BaseController):
 
     @cherrypy.tools.json_out()
     @cherrypy.tools.json_in()
-    def store(self):
+    def store(self, additional_params=None):
         self.__setModel()
+        missing_attr = self.__checkRequestForMissingRequiredAttrbiutes()
+
+        if missing_attr:
+            return self.withError("You must pass a key-value pair of key `" + missing_attr + "´.")
 
         try:
-            ressource = self.model.create(cherrypy.request.json)
+            createdDict = cherrypy.request.json
+
+            if isinstance(additional_params, dict):
+                createdDict.update(additional_params)
+
+            ressource = self.model.create(createdDict)
         except Exception as e:
             return self.withError(str(e))
 
@@ -75,3 +86,14 @@ class RESTController(BaseController):
 
         if self.model is None:
             raise Exception("RESTful Controllers needs a model to pass in. Use _setupRESTfulModels to setup.")
+
+    def __setRequiredAttributes(self, attr):
+        if isinstance(attr, list):
+            self.required_attr = attr
+
+    def __checkRequestForMissingRequiredAttrbiutes(self):
+        for attr in self.required_attr:
+            if attr not in cherrypy.request.json:
+                return attr
+
+        return False

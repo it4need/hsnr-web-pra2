@@ -1,13 +1,13 @@
 # this file has 10 tests
 
-NAME_OF_TESTS="BUG-CATEGORY"
+NAME_OF_TESTS="CAUSES"
 H1="-HContent-Type: application/json"
 H2="-HEnv: testing"
 GET='-X GET'
 POST='-X POST'
 PUT='-XPUT'
 DELETE='-X DELETE'
-URL='http://localhost:8080/katfehler'
+URL='http://localhost:8080/katursache'
 
 source test/functions.sh
 TEST_SUCCESS_COUNTER=10
@@ -34,13 +34,13 @@ TEST_SUCCESS_COUNTER=$(($TEST_SUCCESS_COUNTER-$?))
 if [[ "$@" == "-v" ]];then echo -e "\nVerbose:" && echo $(echo $RESPONSE) | json;fi
 
 echo -e "\n\n" && echo -e $(blue "----> Testing PUT ${URL}/5 - update not allowable")
-RESPONSE=$(curl -sS "${H1}" "${H2}" "${PUT}" "${URL}/5" -d '{"name":"Fehlerkategorie"}')
+RESPONSE=$(curl -sS "${H1}" "${H2}" "${PUT}" "${URL}/5" -d '{"name":"Fehlerursache"}')
 testError ${RESPONSE}
 TEST_SUCCESS_COUNTER=$(($TEST_SUCCESS_COUNTER-$?))
 if [[ "$@" == "-v" ]];then echo -e "\nVerbose:" && echo $(echo $RESPONSE) | json;fi
 
 echo -e "\n\n" && echo -e $(blue "----> Testing POST ${URL} - create allowable")
-RESPONSE=$(curl -sS "${H1}" "${H2}" "${POST}" "${URL}" -d '{"name":"Fehlerkategorie"}')
+RESPONSE=$(curl -sS "${H1}" "${H2}" "${POST}" "${URL}" -d '{"name":"Fehlerursache"}')
 testSuccess ${RESPONSE}
 TEST_SUCCESS_COUNTER=$(($TEST_SUCCESS_COUNTER-$?))
 if [[ "$@" == "-v" ]];then echo -e "\nVerbose:" && echo $(echo $RESPONSE) | json;fi
@@ -63,7 +63,7 @@ TEST_SUCCESS_COUNTER=$(($TEST_SUCCESS_COUNTER-$?))
 if [[ "$@" == "-v" ]];then echo -e "\nVerbose:" && echo $(echo $RESPONSE) | json;fi
 
 echo -e "\n\n" && echo -e $(blue "----> Testing PUT ${URL}/1 - update allowable")
-RESPONSE=$(curl -sS "${H1}" "${H2}" "${PUT}" "${URL}/1" -d '{"name":"Fehlerkategorie"}')
+RESPONSE=$(curl -sS "${H1}" "${H2}" "${PUT}" "${URL}/1" -d '{"name":"Fehlerursache"}')
 testSuccess ${RESPONSE}
 TEST_SUCCESS_COUNTER=$(($TEST_SUCCESS_COUNTER-$?))
 if [[ "$@" == "-v" ]];then echo -e "\nVerbose:" && echo $(echo $RESPONSE) | json;fi

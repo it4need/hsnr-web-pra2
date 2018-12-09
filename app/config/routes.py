@@ -61,57 +61,57 @@ class RouterConfig:
         {
             'name': 'katfehler.index',
             'route': '/katfehler',
-            'method': 'BugCategoryController@index',
+            'method': 'CategoryController@index',
         },
         {
             'name': 'katfehler.store',
             'route': '/katfehler',
-            'method': 'BugCategoryController@store',
+            'method': 'CategoryController@store',
             'condition': {'method': ['POST']}
         },
         {
             'name': 'katfehler.show',
             'route': '/katfehler/:id',
-            'method': 'BugCategoryController@show',
+            'method': 'CategoryController@show',
         },
         {
             'name': 'katfehler.update',
             'route': '/katfehler/:id',
-            'method': 'BugCategoryController@update',
+            'method': 'CategoryController@update',
             'condition': {'method': ['PUT']}
         },
         {
             'name': 'katfehler.delete',
             'route': '/katfehler/:id',
-            'method': 'BugCategoryController@delete',
+            'method': 'CategoryController@delete',
             'condition': {'method': ['DELETE']}
         },
         {
             'name': 'katursache.index',
             'route': '/katursache',
-            'method': 'BugCauseController@index',
+            'method': 'CauseController@index',
         },
         {
             'name': 'katursache.store',
             'route': '/katursache',
-            'method': 'BugCauseController@store',
+            'method': 'CauseController@store',
             'condition': {'method': ['POST']}
         },
         {
             'name': 'katursache.show',
             'route': '/katursache/:id',
-            'method': 'BugCauseController@show',
+            'method': 'CauseController@show',
         },
         {
             'name': 'katursache.update',
             'route': '/katursache/:id',
-            'method': 'BugCauseController@update',
+            'method': 'CauseController@update',
             'condition': {'method': ['PUT']}
         },
         {
             'name': 'katursache.delete',
             'route': '/katursache/:id',
-            'method': 'BugCauseController@delete',
+            'method': 'CauseController@delete',
             'condition': {'method': ['DELETE']}
         },
         {
@@ -174,6 +174,34 @@ class RouterConfig:
             'name': 'projektkomponenten.show',
             'route': '/projektkomponenten/:id',
             'method': 'ProjectController@show'
+        },
+        {
+            'name': 'fehler.index',
+            'route': '/fehler',
+            'method': 'BugController@index',
+        },
+        {
+            'name': 'fehler.store',
+            'route': '/fehler',
+            'method': 'BugController@store',
+            'condition': {'method': ['POST']}
+        },
+        {
+            'name': 'fehler.show',
+            'route': '/fehler/:id',
+            'method': 'BugController@show',
+        },
+        {
+            'name': 'fehler.update',
+            'route': '/fehler/:id',
+            'method': 'BugController@update',
+            'condition': {'method': ['PUT']}
+        },
+        {
+            'name': 'fehler.delete',
+            'route': '/fehler/:id',
+            'method': 'BugController@delete',
+            'condition': {'method': ['DELETE']}
         }
     ]
 

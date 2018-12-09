@@ -25,16 +25,16 @@ FAILED_TESTS=$((FAILED_TESTS+$?))
 
 rm -Rf data_test
 echo -e "$(black '#######################################################')"
-echo -e "$(black '################### BUG-CATEGORIES ####################')"
+echo -e "$(black '###################### CATEGORIES #####################')"
 echo -e "$(black '#######################################################')\n"
-./test/bugcategories.sh $1
+./test/categories.sh $1
 FAILED_TESTS=$((FAILED_TESTS+$?))
 
 rm -Rf data_test
 echo -e "$(black '#######################################################')"
-echo -e "$(black '################### BUG-CAUSES  #######################')"
+echo -e "$(black '##################### CAUSES  #########################')"
 echo -e "$(black '#######################################################')\n"
-./test/bugcauses.sh $1
+./test/causes.sh $1
 FAILED_TESTS=$((FAILED_TESTS+$?))
 
 rm -Rf data_test
