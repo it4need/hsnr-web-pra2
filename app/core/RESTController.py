@@ -12,7 +12,7 @@ class RESTController(BaseController):
 
     def setModel(self, model):
         if model is None:
-            raise Exception("RESTful Controllers need a model to pass in.")
+            raise Exception("RESTful Controllers needs a model to pass in.")
 
         self.model = model
 
@@ -80,4 +80,4 @@ class RESTController(BaseController):
             self.model = self._setupRESTfulModels()
 
         if self.model is None:
-            raise Exception("RESTful Controllers need a model to pass in.")
+            raise Exception("RESTful Controllers needs a model to pass in.")
