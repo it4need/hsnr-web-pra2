@@ -27,8 +27,8 @@ class EmployeeController(RESTController):
     @cherrypy.tools.json_in()
     @cherrypy.tools.json_out()
     def update(self, id):
-        if self.__requestHasAllowableType():
-            return self.withError(self.TYPE_ERROR)
+        if 'type' in cherrypy.request.json:
+            return self.withError('A employee cannot update their `type´.')
 
         return super(EmployeeController, self).update(id)
 
