@@ -34,13 +34,13 @@ TEST_SUCCESS_COUNTER=$(($TEST_SUCCESS_COUNTER-$?))
 if [[ "$@" == "-v" ]];then echo -e "\nVerbose:" && echo $(echo $RESPONSE) | json;fi
 
 echo -e "\n\n" && echo -e $(blue "----> Testing PUT ${URL}/5 - update not allowable")
-RESPONSE=$(curl -sS "${H1}" "${H2}" "${PUT}" "${URL}/5" -d '{"type":2,"first_name":"Jan Andre","last_name":"Schloesser"}')
+RESPONSE=$(curl -sS "${H1}" "${H2}" "${PUT}" "${URL}/5" -d '{"name":"Fehlerkategorie"}')
 testError ${RESPONSE}
 TEST_SUCCESS_COUNTER=$(($TEST_SUCCESS_COUNTER-$?))
 if [[ "$@" == "-v" ]];then echo -e "\nVerbose:" && echo $(echo $RESPONSE) | json;fi
 
 echo -e "\n\n" && echo -e $(blue "----> Testing POST ${URL} - create allowable")
-RESPONSE=$(curl -sS "${H1}" "${H2}" "${POST}" "${URL}" -d '{"type":2,"first_name":"Jan Andre","last_name":"Schloesser"}')
+RESPONSE=$(curl -sS "${H1}" "${H2}" "${POST}" "${URL}" -d '{"name":"Fehlerkategorie"}')
 testSuccess ${RESPONSE}
 TEST_SUCCESS_COUNTER=$(($TEST_SUCCESS_COUNTER-$?))
 if [[ "$@" == "-v" ]];then echo -e "\nVerbose:" && echo $(echo $RESPONSE) | json;fi
@@ -63,7 +63,7 @@ TEST_SUCCESS_COUNTER=$(($TEST_SUCCESS_COUNTER-$?))
 if [[ "$@" == "-v" ]];then echo -e "\nVerbose:" && echo $(echo $RESPONSE) | json;fi
 
 echo -e "\n\n" && echo -e $(blue "----> Testing PUT ${URL}/1 - update allowable")
-RESPONSE=$(curl -sS "${H1}" "${H2}" "${PUT}" "${URL}/1" -d '{"type":2,"first_name":"Jan Andre","last_name":"Schloesser"}')
+RESPONSE=$(curl -sS "${H1}" "${H2}" "${PUT}" "${URL}/1" -d '{"name":"Fehlerkategorie"}')
 testSuccess ${RESPONSE}
 TEST_SUCCESS_COUNTER=$(($TEST_SUCCESS_COUNTER-$?))
 if [[ "$@" == "-v" ]];then echo -e "\nVerbose:" && echo $(echo $RESPONSE) | json;fi
