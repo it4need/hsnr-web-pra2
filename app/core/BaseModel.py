@@ -16,6 +16,7 @@ class BaseModel:
 
         data_attributes.insert(self.ID_INDEX, 'id')
         self.data = None
+        self.withTransformData = True
         self.file_name = fileName
         self.data_attributes = data_attributes
         self.__createDatabaseFolderIfNotExist()
@@ -48,7 +49,8 @@ class BaseModel:
                 dataList = list()
                 dataList.append(data)
 
-                if hasattr(self.__class__, '_transformData') and callable(getattr(self.__class__, '_transformData')):
+                if hasattr(self.__class__, '_transformData') and callable(getattr(self.__class__, '_transformData')) \
+                        and self.withTransformData:
                     return self._transformData(dataList)
                 else:
                     return dataList
@@ -86,7 +88,8 @@ class BaseModel:
 
             all_data = reducedSet
 
-        if hasattr(self.__class__, '_transformData') and callable(getattr(self.__class__, '_transformData')):
+        if hasattr(self.__class__, '_transformData') and callable(getattr(self.__class__, '_transformData')) \
+                and self.withTransformData:
             return self._transformData(all_data)
         else:
             return all_data
@@ -114,6 +117,11 @@ class BaseModel:
                 return True
 
         return False
+
+    def withoutTransform(self):
+        self.withTransformData = False
+
+        return self
 
     def __read(self):
         try:

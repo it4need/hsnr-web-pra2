@@ -142,6 +142,39 @@ class RouterConfig:
             'method': 'ProjectController@delete',
             'condition': {'method': ['DELETE']}
         },
+        {
+            'name': 'komponente.index',
+            'route': '/komponente',
+            'method': 'ProjectComponentsController@index',
+        },
+        {
+            'name': 'komponente.store',
+            'route': '/komponente',
+            'method': 'ProjectComponentsController@store',
+            'condition': {'method': ['POST']}
+        },
+        {
+            'name': 'komponente.show',
+            'route': '/komponente/:id',
+            'method': 'ProjectComponentsController@show',
+        },
+        {
+            'name': 'komponente.update',
+            'route': '/komponente/:id',
+            'method': 'ProjectComponentsController@update',
+            'condition': {'method': ['PUT']}
+        },
+        {
+            'name': 'komponente.delete',
+            'route': '/komponente/:id',
+            'method': 'ProjectComponentsController@delete',
+            'condition': {'method': ['DELETE']}
+        },
+        {
+            'name': 'projektkomponenten.show',
+            'route': '/projektkomponenten/:id',
+            'method': 'ProjectController@show'
+        }
     ]
 
     @staticmethod
