@@ -1,6 +1,6 @@
 # coding: utf-8
 
-from app.core.model import BaseModel
+from app.core.BaseModel import BaseModel
 
 
 class BugCategory(BaseModel):

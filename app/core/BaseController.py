@@ -1,7 +1,7 @@
 # coding: utf-8
 
 import cherrypy
-from app.core.view import View
+from app.core.View import View
 from app.config.app import AppConfig
 from app.config.routes import RouterConfig
 

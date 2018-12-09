@@ -3,7 +3,7 @@ import cherrypy
 import json
 from app.config.app import AppConfig
 from app.config.routes import RouterConfig
-from app.core.router import RouteDispatcher
+from app.core.Router import RouteDispatcher
 
 
 def main():

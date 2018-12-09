@@ -1,26 +1,35 @@
 # coding: utf-8
 
-from app.core.controller import BaseController
+from app.core.RESTController import RESTController
 from app.models.Employee import Employee
 import cherrypy
 
 
-class EmployeeController(BaseController):
+class EmployeeController(RESTController):
     TYPE_ERROR = "You must provide key `type´ with either value of 1 or 2"
 
     def __init__(self):
-        BaseController.__init__(self)
+        RESTController.__init__(self)
+
+    def _setupRESTfulModels(self):
+        return Employee()
 
     @cherrypy.tools.json_out()
     def index(self):
         if self.__isQSEmployee():
-            employees = Employee().allQS()
+            return self.withSuccess(self._setupRESTfulModels().allQS())
         elif self.__isSWEmployee():
-            employees = Employee().allSW()
-        else:
-            employees = Employee().all()
+            return self.withSuccess(self._setupRESTfulModels().allSW())
 
-        return self.withSuccess(employees)
+        return super(EmployeeController, self).index()
+
+    @cherrypy.tools.json_in()
+    @cherrypy.tools.json_out()
+    def update(self, id):
+        if self.__requestHasAllowableType():
+            return self.withError(self.TYPE_ERROR)
+
+        return super(EmployeeController, self).update(id)
 
     @cherrypy.tools.json_out()
     @cherrypy.tools.json_in()
@@ -28,50 +37,7 @@ class EmployeeController(BaseController):
         if 'type' not in cherrypy.request.json or self.__requestHasAllowableType():
             return self.withError(self.TYPE_ERROR)
 
-        try:
-            employee = Employee().create(cherrypy.request.json)
-        except Exception as e:
-            return self.withError(str(e))
-
-        return self.withSuccessfullyCreated(employee[0])
-
-    @cherrypy.tools.json_out()
-    def show(self, id):
-        employee = Employee().find(id)
-
-        if not employee:
-            return self.withNotFound()
-
-        return self.withSuccess(employee[0])
-
-    @cherrypy.tools.json_in()
-    @cherrypy.tools.json_out()
-    def update(self, id):
-        if not Employee().find(id):
-            return self.withNotFound()
-
-        if self.__requestHasAllowableType():
-            return self.withError(self.TYPE_ERROR)
-
-        try:
-            employee = Employee().update(id, cherrypy.request.json)
-
-            if employee:
-                return self.withSuccessfullyUpdated(employee[0])
-            else:
-                return self.withError()
-        except Exception as e:
-            return self.withError(str(e))
-
-    @cherrypy.tools.json_out()
-    def delete(self, id):
-        if not Employee().find(id):
-            return self.withNotFound()
-
-        if not Employee().delete(id):
-            return self.withError()
-
-        return self.withSuccessfullyDeleted()
+        return super(EmployeeController, self).store()
 
     def __isQSEmployee(self):
         return cherrypy.url().endswith('qsmitarbeiter')
