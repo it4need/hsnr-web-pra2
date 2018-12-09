@@ -58,6 +58,34 @@ class RouterConfig:
             'method': 'EmployeeController@delete',
             'condition': {'method': ['DELETE']}
         },
+        {
+            'name': 'katfehler.index',
+            'route': '/katfehler',
+            'method': 'BugCategoryController@index',
+        },
+        {
+            'name': 'katfehler.store',
+            'route': '/katfehler',
+            'method': 'BugCategoryController@store',
+            'condition': {'method': ['POST']}
+        },
+        {
+            'name': 'katfehler.show',
+            'route': '/katfehler/:id',
+            'method': 'BugCategoryController@show',
+        },
+        {
+            'name': 'katfehler.update',
+            'route': '/katfehler/:id',
+            'method': 'BugCategoryController@update',
+            'condition': {'method': ['PUT']}
+        },
+        {
+            'name': 'katfehler.delete',
+            'route': '/katfehler/:id',
+            'method': 'BugCategoryController@delete',
+            'condition': {'method': ['DELETE']}
+        },
     ]
 
     @staticmethod

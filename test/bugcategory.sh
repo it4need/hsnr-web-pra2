@@ -1,13 +1,13 @@
 # this file has 10 tests
 
-NAME_OF_TESTS="SW-EMPLOYEES"
+NAME_OF_TESTS="BUG-CATEGORY"
 H1="-HContent-Type: application/json"
 H2="-HEnv: testing"
 GET='-X GET'
 POST='-X POST'
 PUT='-XPUT'
 DELETE='-X DELETE'
-URL='http://localhost:8080/swentwickler'
+URL='http://localhost:8080/katfehler'
 
 source test/functions.sh
 TEST_SUCCESS_COUNTER=10

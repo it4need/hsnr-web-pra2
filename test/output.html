@@ -289,13 +289,13 @@
 
 <body class="f9 b9">
 <pre>
-<span class="f1">Gültigkeitsdatum: Sun Dec 9 00:53:24 STD 2018<span class="f7">
+<span class="f1">Gültigkeitsdatum: So 9 Dez 2018 14:57:51 CET<span class="f7">
 <span class="f0">#######################################################<span class="f7">
-<span class="f0">################### QS-Mitarbeiter ####################<span class="f7">
+<span class="f0">################### QS-EMPLOYEES ######################<span class="f7">
 <span class="f0">#######################################################<span class="f7">
 
-<span class="f1">--------------- WITHOUT PRE-EXISTING EMPLOYEES ---------------<span class="f7">
-<span class="f4">----&gt; Testing GET http://localhost:8080/qsmitarbeiter - return empty list of qsmitarbeiter<span class="f7">
+<span class="f1">--------------- WITHOUT PRE-EXISTING QS-EMPLOYEES ---------------<span class="f7">
+<span class="f4">----&gt; Testing GET http://localhost:8080/qsmitarbeiter - return empty list of all ressources<span class="f7">
 <span class="f2">TEST SUCCESSFUL.<span class="f7">
 
 Verbose:
@@ -305,6 +305,7 @@ Verbose:
   &quot;code&quot;: 200,
   &quot;data&quot;: []
 }
+
 
 
 <span class="f4">----&gt; Testing GET http://localhost:8080/qsmitarbeiter/5 - ressource was not found<span class="f7">
@@ -318,6 +319,7 @@ Verbose:
 }
 
 
+
 <span class="f4">----&gt; Testing DELETE http://localhost:8080/qsmitarbeiter/5 - delete not allowable<span class="f7">
 <span class="f2">TEST SUCCESSFUL.<span class="f7">
 
@@ -329,6 +331,7 @@ Verbose:
 }
 
 
+
 <span class="f4">----&gt; Testing PUT http://localhost:8080/qsmitarbeiter/5 - update not allowable<span class="f7">
 <span class="f2">TEST SUCCESSFUL.<span class="f7">
 
@@ -338,6 +341,7 @@ Verbose:
   &quot;message&quot;: &quot;The requested ressource was not found&quot;,
   &quot;code&quot;: 404
 }
+
 
 
 <span class="f4">----&gt; Testing POST http://localhost:8080/qsmitarbeiter - create allowable<span class="f7">
@@ -358,8 +362,8 @@ Verbose:
 }
 
 
-<span class="f1">--------------- WITH PRE-EXISTING EMPLOYEES ---------------<span class="f7">
-<span class="f4">----&gt; Testing GET http://localhost:8080/swenwickler - all qs employees<span class="f7">
+<span class="f1">--------------- WITH PRE-EXISTING QS-EMPLOYEES ---------------<span class="f7">
+<span class="f4">----&gt; Testing GET http://localhost:8080/qsmitarbeiter - all ressources<span class="f7">
 <span class="f2">TEST SUCCESSFUL.<span class="f7">
 
 Verbose:
@@ -367,19 +371,12 @@ Verbose:
   &quot;status&quot;: &quot;success&quot;,
   &quot;message&quot;: &quot;Operation successful.&quot;,
   &quot;code&quot;: 200,
-  &quot;data&quot;: [
-    {
-      &quot;id&quot;: 1,
-      &quot;last_name&quot;: &quot;Schloesser&quot;,
-      &quot;first_name&quot;: &quot;Jan Andre&quot;,
-      &quot;type&quot;: 2,
-      &quot;name&quot;: &quot;Schloesser, Jan Andre&quot;
-    }
-  ]
+  &quot;data&quot;: []
 }
 
 
-<span class="f4">----&gt; Testing GET http://localhost:8080/qsmitarbeiter/1 - show qs employee with 1<span class="f7">
+
+<span class="f4">----&gt; Testing GET http://localhost:8080/qsmitarbeiter/1 - show ressource with 1<span class="f7">
 <span class="f2">TEST SUCCESSFUL.<span class="f7">
 
 Verbose:
@@ -395,6 +392,7 @@ Verbose:
     &quot;name&quot;: &quot;Schloesser, Jan Andre&quot;
   }
 }
+
 
 
 <span class="f4">----&gt; Testing PUT http://localhost:8080/qsmitarbeiter/1 - update allowable<span class="f7">
@@ -415,7 +413,8 @@ Verbose:
 }
 
 
-<span class="f4">----&gt; Testing DELETE http://localhost:8080/qsmitarbeiter/1 - delete qs employee with 1<span class="f7">
+
+<span class="f4">----&gt; Testing DELETE http://localhost:8080/qsmitarbeiter/1 - delete ressource with 1<span class="f7">
 <span class="f2">TEST SUCCESSFUL.<span class="f7">
 
 Verbose:
@@ -427,7 +426,8 @@ Verbose:
 }
 
 
-<span class="f4">----&gt; Testing GET http://localhost:8080/qsmitarbeiter - no qs employees with id 1<span class="f7">
+
+<span class="f4">----&gt; Testing GET http://localhost:8080/qsmitarbeiter/1 - no ressource with id 1<span class="f7">
 <span class="f2">TEST SUCCESSFUL.<span class="f7">
 
 Verbose:
@@ -440,17 +440,17 @@ Verbose:
 
 <span class="f1">--------------- TEST RESULT ---------------<span class="f7">
 <span class="f2">-----------------------------------------------------<span class="f7">
-<span class="f2">!!!!!! ALL TESTS OF QS-Mitarbeiter SUCCESSFUL !!!!!!!<span class="f7">
+<span class="f2">!!!!!! ALL TESTS OF QS-EMPLOYEES SUCCESSFUL !!!!!!!<span class="f7">
 <span class="f2">-----------------------------------------------------<span class="f7">
 
 
 
 <span class="f0">#######################################################<span class="f7">
-<span class="f0">################### SW-Mitarbeiter ####################<span class="f7">
+<span class="f0">################### SW-EMPLOYEES ######################<span class="f7">
 <span class="f0">#######################################################<span class="f7">
 
-<span class="f1">--------------- WITHOUT PRE-EXISTING EMPLOYEES ---------------<span class="f7">
-<span class="f4">----&gt; Testing GET http://localhost:8080/swentwickler - return empty list of swentwickler<span class="f7">
+<span class="f1">--------------- WITHOUT PRE-EXISTING SW-EMPLOYEES ---------------<span class="f7">
+<span class="f4">----&gt; Testing GET http://localhost:8080/swentwickler - return empty list of all ressources<span class="f7">
 <span class="f2">TEST SUCCESSFUL.<span class="f7">
 
 Verbose:
@@ -460,6 +460,7 @@ Verbose:
   &quot;code&quot;: 200,
   &quot;data&quot;: []
 }
+
 
 
 <span class="f4">----&gt; Testing GET http://localhost:8080/swentwickler/5 - ressource was not found<span class="f7">
@@ -473,6 +474,7 @@ Verbose:
 }
 
 
+
 <span class="f4">----&gt; Testing DELETE http://localhost:8080/swentwickler/5 - delete not allowable<span class="f7">
 <span class="f2">TEST SUCCESSFUL.<span class="f7">
 
@@ -484,6 +486,7 @@ Verbose:
 }
 
 
+
 <span class="f4">----&gt; Testing PUT http://localhost:8080/swentwickler/5 - update not allowable<span class="f7">
 <span class="f2">TEST SUCCESSFUL.<span class="f7">
 
@@ -493,6 +496,7 @@ Verbose:
   &quot;message&quot;: &quot;The requested ressource was not found&quot;,
   &quot;code&quot;: 404
 }
+
 
 
 <span class="f4">----&gt; Testing POST http://localhost:8080/swentwickler - create allowable<span class="f7">
@@ -513,8 +517,8 @@ Verbose:
 }
 
 
-<span class="f1">--------------- WITH PRE-EXISTING EMPLOYEES ---------------<span class="f7">
-<span class="f4">----&gt; Testing GET http://localhost:8080/swenwickler - all qs employees<span class="f7">
+<span class="f1">--------------- WITH PRE-EXISTING SW-EMPLOYEES ---------------<span class="f7">
+<span class="f4">----&gt; Testing GET http://localhost:8080/swentwickler - all ressources<span class="f7">
 <span class="f2">TEST SUCCESSFUL.<span class="f7">
 
 Verbose:
@@ -534,7 +538,8 @@ Verbose:
 }
 
 
-<span class="f4">----&gt; Testing GET http://localhost:8080/swentwickler/1 - show qs employee with 1<span class="f7">
+
+<span class="f4">----&gt; Testing GET http://localhost:8080/swentwickler/1 - show ressource with 1<span class="f7">
 <span class="f2">TEST SUCCESSFUL.<span class="f7">
 
 Verbose:
@@ -550,6 +555,7 @@ Verbose:
     &quot;name&quot;: &quot;Schloesser, Jan Andre&quot;
   }
 }
+
 
 
 <span class="f4">----&gt; Testing PUT http://localhost:8080/swentwickler/1 - update allowable<span class="f7">
@@ -570,7 +576,8 @@ Verbose:
 }
 
 
-<span class="f4">----&gt; Testing DELETE http://localhost:8080/swentwickler/1 - delete qs employee with 1<span class="f7">
+
+<span class="f4">----&gt; Testing DELETE http://localhost:8080/swentwickler/1 - delete ressource with 1<span class="f7">
 <span class="f2">TEST SUCCESSFUL.<span class="f7">
 
 Verbose:
@@ -582,7 +589,8 @@ Verbose:
 }
 
 
-<span class="f4">----&gt; Testing GET http://localhost:8080/swentwickler - no qs employees with id 1<span class="f7">
+
+<span class="f4">----&gt; Testing GET http://localhost:8080/swentwickler/1 - no ressource with id 1<span class="f7">
 <span class="f2">TEST SUCCESSFUL.<span class="f7">
 
 Verbose:
@@ -595,7 +603,158 @@ Verbose:
 
 <span class="f1">--------------- TEST RESULT ---------------<span class="f7">
 <span class="f2">-----------------------------------------------------<span class="f7">
-<span class="f2">!!!!!! ALL TESTS OF SW-Mitarbeiter SUCCESSFUL !!!!!!!<span class="f7">
+<span class="f2">!!!!!! ALL TESTS OF SW-EMPLOYEES SUCCESSFUL !!!!!!!<span class="f7">
+<span class="f2">-----------------------------------------------------<span class="f7">
+
+
+
+<span class="f0">#######################################################<span class="f7">
+<span class="f0">################### BUG-CATEGORY  #####################<span class="f7">
+<span class="f0">#######################################################<span class="f7">
+
+<span class="f1">--------------- WITHOUT PRE-EXISTING BUG-CATEGORY ---------------<span class="f7">
+<span class="f4">----&gt; Testing GET http://localhost:8080/katfehler - return empty list of all ressources<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;Operation successful.&quot;,
+  &quot;code&quot;: 200,
+  &quot;data&quot;: []
+}
+
+
+
+<span class="f4">----&gt; Testing GET http://localhost:8080/katfehler/5 - ressource was not found<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;error&quot;,
+  &quot;message&quot;: &quot;The requested ressource was not found&quot;,
+  &quot;code&quot;: 404
+}
+
+
+
+<span class="f4">----&gt; Testing DELETE http://localhost:8080/katfehler/5 - delete not allowable<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;error&quot;,
+  &quot;message&quot;: &quot;The requested ressource was not found&quot;,
+  &quot;code&quot;: 404
+}
+
+
+
+<span class="f4">----&gt; Testing PUT http://localhost:8080/katfehler/5 - update not allowable<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;error&quot;,
+  &quot;message&quot;: &quot;The requested ressource was not found&quot;,
+  &quot;code&quot;: 404
+}
+
+
+
+<span class="f4">----&gt; Testing POST http://localhost:8080/katfehler - create allowable<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;You have successfully created the requested ressource.&quot;,
+  &quot;code&quot;: 201,
+  &quot;data&quot;: {
+    &quot;id&quot;: 1,
+    &quot;name&quot;: null
+  }
+}
+
+
+<span class="f1">--------------- WITH PRE-EXISTING BUG-CATEGORY ---------------<span class="f7">
+<span class="f4">----&gt; Testing GET http://localhost:8080/katfehler - all ressources<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;Operation successful.&quot;,
+  &quot;code&quot;: 200,
+  &quot;data&quot;: [
+    {
+      &quot;id&quot;: 1,
+      &quot;name&quot;: null
+    }
+  ]
+}
+
+
+
+<span class="f4">----&gt; Testing GET http://localhost:8080/katfehler/1 - show ressource with 1<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;Operation successful.&quot;,
+  &quot;code&quot;: 200,
+  &quot;data&quot;: {
+    &quot;id&quot;: 1,
+    &quot;name&quot;: null
+  }
+}
+
+
+
+<span class="f4">----&gt; Testing PUT http://localhost:8080/katfehler/1 - update allowable<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;You have successfully updated the ressource.&quot;,
+  &quot;code&quot;: 200,
+  &quot;data&quot;: {
+    &quot;id&quot;: 1,
+    &quot;name&quot;: null
+  }
+}
+
+
+
+<span class="f4">----&gt; Testing DELETE http://localhost:8080/katfehler/1 - delete ressource with 1<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;You have successfully deleted the ressource.&quot;,
+  &quot;code&quot;: 200,
+  &quot;data&quot;: null
+}
+
+
+
+<span class="f4">----&gt; Testing GET http://localhost:8080/katfehler/1 - no ressource with id 1<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;error&quot;,
+  &quot;message&quot;: &quot;The requested ressource was not found&quot;,
+  &quot;code&quot;: 404
+}
+
+
+<span class="f1">--------------- TEST RESULT ---------------<span class="f7">
+<span class="f2">-----------------------------------------------------<span class="f7">
+<span class="f2">!!!!!! ALL TESTS OF BUG-CATEGORY SUCCESSFUL !!!!!!!<span class="f7">
 <span class="f2">-----------------------------------------------------<span class="f7">
 
 
