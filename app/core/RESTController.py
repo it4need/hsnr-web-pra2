@@ -74,4 +74,4 @@ class RESTController(BaseController):
             self.model = self._setupRESTfulModels()
 
         if self.model is None:
-            raise Exception("RESTful Controllers needs a model to pass in.")
+            raise Exception("RESTful Controllers needs a model to pass in. Use _setupRESTfulModels to setup.")
