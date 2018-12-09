@@ -10,12 +10,6 @@ class RESTController(BaseController):
     def __init__(self):
         BaseController.__init__(self)
 
-    def setModel(self, model):
-        if model is None:
-            raise Exception("RESTful Controllers needs a model to pass in.")
-
-        self.model = model
-
     @cherrypy.tools.json_out()
     def index(self):
         self.__setModel()
