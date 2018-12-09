@@ -13,28 +13,35 @@ rm -Rf data_test
 echo -e "$(black '#######################################################')"
 echo -e "$(black '################### QS-EMPLOYEES ######################')"
 echo -e "$(black '#######################################################')\n"
-./test/qsmitarbeiter.sh $1
+./test/qsemployees.sh $1
 FAILED_TESTS=$((FAILED_TESTS+$?))
 
 rm -Rf data_test
 echo -e "$(black '#######################################################')"
 echo -e "$(black '################### SW-EMPLOYEES ######################')"
 echo -e "$(black '#######################################################')\n"
-./test/swentwickler.sh $1
+./test/swemployees.sh $1
 FAILED_TESTS=$((FAILED_TESTS+$?))
 
 rm -Rf data_test
 echo -e "$(black '#######################################################')"
-echo -e "$(black '################### BUG-CATEGORY  #####################')"
+echo -e "$(black '################### BUG-CATEGORIES ####################')"
 echo -e "$(black '#######################################################')\n"
-./test/bugcategory.sh $1
+./test/bugcategories.sh $1
 FAILED_TESTS=$((FAILED_TESTS+$?))
 
 rm -Rf data_test
 echo -e "$(black '#######################################################')"
-echo -e "$(black '################### BUG-CAUSE  ########################')"
+echo -e "$(black '################### BUG-CAUSES  #######################')"
 echo -e "$(black '#######################################################')\n"
-./test/bugcause.sh $1
+./test/bugcauses.sh $1
+FAILED_TESTS=$((FAILED_TESTS+$?))
+
+rm -Rf data_test
+echo -e "$(black '#######################################################')"
+echo -e "$(black '################### PROJECTS  #########################')"
+echo -e "$(black '#######################################################')\n"
+./test/projects.sh $1
 FAILED_TESTS=$((FAILED_TESTS+$?))
 
 

@@ -114,6 +114,34 @@ class RouterConfig:
             'method': 'BugCauseController@delete',
             'condition': {'method': ['DELETE']}
         },
+        {
+            'name': 'projekt.index',
+            'route': '/projekt',
+            'method': 'ProjectController@index',
+        },
+        {
+            'name': 'projekt.store',
+            'route': '/projekt',
+            'method': 'ProjectController@store',
+            'condition': {'method': ['POST']}
+        },
+        {
+            'name': 'projekt.show',
+            'route': '/projekt/:id',
+            'method': 'ProjectController@show',
+        },
+        {
+            'name': 'projekt.update',
+            'route': '/projekt/:id',
+            'method': 'ProjectController@update',
+            'condition': {'method': ['PUT']}
+        },
+        {
+            'name': 'projekt.delete',
+            'route': '/projekt/:id',
+            'method': 'ProjectController@delete',
+            'condition': {'method': ['DELETE']}
+        },
     ]
 
     @staticmethod

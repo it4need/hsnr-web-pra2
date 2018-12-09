@@ -8,7 +8,7 @@ class Employee(BaseModel):
     TYPE_SW = 2
 
     def __init__(self):
-        file_name = 'employee'
+        file_name = 'employees'
         data_attributes = ['last_name', 'first_name', 'type']
         BaseModel.__init__(self, file_name, data_attributes)
 

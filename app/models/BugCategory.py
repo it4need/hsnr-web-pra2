@@ -5,6 +5,6 @@ from app.core.BaseModel import BaseModel
 
 class BugCategory(BaseModel):
     def __init__(self):
-        file_name = 'bug_category'
+        file_name = 'bug_categories'
         data_attributes = ['name']
         BaseModel.__init__(self, file_name, data_attributes)
