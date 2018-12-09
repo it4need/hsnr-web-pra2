@@ -30,6 +30,12 @@ echo -e "$(black '#######################################################')\n"
 ./test/bugcategory.sh $1
 FAILED_TESTS=$((FAILED_TESTS+$?))
 
+rm -Rf data_test
+echo -e "$(black '#######################################################')"
+echo -e "$(black '################### BUG-CAUSE  ########################')"
+echo -e "$(black '#######################################################')\n"
+./test/bugcause.sh $1
+FAILED_TESTS=$((FAILED_TESTS+$?))
 
 
 

@@ -289,7 +289,7 @@
 
 <body class="f9 b9">
 <pre>
-<span class="f1">Gültigkeitsdatum: So 9 Dez 2018 14:57:51 CET<span class="f7">
+<span class="f1">Gültigkeitsdatum: So 9 Dez 2018 15:11:37 CET<span class="f7">
 <span class="f0">#######################################################<span class="f7">
 <span class="f0">################### QS-EMPLOYEES ######################<span class="f7">
 <span class="f0">#######################################################<span class="f7">
@@ -755,6 +755,157 @@ Verbose:
 <span class="f1">--------------- TEST RESULT ---------------<span class="f7">
 <span class="f2">-----------------------------------------------------<span class="f7">
 <span class="f2">!!!!!! ALL TESTS OF BUG-CATEGORY SUCCESSFUL !!!!!!!<span class="f7">
+<span class="f2">-----------------------------------------------------<span class="f7">
+
+
+
+<span class="f0">#######################################################<span class="f7">
+<span class="f0">################### BUG-CAUSE  ########################<span class="f7">
+<span class="f0">#######################################################<span class="f7">
+
+<span class="f1">--------------- WITHOUT PRE-EXISTING BUG-CAUSE ---------------<span class="f7">
+<span class="f4">----&gt; Testing GET http://localhost:8080/katursache - return empty list of all ressources<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;Operation successful.&quot;,
+  &quot;code&quot;: 200,
+  &quot;data&quot;: []
+}
+
+
+
+<span class="f4">----&gt; Testing GET http://localhost:8080/katursache/5 - ressource was not found<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;error&quot;,
+  &quot;message&quot;: &quot;The requested ressource was not found&quot;,
+  &quot;code&quot;: 404
+}
+
+
+
+<span class="f4">----&gt; Testing DELETE http://localhost:8080/katursache/5 - delete not allowable<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;error&quot;,
+  &quot;message&quot;: &quot;The requested ressource was not found&quot;,
+  &quot;code&quot;: 404
+}
+
+
+
+<span class="f4">----&gt; Testing PUT http://localhost:8080/katursache/5 - update not allowable<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;error&quot;,
+  &quot;message&quot;: &quot;The requested ressource was not found&quot;,
+  &quot;code&quot;: 404
+}
+
+
+
+<span class="f4">----&gt; Testing POST http://localhost:8080/katursache - create allowable<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;You have successfully created the requested ressource.&quot;,
+  &quot;code&quot;: 201,
+  &quot;data&quot;: {
+    &quot;id&quot;: 1,
+    &quot;name&quot;: &quot;Fehlerursache&quot;
+  }
+}
+
+
+<span class="f1">--------------- WITH PRE-EXISTING BUG-CAUSE ---------------<span class="f7">
+<span class="f4">----&gt; Testing GET http://localhost:8080/katursache - all ressources<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;Operation successful.&quot;,
+  &quot;code&quot;: 200,
+  &quot;data&quot;: [
+    {
+      &quot;id&quot;: 1,
+      &quot;name&quot;: &quot;Fehlerursache&quot;
+    }
+  ]
+}
+
+
+
+<span class="f4">----&gt; Testing GET http://localhost:8080/katursache/1 - show ressource with 1<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;Operation successful.&quot;,
+  &quot;code&quot;: 200,
+  &quot;data&quot;: {
+    &quot;id&quot;: 1,
+    &quot;name&quot;: &quot;Fehlerursache&quot;
+  }
+}
+
+
+
+<span class="f4">----&gt; Testing PUT http://localhost:8080/katursache/1 - update allowable<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;You have successfully updated the ressource.&quot;,
+  &quot;code&quot;: 200,
+  &quot;data&quot;: {
+    &quot;id&quot;: 1,
+    &quot;name&quot;: &quot;Fehlerursache&quot;
+  }
+}
+
+
+
+<span class="f4">----&gt; Testing DELETE http://localhost:8080/katursache/1 - delete ressource with 1<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;You have successfully deleted the ressource.&quot;,
+  &quot;code&quot;: 200,
+  &quot;data&quot;: null
+}
+
+
+
+<span class="f4">----&gt; Testing GET http://localhost:8080/katursache/1 - no ressource with id 1<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;error&quot;,
+  &quot;message&quot;: &quot;The requested ressource was not found&quot;,
+  &quot;code&quot;: 404
+}
+
+
+<span class="f1">--------------- TEST RESULT ---------------<span class="f7">
+<span class="f2">-----------------------------------------------------<span class="f7">
+<span class="f2">!!!!!! ALL TESTS OF BUG-CAUSE SUCCESSFUL !!!!!!!<span class="f7">
 <span class="f2">-----------------------------------------------------<span class="f7">
 
 

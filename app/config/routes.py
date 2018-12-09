@@ -86,6 +86,34 @@ class RouterConfig:
             'method': 'BugCategoryController@delete',
             'condition': {'method': ['DELETE']}
         },
+        {
+            'name': 'katursache.index',
+            'route': '/katursache',
+            'method': 'BugCauseController@index',
+        },
+        {
+            'name': 'katursache.store',
+            'route': '/katursache',
+            'method': 'BugCauseController@store',
+            'condition': {'method': ['POST']}
+        },
+        {
+            'name': 'katursache.show',
+            'route': '/katursache/:id',
+            'method': 'BugCauseController@show',
+        },
+        {
+            'name': 'katursache.update',
+            'route': '/katursache/:id',
+            'method': 'BugCauseController@update',
+            'condition': {'method': ['PUT']}
+        },
+        {
+            'name': 'katursache.delete',
+            'route': '/katursache/:id',
+            'method': 'BugCauseController@delete',
+            'condition': {'method': ['DELETE']}
+        },
     ]
 
     @staticmethod
