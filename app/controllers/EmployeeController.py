@@ -21,16 +21,27 @@ class EmployeeController(RESTController):
             return self.withSuccess(self._setupRESTfulModels().allQS())
         elif self.__isSWEmployee():
             return self.withSuccess(self._setupRESTfulModels().allSW())
+        else:
+            return self.withNotFound()
 
-        return super(EmployeeController, self).index()
+    @cherrypy.tools.json_out()
+    def show(self, id):
+        employee = False
+
+        if self.__isQSEmployee():
+            employee = self._setupRESTfulModels().findQS(id)
+        elif self.__isSWEmployee():
+            employee = self._setupRESTfulModels().findSW(id)
+
+        if employee:
+            return self.withSuccess(employee)
+
+        return self.withNotFound()
 
     @cherrypy.tools.json_in()
     @cherrypy.tools.json_out()
     def update(self, id):
-        if 'type' in cherrypy.request.json:
-            return self.withError('A employee cannot update their `type´.')
-
-        return super(EmployeeController, self).update(id)
+        return super(EmployeeController, self).update(id, None, ['type'])
 
     @cherrypy.tools.json_out()
     @cherrypy.tools.json_in()
@@ -41,7 +52,7 @@ class EmployeeController(RESTController):
             return super(EmployeeController, self).store({'type': Employee.TYPE_SW})
 
     def __isQSEmployee(self):
-        return cherrypy.url().endswith('qsmitarbeiter')
+        return True if 'qsmitarbeiter' in cherrypy.url() else False
 
     def __isSWEmployee(self):
-        return cherrypy.url().endswith('swentwickler')
+        return True if 'swentwickler' in cherrypy.url() else False

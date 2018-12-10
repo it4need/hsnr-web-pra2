@@ -18,6 +18,22 @@ class Employee(BaseModel):
     def allSW(self):
         return self.all({'type': self.TYPE_SW})
 
+    def findQS(self, id):
+        qs_employee = self.find(id)
+
+        if qs_employee and qs_employee[0]['type'] == self.TYPE_QS:
+            return qs_employee[0]
+
+        return False
+
+    def findSW(self, id):
+        sw_employee = self.find(id)
+
+        if sw_employee and sw_employee[0]['type'] == self.TYPE_SW:
+            return sw_employee[0]
+
+        return False
+
     def _transformData(self, employees):
         formattedEmployees = list(employees)
 

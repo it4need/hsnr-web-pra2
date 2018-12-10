@@ -1,5 +1,5 @@
 # coding: utf-8
-
+from app.core.Exceptions.ValidationException import ValidationException
 from app.core.RESTController import RESTController
 from app.models.ProjectComponents import ProjectComponents
 from app.models.Project import Project
@@ -17,7 +17,9 @@ class ProjectComponentsController(RESTController):
     @cherrypy.tools.json_out()
     @cherrypy.tools.json_in()
     def store(self):
-        if 'project_id' in cherrypy.request.json and not Project().find(cherrypy.request.json['project_id']):
-            return self.withError("The given `project_id is not associated with a project.")
+        try:
+            self._checkRequestForExistingModelEntry([Project(), 'project_id'])
 
-        return super(ProjectComponentsController, self).store()
+            return super(ProjectComponentsController, self).store()
+        except ValidationException as e:
+            return self.withError(str(e))

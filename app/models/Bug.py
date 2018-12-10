@@ -27,4 +27,10 @@ class Bug(BaseModel):
             bug['cause'] = Cause().withoutTransform().find(bug['cause_id'])[0]
             bug['solved_categories'] = BugCategories().withoutTransform().all({'bug_id': bug['id']})
 
+            if bug['sw_employee_id'] is not None:
+                sw_employee = Employee().withoutTransform().find(bug['sw_employee_id'])
+
+                if sw_employee:
+                    bug['sw_employee'] = sw_employee[0]
+
         return formattedBugs
