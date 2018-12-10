@@ -17,12 +17,14 @@ class Bug(BaseModel):
         from app.models.Employee import Employee
         from app.models.ProjectComponents import ProjectComponents
         from app.models.Cause import Cause
+        from app.models.BugCategories import BugCategories
 
         formattedBugs = list(bugs)
 
         for bug in formattedBugs:
             bug['component'] = ProjectComponents().all({'id': bug['component_id']})
-            bug['qs_employee'] = Employee().withoutTransform().all({'id': bug['qs_employee_id']})
-            bug['cause'] = Cause().withoutTransform().all({'id': bug['cause_id']})
+            bug['qs_employee'] = Employee().withoutTransform().find(bug['qs_employee_id'])[0]
+            bug['cause'] = Cause().withoutTransform().find(bug['cause_id'])[0]
+            bug['solved_categories'] = BugCategories().withoutTransform().all({'bug_id': bug['id']})
 
         return formattedBugs

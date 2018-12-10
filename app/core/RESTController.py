@@ -52,14 +52,19 @@ class RESTController(BaseController):
 
     @cherrypy.tools.json_in()
     @cherrypy.tools.json_out()
-    def update(self, id):
+    def update(self, id, additional_params=None):
         self.__setModel()
 
         if not self.model.find(id):
             return self.withNotFound()
 
         try:
-            ressource = self.model.update(id, cherrypy.request.json)
+            createdDict = cherrypy.request.json
+
+            if isinstance(additional_params, dict):
+                createdDict.update(additional_params)
+
+            ressource = self.model.update(id, createdDict)
 
             if ressource:
                 return self.withSuccessfullyUpdated(ressource[0])
