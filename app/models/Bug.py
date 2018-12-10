@@ -22,15 +22,28 @@ class Bug(BaseModel):
         formattedBugs = list(bugs)
 
         for bug in formattedBugs:
+            qs_employee = None
+            cause = None
+
             bug['component'] = ProjectComponents().all({'id': bug['component_id']})
-            bug['qs_employee'] = Employee().withoutTransform().find(bug['qs_employee_id'])[0]
-            bug['cause'] = Cause().withoutTransform().find(bug['cause_id'])[0]
             bug['solved_categories'] = BugCategories().withoutTransform().all({'bug_id': bug['id']})
+
+            if isinstance(bug['qs_employee_id'], int):
+                qs_employee = Employee().withoutTransform().find(bug['qs_employee_id'])
+
+            if isinstance(bug['cause_id'], int):
+                cause = Cause().withoutTransform().find(bug['cause_id'])
 
             if bug['sw_employee_id'] is not None:
                 sw_employee = Employee().withoutTransform().find(bug['sw_employee_id'])
 
                 if sw_employee:
                     bug['sw_employee'] = sw_employee[0]
+
+            if qs_employee:
+                bug['qs_employee'] = qs_employee[0]
+
+            if cause:
+                bug['cause'] = cause[0]
 
         return formattedBugs

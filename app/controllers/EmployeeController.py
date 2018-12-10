@@ -2,6 +2,8 @@
 
 from app.core.RESTController import RESTController
 from app.models.Employee import Employee
+from app.models.Bug import Bug
+
 import cherrypy
 
 
@@ -50,6 +52,24 @@ class EmployeeController(RESTController):
             return super(EmployeeController, self).store({'type': Employee.TYPE_QS})
         elif self.__isSWEmployee():
             return super(EmployeeController, self).store({'type': Employee.TYPE_SW})
+
+    @cherrypy.tools.json_out()
+    def delete(self, id):
+        employee = Employee().find(int(id))
+        column_to_update = None
+
+        if employee and employee[0]['type'] == Employee.TYPE_SW:
+            column_to_update = 'sw_employee_id'
+            bugs = Bug().all({column_to_update: int(id)})
+        elif employee and employee[0]['type'] == Employee.TYPE_QS:
+            column_to_update = 'qs_employee_id'
+            bugs = Bug().all({column_to_update: int(id)})
+
+        if bugs:
+            for bug in bugs:
+                Bug().update(bug['id'], {column_to_update: None})
+
+        return super(EmployeeController, self).delete(int(id))
 
     def __isQSEmployee(self):
         return True if 'qsmitarbeiter' in cherrypy.url() else False
