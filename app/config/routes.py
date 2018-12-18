@@ -207,6 +207,11 @@ class RouterConfig:
             'name': 'report.projectList',
             'route': '/prolist',
             'method': 'ReportController@projectList'
+        },
+        {
+            'name': 'report.categoryList',
+            'route': '/katlist',
+            'method': 'ReportController@categoryList'
         }
     ]
 
