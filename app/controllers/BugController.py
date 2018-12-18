@@ -49,6 +49,15 @@ class BugController(RESTController):
             return self.withError(str(e))
 
     @cherrypy.tools.json_out()
+    def delete(self, id):
+        bugCategories = BugCategories().all({'bug_id': int(id)})
+
+        for bugCategory in bugCategories:
+            BugCategories().delete(bugCategory['id'])
+
+        return super(BugController, self).delete(id)
+
+    @cherrypy.tools.json_out()
     @cherrypy.tools.json_in()
     def store(self):
         non_allowable_attr = ['sw_employee_id', 'type', 'solution_description', 'solved_date', 'solved_categories',

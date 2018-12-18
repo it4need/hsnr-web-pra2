@@ -3,6 +3,8 @@ from app.core.Exceptions.ValidationException import ValidationException
 from app.core.RESTController import RESTController
 from app.models.ProjectComponents import ProjectComponents
 from app.models.Project import Project
+from app.models.Bug import Bug
+
 import cherrypy
 
 
