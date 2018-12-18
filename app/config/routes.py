@@ -202,6 +202,11 @@ class RouterConfig:
             'route': '/fehler/:id',
             'method': 'BugController@delete',
             'condition': {'method': ['DELETE']}
+        },
+        {
+            'name': 'report.projectList',
+            'route': '/prolist',
+            'method': 'ReportController@projectList'
         }
     ]
 
