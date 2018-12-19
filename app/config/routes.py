@@ -212,6 +212,11 @@ class RouterConfig:
             'name': 'report.categoryList',
             'route': '/katlist',
             'method': 'ReportController@categoryList'
+        },
+        {
+            'name': 'template.index',
+            'route': '/templates',
+            'method': 'TemplateController@index'
         }
     ]
 

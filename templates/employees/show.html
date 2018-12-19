@@ -1,0 +1,14 @@
+<!-- Template -->
+<!-- Contentbereich -->
+<form>
+   <input type="hidden" name="id" id="id" value="#context['data']['id']#">
+   <label for="first_name">Vorname</label>
+   <input type="text" id="first_name" name="first_name" value="#context['data']['first_name']#" />
+   <label for="last_name">Nachname</label>
+   <input type="text" id="last_name" name="last_name" value="#context['data']['last_name']#" />
+   <input type="radio" name="type" id="type1" value="1"><label for="type1">QS-Mitarbeiter</label>
+   <input type="radio" name="type" id="type2" value="2"><label for="type2">SW-Mitarbeiter</label>
+   <button id="idBack">Zurück</button>
+   <button id="submit" type="submit">Speichern</button>
+</form>
+<!-- EOF -->

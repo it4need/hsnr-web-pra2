@@ -1,0 +1,15 @@
+<!-- Template -->
+<!-- Contentbereich -->
+<table>
+   <tr><th>ID</th><th>Vollstädniger Name</th></tr>
+   @var entry_a;@
+   @var loop_i;@
+   @context['data'].forEach(function(value){@
+      <tr id="#value['id']#">
+         <td>#value['id']#</td>
+         <td>#value['name']#</td>
+      </tr>
+   @});@
+</table>
+<button id="idShowListEntry">Anzeigen</button>
+<!-- EOF -->
