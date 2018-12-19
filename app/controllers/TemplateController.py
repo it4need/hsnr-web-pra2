@@ -23,6 +23,7 @@ class TemplateController(BaseController):
         for path, subdirs, files in os.walk(AppConfig.template_folder):
             for name in files:
                 sub_folder = path.split(AppConfig.template_folder)[-1].lstrip('/')
+                sub_folder = path.split(AppConfig.template_folder)[-1].lstrip('\\')
                 file_o = codecs.open(os.path.join(path, name), 'rU',
                                      'utf-8')
                 content_s = file_o.read()
