@@ -289,7 +289,7 @@
 
 <body class="f9 b9">
 <pre>
-<span class="f1">Gültigkeitsdatum: So 9 Dez 2018 16:04:11 CET<span class="f7">
+<span class="f1">Gültigkeitsdatum: Di 18 Dez 2018 21:16:36 CET<span class="f7">
 <span class="f0">#######################################################<span class="f7">
 <span class="f0">################### QS-EMPLOYEES ######################<span class="f7">
 <span class="f0">#######################################################<span class="f7">
@@ -325,9 +325,9 @@ Verbose:
 
 Verbose:
 {
-  &quot;status&quot;: &quot;error&quot;,
-  &quot;message&quot;: &quot;The requested ressource was not found&quot;,
-  &quot;code&quot;: 404
+  &quot;code&quot;: &quot;500 Internal Server Error&quot;,
+  &quot;message&quot;: &quot;The server encountered an unexpected condition which prevented it from fulfilling the request.&quot;,
+  &quot;status&quot;: &quot;error&quot;
 }
 
 
@@ -338,7 +338,7 @@ Verbose:
 Verbose:
 {
   &quot;status&quot;: &quot;error&quot;,
-  &quot;message&quot;: &quot;The requested ressource was not found&quot;,
+  &quot;message&quot;: &quot;The requested ressource was not found.&quot;,
   &quot;code&quot;: 404
 }
 
@@ -356,7 +356,7 @@ Verbose:
     &quot;id&quot;: 1,
     &quot;last_name&quot;: &quot;Schloesser&quot;,
     &quot;first_name&quot;: &quot;Jan Andre&quot;,
-    &quot;type&quot;: 2,
+    &quot;type&quot;: 1,
     &quot;name&quot;: &quot;Schloesser, Jan Andre&quot;
   }
 }
@@ -371,7 +371,15 @@ Verbose:
   &quot;status&quot;: &quot;success&quot;,
   &quot;message&quot;: &quot;Operation successful.&quot;,
   &quot;code&quot;: 200,
-  &quot;data&quot;: []
+  &quot;data&quot;: [
+    {
+      &quot;id&quot;: 1,
+      &quot;last_name&quot;: &quot;Schloesser&quot;,
+      &quot;first_name&quot;: &quot;Jan Andre&quot;,
+      &quot;type&quot;: 1,
+      &quot;name&quot;: &quot;Schloesser, Jan Andre&quot;
+    }
+  ]
 }
 
 
@@ -388,7 +396,7 @@ Verbose:
     &quot;id&quot;: 1,
     &quot;last_name&quot;: &quot;Schloesser&quot;,
     &quot;first_name&quot;: &quot;Jan Andre&quot;,
-    &quot;type&quot;: 2,
+    &quot;type&quot;: 1,
     &quot;name&quot;: &quot;Schloesser, Jan Andre&quot;
   }
 }
@@ -407,7 +415,7 @@ Verbose:
     &quot;id&quot;: 1,
     &quot;last_name&quot;: &quot;Schloesser&quot;,
     &quot;first_name&quot;: &quot;Jan Andre&quot;,
-    &quot;type&quot;: 2,
+    &quot;type&quot;: 1,
     &quot;name&quot;: &quot;Schloesser, Jan Andre&quot;
   }
 }
@@ -480,9 +488,9 @@ Verbose:
 
 Verbose:
 {
-  &quot;status&quot;: &quot;error&quot;,
-  &quot;message&quot;: &quot;The requested ressource was not found&quot;,
-  &quot;code&quot;: 404
+  &quot;code&quot;: &quot;500 Internal Server Error&quot;,
+  &quot;message&quot;: &quot;The server encountered an unexpected condition which prevented it from fulfilling the request.&quot;,
+  &quot;status&quot;: &quot;error&quot;
 }
 
 
@@ -493,7 +501,7 @@ Verbose:
 Verbose:
 {
   &quot;status&quot;: &quot;error&quot;,
-  &quot;message&quot;: &quot;The requested ressource was not found&quot;,
+  &quot;message&quot;: &quot;The requested ressource was not found.&quot;,
   &quot;code&quot;: 404
 }
 
@@ -609,10 +617,10 @@ Verbose:
 
 
 <span class="f0">#######################################################<span class="f7">
-<span class="f0">################### BUG-CATEGORY  #####################<span class="f7">
+<span class="f0">###################### CATEGORIES #####################<span class="f7">
 <span class="f0">#######################################################<span class="f7">
 
-<span class="f1">--------------- WITHOUT PRE-EXISTING BUG-CATEGORY ---------------<span class="f7">
+<span class="f1">--------------- WITHOUT PRE-EXISTING CATEGORIES ---------------<span class="f7">
 <span class="f4">----&gt; Testing GET http://localhost:8080/katfehler - return empty list of all ressources<span class="f7">
 <span class="f2">TEST SUCCESSFUL.<span class="f7">
 
@@ -644,8 +652,8 @@ Verbose:
 Verbose:
 {
   &quot;status&quot;: &quot;error&quot;,
-  &quot;message&quot;: &quot;The requested ressource was not found&quot;,
-  &quot;code&quot;: 404
+  &quot;message&quot;: &quot;The requested ressource was not found.&quot;,
+  &quot;code&quot;: 422
 }
 
 
@@ -656,7 +664,7 @@ Verbose:
 Verbose:
 {
   &quot;status&quot;: &quot;error&quot;,
-  &quot;message&quot;: &quot;The requested ressource was not found&quot;,
+  &quot;message&quot;: &quot;The requested ressource was not found.&quot;,
   &quot;code&quot;: 404
 }
 
@@ -677,7 +685,7 @@ Verbose:
 }
 
 
-<span class="f1">--------------- WITH PRE-EXISTING BUG-CATEGORY ---------------<span class="f7">
+<span class="f1">--------------- WITH PRE-EXISTING CATEGORIES ---------------<span class="f7">
 <span class="f4">----&gt; Testing GET http://localhost:8080/katfehler - all ressources<span class="f7">
 <span class="f2">TEST SUCCESSFUL.<span class="f7">
 
@@ -754,16 +762,16 @@ Verbose:
 
 <span class="f1">--------------- TEST RESULT ---------------<span class="f7">
 <span class="f2">-----------------------------------------------------<span class="f7">
-<span class="f2">!!!!!! ALL TESTS OF BUG-CATEGORY SUCCESSFUL !!!!!!!<span class="f7">
+<span class="f2">!!!!!! ALL TESTS OF CATEGORIES SUCCESSFUL !!!!!!!<span class="f7">
 <span class="f2">-----------------------------------------------------<span class="f7">
 
 
 
 <span class="f0">#######################################################<span class="f7">
-<span class="f0">################### BUG-CAUSE  ########################<span class="f7">
+<span class="f0">##################### CAUSES  #########################<span class="f7">
 <span class="f0">#######################################################<span class="f7">
 
-<span class="f1">--------------- WITHOUT PRE-EXISTING BUG-CAUSE ---------------<span class="f7">
+<span class="f1">--------------- WITHOUT PRE-EXISTING CAUSES ---------------<span class="f7">
 <span class="f4">----&gt; Testing GET http://localhost:8080/katursache - return empty list of all ressources<span class="f7">
 <span class="f2">TEST SUCCESSFUL.<span class="f7">
 
@@ -795,8 +803,8 @@ Verbose:
 Verbose:
 {
   &quot;status&quot;: &quot;error&quot;,
-  &quot;message&quot;: &quot;The requested ressource was not found&quot;,
-  &quot;code&quot;: 404
+  &quot;message&quot;: &quot;The requested ressource was not found.&quot;,
+  &quot;code&quot;: 422
 }
 
 
@@ -807,7 +815,7 @@ Verbose:
 Verbose:
 {
   &quot;status&quot;: &quot;error&quot;,
-  &quot;message&quot;: &quot;The requested ressource was not found&quot;,
+  &quot;message&quot;: &quot;The requested ressource was not found.&quot;,
   &quot;code&quot;: 404
 }
 
@@ -828,7 +836,7 @@ Verbose:
 }
 
 
-<span class="f1">--------------- WITH PRE-EXISTING BUG-CAUSE ---------------<span class="f7">
+<span class="f1">--------------- WITH PRE-EXISTING CAUSES ---------------<span class="f7">
 <span class="f4">----&gt; Testing GET http://localhost:8080/katursache - all ressources<span class="f7">
 <span class="f2">TEST SUCCESSFUL.<span class="f7">
 
@@ -905,7 +913,336 @@ Verbose:
 
 <span class="f1">--------------- TEST RESULT ---------------<span class="f7">
 <span class="f2">-----------------------------------------------------<span class="f7">
-<span class="f2">!!!!!! ALL TESTS OF BUG-CAUSE SUCCESSFUL !!!!!!!<span class="f7">
+<span class="f2">!!!!!! ALL TESTS OF CAUSES SUCCESSFUL !!!!!!!<span class="f7">
+<span class="f2">-----------------------------------------------------<span class="f7">
+
+
+
+<span class="f0">#######################################################<span class="f7">
+<span class="f0">################### PROJECTS  #########################<span class="f7">
+<span class="f0">#######################################################<span class="f7">
+
+<span class="f1">--------------- WITHOUT PRE-EXISTING PROJECTS ---------------<span class="f7">
+<span class="f4">----&gt; Testing GET http://localhost:8080/projekt - return empty list of all ressources<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;Operation successful.&quot;,
+  &quot;code&quot;: 200,
+  &quot;data&quot;: []
+}
+
+
+
+<span class="f4">----&gt; Testing GET http://localhost:8080/projekt/5 - ressource was not found<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;error&quot;,
+  &quot;message&quot;: &quot;The requested ressource was not found&quot;,
+  &quot;code&quot;: 404
+}
+
+
+
+<span class="f4">----&gt; Testing DELETE http://localhost:8080/projekt/5 - delete not allowable<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;error&quot;,
+  &quot;message&quot;: &quot;The requested ressource was not found.&quot;,
+  &quot;code&quot;: 422
+}
+
+
+
+<span class="f4">----&gt; Testing PUT http://localhost:8080/projekt/5 - update not allowable<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;error&quot;,
+  &quot;message&quot;: &quot;The requested ressource was not found.&quot;,
+  &quot;code&quot;: 404
+}
+
+
+
+<span class="f4">----&gt; Testing POST http://localhost:8080/projekt - create allowable<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;You have successfully created the requested ressource.&quot;,
+  &quot;code&quot;: 201,
+  &quot;data&quot;: {
+    &quot;id&quot;: 1,
+    &quot;name&quot;: &quot;Projekt A&quot;,
+    &quot;components&quot;: []
+  }
+}
+
+
+<span class="f1">--------------- WITH PRE-EXISTING PROJECTS ---------------<span class="f7">
+<span class="f4">----&gt; Testing GET http://localhost:8080/projekt - all ressources<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;Operation successful.&quot;,
+  &quot;code&quot;: 200,
+  &quot;data&quot;: [
+    {
+      &quot;id&quot;: 1,
+      &quot;name&quot;: &quot;Projekt A&quot;,
+      &quot;components&quot;: []
+    }
+  ]
+}
+
+
+
+<span class="f4">----&gt; Testing GET http://localhost:8080/projekt/1 - show ressource with 1<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;Operation successful.&quot;,
+  &quot;code&quot;: 200,
+  &quot;data&quot;: {
+    &quot;id&quot;: 1,
+    &quot;name&quot;: &quot;Projekt A&quot;,
+    &quot;components&quot;: []
+  }
+}
+
+
+
+<span class="f4">----&gt; Testing PUT http://localhost:8080/projekt/1 - update allowable<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;You have successfully updated the ressource.&quot;,
+  &quot;code&quot;: 200,
+  &quot;data&quot;: {
+    &quot;id&quot;: 1,
+    &quot;name&quot;: &quot;Projekt B&quot;,
+    &quot;components&quot;: []
+  }
+}
+
+
+
+<span class="f4">----&gt; Testing DELETE http://localhost:8080/projekt/1 - delete ressource with 1<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;You have successfully deleted the ressource.&quot;,
+  &quot;code&quot;: 200,
+  &quot;data&quot;: null
+}
+
+
+
+<span class="f4">----&gt; Testing GET http://localhost:8080/projekt/1 - no ressource with id 1<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;error&quot;,
+  &quot;message&quot;: &quot;The requested ressource was not found&quot;,
+  &quot;code&quot;: 404
+}
+
+
+<span class="f1">--------------- TEST RESULT ---------------<span class="f7">
+<span class="f2">-----------------------------------------------------<span class="f7">
+<span class="f2">!!!!!! ALL TESTS OF PROJECTS SUCCESSFUL !!!!!!!<span class="f7">
+<span class="f2">-----------------------------------------------------<span class="f7">
+
+
+
+<span class="f0">#######################################################<span class="f7">
+<span class="f0">################### COMPONENTS  #######################<span class="f7">
+<span class="f0">#######################################################<span class="f7">
+
+<span class="f1">--------------- WITHOUT PRE-EXISTING COMPONENTS ---------------<span class="f7">
+<span class="f4">----&gt; Testing GET http://localhost:8080/komponente - return empty list of all ressources<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;Operation successful.&quot;,
+  &quot;code&quot;: 200,
+  &quot;data&quot;: []
+}
+
+
+
+<span class="f4">----&gt; Testing GET http://localhost:8080/komponente/5 - ressource was not found<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;error&quot;,
+  &quot;message&quot;: &quot;The requested ressource was not found&quot;,
+  &quot;code&quot;: 404
+}
+
+
+
+<span class="f4">----&gt; Testing DELETE http://localhost:8080/komponente/5 - delete not allowable<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;error&quot;,
+  &quot;message&quot;: &quot;The requested ressource was not found.&quot;,
+  &quot;code&quot;: 422
+}
+
+
+
+<span class="f4">----&gt; Testing PUT http://localhost:8080/komponente/5 - update not allowable<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;error&quot;,
+  &quot;message&quot;: &quot;The requested ressource was not found.&quot;,
+  &quot;code&quot;: 404
+}
+
+
+
+<span class="f4">----&gt; Testing POST http://localhost:8080/komponente - create allowable<span class="f7">
+... creating project with id 1...
+... creating component assosiated with project id 1...
+
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;You have successfully created the requested ressource.&quot;,
+  &quot;code&quot;: 201,
+  &quot;data&quot;: {
+    &quot;id&quot;: 1,
+    &quot;name&quot;: &quot;Komponente A&quot;,
+    &quot;project_id&quot;: 1,
+    &quot;project&quot;: {
+      &quot;id&quot;: 1,
+      &quot;name&quot;: &quot;Projekt A&quot;
+    }
+  }
+}
+
+
+<span class="f1">--------------- WITH PRE-EXISTING COMPONENTS ---------------<span class="f7">
+<span class="f4">----&gt; Testing GET http://localhost:8080/komponente - all ressources<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;Operation successful.&quot;,
+  &quot;code&quot;: 200,
+  &quot;data&quot;: [
+    {
+      &quot;id&quot;: 1,
+      &quot;name&quot;: &quot;Komponente A&quot;,
+      &quot;project_id&quot;: 1,
+      &quot;project&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Projekt A&quot;
+      }
+    }
+  ]
+}
+
+
+
+<span class="f4">----&gt; Testing GET http://localhost:8080/komponente/1 - show ressource with 1<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;Operation successful.&quot;,
+  &quot;code&quot;: 200,
+  &quot;data&quot;: {
+    &quot;id&quot;: 1,
+    &quot;name&quot;: &quot;Komponente A&quot;,
+    &quot;project_id&quot;: 1,
+    &quot;project&quot;: {
+      &quot;id&quot;: 1,
+      &quot;name&quot;: &quot;Projekt A&quot;
+    }
+  }
+}
+
+
+
+<span class="f4">----&gt; Testing PUT http://localhost:8080/komponente/1 - update allowable<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;You have successfully updated the ressource.&quot;,
+  &quot;code&quot;: 200,
+  &quot;data&quot;: {
+    &quot;id&quot;: 1,
+    &quot;name&quot;: &quot;Komponente B&quot;,
+    &quot;project_id&quot;: 1,
+    &quot;project&quot;: {
+      &quot;id&quot;: 1,
+      &quot;name&quot;: &quot;Projekt A&quot;
+    }
+  }
+}
+
+
+
+<span class="f4">----&gt; Testing DELETE http://localhost:8080/komponente/1 - delete ressource with 1<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;You have successfully deleted the ressource.&quot;,
+  &quot;code&quot;: 200,
+  &quot;data&quot;: null
+}
+
+
+
+<span class="f4">----&gt; Testing GET http://localhost:8080/komponente/1 - no ressource with id 1<span class="f7">
+<span class="f2">TEST SUCCESSFUL.<span class="f7">
+
+Verbose:
+{
+  &quot;status&quot;: &quot;error&quot;,
+  &quot;message&quot;: &quot;The requested ressource was not found&quot;,
+  &quot;code&quot;: 404
+}
+
+
+<span class="f1">--------------- TEST RESULT ---------------<span class="f7">
+<span class="f2">-----------------------------------------------------<span class="f7">
+<span class="f2">!!!!!! ALL TESTS OF COMPONENTS SUCCESSFUL !!!!!!!<span class="f7">
 <span class="f2">-----------------------------------------------------<span class="f7">
 
 
