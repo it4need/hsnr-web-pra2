@@ -24,6 +24,7 @@
     "node-sass": "^4.9.4"
   },
   "dependencies": {
+    "gulp-deporder": "^1.1.0",
     "jsontool": "^7.0.2"
   }
 }
