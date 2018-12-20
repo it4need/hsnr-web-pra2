@@ -1,0 +1,68 @@
+//------------------------------------------------------------------------------
+class CreateView_cl {
+//------------------------------------------------------------------------------
+
+   constructor (el_spl, template_spl) {
+      this.el_s = el_spl;
+      this.template_s = template_spl;
+   }
+   render_px (id_spl) {
+      this.doRender_p();
+   }
+   doRender_p (data_opl) {
+      let markup_s = APPUTIL.tm_o.execute_px(this.template_s, data_opl);
+      let el_o = document.querySelector(this.el_s);
+      if (el_o != null) {
+         el_o.innerHTML = markup_s;
+         this.configHandleEvent_p();
+      }
+   }
+   configHandleEvent_p () {
+      let el_o = document.querySelector("form");
+      if (el_o != null) {
+         el_o.addEventListener("click", this.handleEvent_p);
+      }
+   }
+   store_px(param) {
+      let path_s = "/qsmitarbeiter";
+      let requester_o = new APPUTIL.Requester_cl();
+      requester_o.post_px(path_s,
+         function (responseText_spl) {
+            let data_o = JSON.parse(responseText_spl);
+            APPUTIL.es_o.publish_px("app.cmd", ["list", null]);
+         }.bind(this),
+         function (responseText_spl) {
+            alert("Detail - render failed");
+         }, param
+      );
+   }
+   save_px(param) {
+      let path_s = "/qsmitarbeiter/" + param['id'];
+      let requester_o = new APPUTIL.Requester_cl();
+      requester_o.put_px(path_s,
+         function (responseText_spl) {
+            let data_o = JSON.parse(responseText_spl);
+            APPUTIL.es_o.publish_px("app.cmd", ["idBack", null]);
+         }.bind(this),
+         function (responseText_spl) {
+            alert("Detail - render failed");
+         }, param
+      );
+   }
+   handleEvent_p (event_opl) {
+      if (event_opl.target.id == "idBack") {
+         APPUTIL.es_o.publish_px("app.cmd", ["idBack", null]);
+         event_opl.preventDefault();
+      }
+
+      if(event_opl.target.id == 'submit') {
+         var data = {
+            'first_name': document.querySelector('#first_name').value,
+            'last_name': document.querySelector('#last_name').value,
+            'type': Number(document.querySelector('[name=type]:checked').value),
+         };
+         APPUTIL.es_o.publish_px("app.cmd", ["store", data]);
+         event_opl.preventDefault();
+      }
+   }
+}

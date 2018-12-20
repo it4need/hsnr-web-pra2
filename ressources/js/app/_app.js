@@ -8,6 +8,7 @@ class Application_cl {
       this.sideBar_o = new SideBar_cl("aside", "sidebar.tpl.html");
       this.listView_o = new ListView_cl("main", "employees.index.html");
       this.detailView_o = new DetailView_cl("main", "employees.show.html");
+      this.createView_o = new CreateView_cl("main", "employees.create.html");
    }
    notify_px (self, message_spl, data_opl) {
       switch (message_spl) {
@@ -55,6 +56,15 @@ class Application_cl {
             break;
          case "save":
             this.detailView_o.save_px(data_opl[1]);
+            break;
+         case "delete":
+            this.listView_o.delete_px(data_opl[1]);
+            break;
+         case "create":
+            this.createView_o.render_px();
+            break;
+         case "store":
+            this.createView_o.store_px(data_opl[1]);
             break;
          case "idBack":
             APPUTIL.es_o.publish_px("app.cmd", ["list", null]);

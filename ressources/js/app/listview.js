@@ -28,6 +28,19 @@ class ListView_cl {
          el_o.innerHTML = markup_s;
       }
    }
+   delete_px(id) {
+      let path_s = "/qsmitarbeiter/" + id;
+      let requester_o = new APPUTIL.Requester_cl();
+
+      requester_o.delete_px(path_s,
+         function (responseText_spl) {
+            APPUTIL.es_o.publish_px("app.cmd", ["list", null]);
+         }.bind(this),
+         function (responseText_spl) {
+            alert("Detail - render failed");
+         }, id
+      );
+   }
    configHandleEvent_p () {
       let el_o = document.querySelector(this.el_s);
       if (el_o != null) {
@@ -42,7 +55,7 @@ class ListView_cl {
          }
          event_opl.target.parentNode.classList.add("clSelected");
          event_opl.preventDefault();
-      } else if (event_opl.target.id == "idShowListEntry") {
+      } else if (event_opl.target.id == "showEntry") {
          let elx_o = document.querySelector(".clSelected");
          if (elx_o == null) {
             alert("Bitte zuerst einen Eintrag auswählen!");
@@ -50,6 +63,16 @@ class ListView_cl {
             APPUTIL.es_o.publish_px("app.cmd", ["detail", elx_o.id] );
          }
          event_opl.preventDefault();
+      } else if (event_opl.target.id == 'deleteEntry') {
+         let elx_o = document.querySelector(".clSelected");
+         if (elx_o == null) {
+            alert("Bitte zuerst einen Eintrag auswählen!");
+         } else {
+            APPUTIL.es_o.publish_px("app.cmd", ["delete", elx_o.id]);
+         }
+      }
+      else if (event_opl.target.id == 'createEntry') {
+          APPUTIL.es_o.publish_px("app.cmd", ["create", null] );
       }
    }
 }

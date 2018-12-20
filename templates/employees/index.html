@@ -1,15 +1,25 @@
-<!-- Template -->
-<!-- Contentbereich -->
-<table>
-   <tr><th>ID</th><th>Vollstädniger Name</th></tr>
-   @var entry_a;@
-   @var loop_i;@
-   @context['data'].forEach(function(value){@
-      <tr id="#value['id']#">
-         <td>#value['id']#</td>
-         <td>#value['name']#</td>
+@if context['data'].length > 0@
+   <table>
+      <tr>
+         <th>ID</th>
+         <th>Vollstädniger Name</th>
+         <th>Typ</th>
       </tr>
-   @});@
-</table>
-<button id="idShowListEntry">Anzeigen</button>
+      @var entry_a;@
+      @var loop_i;@
+      @context['data'].forEach(function(value){@
+         <tr id="#value['id']#">
+            <td>#value['id']#</td>
+            <td>#value['name']#</td>
+            <td>#value['type'] == 1 ? 'QS-Mitarbeiter' : 'SW-Entwicker'#</td>
+         </tr>
+      @});@
+   </table>
+@else@
+   <p>Momentan sind noch keine Datensätze vorhanden.</p>
+@endif@
+
+<button id="showEntry">Anzeigen</button>
+<button id="createEntry">Neu anlegen</button>
+<button id="deleteEntry">Löschen</button>
 <!-- EOF -->
