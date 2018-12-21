@@ -25,6 +25,7 @@ class EmployeeController(RESTController):
     def delete(self, id):
         employee = Employee().find(int(id))
         column_to_update = None
+        bugs = []
 
         if employee and employee[0]['type'] == Employee.TYPE_SW:
             column_to_update = 'sw_employee_id'
@@ -33,7 +34,7 @@ class EmployeeController(RESTController):
             column_to_update = 'qs_employee_id'
             bugs = Bug().all({column_to_update: int(id)})
 
-        if bugs:
+        if len(bugs) > 0:
             for bug in bugs:
                 Bug().update(bug['id'], {column_to_update: None})
 
