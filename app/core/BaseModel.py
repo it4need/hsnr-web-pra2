@@ -30,7 +30,10 @@ class BaseModel:
 
         for attribute in self.data_attributes:
             if attribute in values:
-                new_values.append(values[attribute])
+                if self.__is_int(values[attribute]):
+                    new_values.append(int(values[attribute]))
+                else:
+                    new_values.append(values[attribute])
             else:
                 new_values.append(None)
 
@@ -103,7 +106,10 @@ class BaseModel:
             if int(data_id) == data[self.ID_INDEX]:
                 for attr_position, attribute in enumerate(self.data_attributes):
                     if attribute in values:
-                        self.data['data'][key][attr_position] = values[attribute]
+                        if self.__is_int(values[attribute]):
+                            self.data['data'][key][attr_position] = int(values[attribute])
+                        else:
+                            self.data['data'][key][attr_position] = values[attribute]
 
                 self.__save(self.__getMaxId())
                 return self.find(data_id)
@@ -183,3 +189,12 @@ class BaseModel:
             os.makedirs(AppConfig.database_folder_test)
         elif not os.path.exists(AppConfig.database_folder):
             os.makedirs(AppConfig.database_folder)
+
+
+    def __is_int(self, input):
+        try:
+            num = int(input)
+        except ValueError:
+            return False
+
+        return True
