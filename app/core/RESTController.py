@@ -27,6 +27,7 @@ class RESTController(BaseController):
 
         try:
             self.__checkRequestForMissingRequiredAttrbiutes()
+            self.__checkRequestForEmptyRequiredAttrbiutes()
             self.__checkForNonAllowableAttributes(non_allowable_attributes)
 
             createdDict = cherrypy.request.json
@@ -63,6 +64,7 @@ class RESTController(BaseController):
                 raise NotFoundException()
 
             self.__checkForNonAllowableAttributes(non_allowable_attributes)
+            self.__checkRequestForEmptyRequiredAttrbiutes()
 
             createdValues = cherrypy.request.json
 
@@ -131,3 +133,9 @@ class RESTController(BaseController):
         for attr in self.required_attr:
             if attr not in cherrypy.request.json:
                 raise ValidationException("You must pass a key-value pair of key `" + attr + "´.")
+
+    def __checkRequestForEmptyRequiredAttrbiutes(self):
+        for attr in self.required_attr:
+            if attr in cherrypy.request.json and cherrypy.request.json[attr] == '':
+                raise ValidationException("You must pass a key-value pair of key `" + attr + "´. Empty values are not allowed!")
+
