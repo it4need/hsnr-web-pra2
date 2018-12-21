@@ -311,3 +311,4 @@ pyvenv.cfg
 pip-selfcheck.json
 
 # End of https://www.gitignore.io/api/git,node,pycharm,python
+content/assets/js/app.js
