@@ -2,7 +2,7 @@
 requires:
 
 app/Core/CoreView.js
- */
+*/
 
 window.Core = window.Core || {};
 
@@ -14,30 +14,15 @@ Core.IndexView = class IndexView extends Core.CoreView {
     }
 
     index() {
-        let requester_o = new APPUTIL.Requester_cl();
-
-        requester_o.request_px(this.ressource_path,
-            function (responseText_spl) {
-                let data_o = JSON.parse(responseText_spl);
-                this.render(data_o);
-            }.bind(this),
-            function (responseText_spl) {
-                alert("List - render failed");
-            }
-        );
+        Core.CoreRequest.get(this.ressource_path)
+            .then(data => this.render(data))
+            .catch(err => alert(err));
     }
 
     delete(id) {
-        let requester_o = new APPUTIL.Requester_cl();
-
-        requester_o.delete_px(this.ressource_path + "/" + id,
-            function (responseText_spl) {
-                APPUTIL.es_o.publish_px(this.eventController, ["index", null]);
-            }.bind(this),
-            function (responseText_spl) {
-                alert("Detail - render failed");
-            }, id
-        );
+        Core.CoreRequest.delete(this.ressource_path + '/' + id)
+            .then(data => APPUTIL.es_o.publish_px(this.eventController, ["index", null]))
+            .catch(err => alert(err));
     }
 
     eventHandler(event, that) {

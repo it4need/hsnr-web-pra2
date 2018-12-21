@@ -29,16 +29,9 @@ Core.CreateView = class CreateView extends Core.CoreView {
             return;
         }
 
-        let requester_o = new APPUTIL.Requester_cl();
-        requester_o.post_px(this.ressource_path,
-            function (responseText_spl) {
-                let data_o = JSON.parse(responseText_spl);
-                APPUTIL.es_o.publish_px(this.eventController, ["index", null]);
-            }.bind(this),
-            function (responseText_spl) {
-                alert("Detail - render failed");
-            }, data
-        );
+        Core.CoreRequest.post(this.ressource_path, data)
+            .then(data => APPUTIL.es_o.publish_px(this.eventController, ["index", null]))
+            .catch(err => alert(err));
     }
 
     eventHandler(event, that) {
