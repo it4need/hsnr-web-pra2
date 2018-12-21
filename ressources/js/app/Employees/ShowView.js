@@ -1,3 +1,9 @@
+/*
+requires:
+
+app/Core/CoreShowView.js
+
+ */
 window.Employee = window.Employee || {};
 
 Employee.ShowView = class ShowView extends Core.ShowView {

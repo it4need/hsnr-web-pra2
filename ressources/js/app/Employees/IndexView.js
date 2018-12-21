@@ -1,3 +1,9 @@
+/*
+requires:
+
+app/Core/CoreIndexView.js
+
+ */
 window.Employee = window.Employee || {};
 
 Employee.IndexView = class IndexView extends Core.IndexView {

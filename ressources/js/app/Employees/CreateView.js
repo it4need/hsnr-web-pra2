@@ -1,3 +1,9 @@
+/*
+requires:
+
+app/Core/CoreCreateView.js
+
+ */
 window.Employee = window.Employee || {};
 
 Employee.CreateView = class CreateView extends Core.CreateView {
