@@ -21,4 +21,15 @@ Core.CoreView = class {
             displayedElement.addEventListener("click", (event) => this.eventHandler(event, this));
         }
     }
+
+    displayErrors(error_messages) {
+        let error_message = 'Validation errors:\n';
+
+        Object.keys(error_messages).forEach(function (dataKey) {
+            error_message += `${dataKey}: ${error_messages[dataKey]}\n`;
+        });
+
+        alert(error_message);
+        return;
+    }
 };
