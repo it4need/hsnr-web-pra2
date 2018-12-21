@@ -39,9 +39,3 @@ class EmployeeController(RESTController):
                 Bug().update(bug['id'], {column_to_update: None})
 
         return super(EmployeeController, self).delete(int(id))
-
-    def __isQSEmployee(self):
-        return True if 'qsmitarbeiter' in cherrypy.url() else False
-
-    def __isSWEmployee(self):
-        return True if 'swentwickler' in cherrypy.url() else False
