@@ -11,7 +11,7 @@ class EmployeeController(RESTController):
     TYPE_ERROR = "You must provide key `type´ with either value of 1 or 2"
 
     def __init__(self):
-        required_attributes = ['last_name']
+        required_attributes = ['last_name', 'first_name']
         RESTController.__init__(self, required_attributes)
 
     def _setupRESTfulModels(self):
