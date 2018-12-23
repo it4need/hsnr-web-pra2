@@ -99,7 +99,7 @@ class BaseModel:
 
     def update(self, data_id, values):
         if 'id' in values:
-            #raise Exception("The ID increments automatically. Do not pass it as a value.")
+            # raise Exception("The ID increments automatically. Do not pass it as a value.")
             del values['id']
 
         for key, data in enumerate(self.data['data']):
@@ -190,8 +190,10 @@ class BaseModel:
         elif not os.path.exists(AppConfig.database_folder):
             os.makedirs(AppConfig.database_folder)
 
-
     def __is_int(self, input):
+        if input is None:
+            return False
+
         try:
             num = int(input)
         except ValueError:

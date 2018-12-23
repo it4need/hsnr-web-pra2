@@ -37,6 +37,9 @@ body {
 .overflow-container {
   overflow: auto; }
 
+.error {
+  border: 1px solid red; }
+
 body {
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
