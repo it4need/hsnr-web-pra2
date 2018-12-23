@@ -65,6 +65,5 @@ Core.CoreRequest = class CoreRequest {
 Core.HTTPRequestError = class HTTPRequestError extends Error {
     constructor(...args) {
         super(...args);
-        Error.captureStackTrace(this, HTTPRequestError);
     }
 };

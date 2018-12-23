@@ -71,6 +71,5 @@ Core.CoreValidator = class CoreValidator {
 Core.ValidationError = class ValidationError extends Error {
     constructor(...args) {
         super(...args);
-        Error.captureStackTrace(this, ValidationError);
     }
 };
