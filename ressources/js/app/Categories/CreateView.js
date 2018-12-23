@@ -9,7 +9,7 @@ window.Categories = window.Categories || {};
 Categories.CreateView = class CreateView extends Core.CreateView {
     constructor(template_spl) {
         const validation = {
-            //'name': 'required',
+            'name': 'required',
             'type': 'in:category,cause'
         };
 
