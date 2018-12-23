@@ -1,0 +1,26 @@
+@if Object.keys(context['data']).length > 0@
+   <table>
+      <tr>
+         <th>ID</th>
+         <th>Name</th>
+         <th>Typ</th>
+      </tr>
+      @var entry_a;@
+      @var loop_i;@
+      @for category in context['data']@
+         <tr id="#category#">
+            <td>#category#</td>
+            <td>#context['data'][category].name#</td>
+            <td>#category.includes('CAUSE') ? 'Ursache' : 'Fehlerkateogrie'#</td>
+         </tr>
+      @endfor@
+   </table>
+@else@
+@console.log(Object.keys(context['data']).length);@
+   <p>Momentan sind noch keine Datensätze vorhanden.</p>
+@endif@
+
+<button id="showEntry"  data-controller="categories">Anzeigen</button>
+<button id="createEntry" data-controller="categories">Neu anlegen</button>
+<button id="deleteEntry" data-controller="categories">Löschen</button>
+<!-- EOF -->

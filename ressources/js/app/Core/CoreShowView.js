@@ -16,21 +16,15 @@ Core.ShowView = class ShowView extends Core.CoreView {
         this.validation_obj = validation_obj;
     }
 
+
     show(id) {
         Core.CoreRequest.get(this.ressource_path + '/' + id)
             .then(data => this.render(data))
             .catch(err => alert(err));
     }
 
-
     update(data) {
-        const validator = new Core.CoreValidator();
-
-        if (validator.fails(data, this.validation_obj)) {
-            let error_messages = validator.errors();
-            this.displayErrors(error_messages);
-            return;
-        }
+        this.checkValidationRulesAndDisplayErrors(data);
 
         Core.CoreRequest.put(this.ressource_path + '/' + data['id'], data)
             .then(data => APPUTIL.es_o.publish_px(this.eventController, ["index", null]))
@@ -38,16 +32,19 @@ Core.ShowView = class ShowView extends Core.CoreView {
     }
 
     eventHandler(event, that) {
-        if (event.target.id === "idBack") {
-            APPUTIL.es_o.publish_px(that.eventController, ["index", null]);
-            event.preventDefault();
+        if (event.target.id === "idBack" && event.target.dataset.controller === this.eventController) {
+            this.eventGoToIndex(event, that);
         }
 
-        if (event.target.id === 'updateSubmit') {
-            let data = Core.CoreUtil.getFormData(event.target.parentNode);
-
-            APPUTIL.es_o.publish_px(that.eventController, ["update", data]);
-            event.preventDefault();
+        if (event.target.id === 'updateSubmit' && event.target.dataset.controller === this.eventController) {
+            this.eventUpdateEntry(event, that);
         }
+    }
+
+    eventUpdateEntry(event, that) {
+        let data = Core.CoreUtil.getFormData(event.target.parentNode);
+
+        APPUTIL.es_o.publish_px(that.eventController, ["update", data]);
+        event.preventDefault();
     }
 };

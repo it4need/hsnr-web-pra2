@@ -21,13 +21,7 @@ Core.CreateView = class CreateView extends Core.CoreView {
     }
 
     store(data) {
-        const validator = new Core.CoreValidator();
-
-        if (validator.fails(data, this.validation_obj)) {
-            let error_messages = validator.errors();
-            this.displayErrors(error_messages);
-            return;
-        }
+        this.checkValidationRulesAndDisplayErrors(data);
 
         Core.CoreRequest.post(this.ressource_path, data)
             .then(data => APPUTIL.es_o.publish_px(this.eventController, ["index", null]))
@@ -35,16 +29,24 @@ Core.CreateView = class CreateView extends Core.CoreView {
     }
 
     eventHandler(event, that) {
-        if (event.target.id === "idBack") {
-            APPUTIL.es_o.publish_px(that.eventController, ["index", null]);
-            event.preventDefault();
+        if (event.target.id === "idBack" && event.target.dataset.controller === this.eventController) {
+            this.eventGoToIndex(event, that);
         }
 
-        if (event.target.id === 'createSubmit') {
-            let data = Core.CoreUtil.getFormData(event.target.parentNode);
-
-            APPUTIL.es_o.publish_px(that.eventController, ["store", data]);
-            event.preventDefault();
+        if (event.target.id === 'createSubmit' && event.target.dataset.controller === this.eventController) {
+            this.eventStoreEntry(event, that);
         }
+    }
+
+    eventGoToIndex(event, that) {
+        APPUTIL.es_o.publish_px(that.eventController, ["index", null]);
+        event.preventDefault();
+    }
+
+    eventStoreEntry(event, that) {
+        let data = Core.CoreUtil.getFormData(event.target.parentNode);
+
+        APPUTIL.es_o.publish_px(that.eventController, ["store", data]);
+        event.preventDefault();
     }
 };

@@ -27,52 +27,37 @@ Core.IndexView = class IndexView extends Core.CoreView {
 
     eventHandler(event, that) {
         if (event.target.tagName.toLowerCase() === "td") {
-            let selectedElement = this.getSelectedEntry();
-
-            if (selectedElement !== false) {
-                selectedElement.classList.remove("clSelected");
-            }
-
-            event.target.parentNode.classList.add("clSelected");
-            event.preventDefault();
+            this.eventSelectTableData(event, that);
         }
 
-        if (event.target.id === "showEntry") {
-            let selectedElement = this.getSelectedEntry();
-
-            if (selectedElement === false) {
-                alert("Bitte zuerst einen Eintrag auswählen!");
-                return;
-            }
-
-            APPUTIL.es_o.publish_px(that.eventController, ["show", selectedElement.id]);
-            event.preventDefault();
+        if (event.target.id === "showEntry" && event.target.dataset.controller === this.eventController) {
+            this.eventShowEntry(event, that);
         }
 
-        if (event.target.id === 'deleteEntry') {
-            let selectedElement = this.getSelectedEntry();
-
-            if (selectedElement === false) {
-                alert("Bitte zuerst einen Eintrag auswählen!");
-                return;
-            }
-
-            APPUTIL.es_o.publish_px(that.eventController, ["delete", selectedElement.id]);
-            event.preventDefault();
+        if (event.target.id === 'deleteEntry' && event.target.dataset.controller === this.eventController) {
+            this.eventDeleteEntry(event, that);
         }
 
-        if (event.target.id === 'createEntry') {
-            APPUTIL.es_o.publish_px(that.eventController, ["create", null]);
+        if (event.target.id === 'createEntry' && event.target.dataset.controller === this.eventController) {
+            this.eventCreateEntry(event, that);
         }
     }
 
-    getSelectedEntry() {
-        let selectedEntry = document.querySelector(".clSelected");
+    eventShowEntry(event, that) {
+        let selectedElement = this.getSelectedElementAndEnsureItExists();
 
-        if (selectedEntry == null) {
-            return false;
-        }
+        APPUTIL.es_o.publish_px(that.eventController, ["show", selectedElement.id]);
+        event.preventDefault();
+    }
 
-        return selectedEntry;
+    eventDeleteEntry(event, that) {
+        let selectedElement = this.getSelectedElementAndEnsureItExists();
+
+        APPUTIL.es_o.publish_px(that.eventController, ["delete", selectedElement.id]);
+        event.preventDefault();
+    }
+
+    eventCreateEntry(event, that) {
+        APPUTIL.es_o.publish_px(that.eventController, ["create", null]);
     }
 };

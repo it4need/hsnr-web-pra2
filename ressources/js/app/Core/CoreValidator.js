@@ -20,7 +20,7 @@ Core.CoreValidator = class CoreValidator {
                     argument = methodArgsArr[1];
                 }
 
-                const validationFunction = window['Core']['CoreValidator'][actualRule];
+                const validationFunction = Core.CoreValidator[actualRule];
 
                 if (argument !== undefined) {
                     if (!validationFunction(data[dataKey], argument)) {
@@ -57,5 +57,20 @@ Core.CoreValidator = class CoreValidator {
 
     static max(value, maxVal) {
         return value <= maxVal;
+    }
+
+    static in(value, params) {
+        return Core.CoreValidator.getParameterAsArray(params).includes(value)
+    }
+
+    static getParameterAsArray(params) {
+        return params.split(',');
+    }
+};
+
+Core.ValidationError = class ValidationError extends Error {
+    constructor(...args) {
+        super(...args);
+        Error.captureStackTrace(this, ValidationError);
     }
 };

@@ -5,12 +5,17 @@ class Application_cl {
 
         this.partials = {};
         this.employees = {};
+        this.categories = {};
 
         this.partials.sidebarView = new Partials.SidebarView("aside", "sidebar.tpl.html");
 
         this.employees.indexView = new Employee.IndexView("employees.index.html");
         this.employees.showView = new Employee.ShowView("employees.show.html");
         this.employees.createView = new Employee.CreateView("employees.create.html");
+
+        this.categories.indexView = new Categories.IndexView("categories.index.html");
+        this.categories.showView = new Categories.ShowView("categories.show.html");
+        this.categories.createView = new Categories.CreateView("categories.create.html");
     }
 
     notify_px(self, message_spl, data_opl) {
@@ -30,7 +35,8 @@ class Application_cl {
                 }
                 let nav_a = [
                     ["home", "Startseite"],
-                    ["employee.index", "Mitarbeiterverwaltung"]
+                    ["employees.index", "Mitarbeiterverwaltung"],
+                    ["categories.index", "Kategorieverwaltung"]
                 ];
                 self.partials.sidebarView.render_px(nav_a);
                 markup_s = APPUTIL.tm_o.execute_px("home.tpl.html", null);
@@ -52,7 +58,7 @@ class Application_cl {
                         break;
                 }
                 break;
-            case "employee":
+            case "employees":
                 switch (data_opl[0]) {
                     case "index":
                         this.employees.indexView.index();
@@ -74,6 +80,28 @@ class Application_cl {
                         break;
                 }
                 break;
+            case "categories":
+                switch (data_opl[0]) {
+                    case "index":
+                        this.categories.indexView.index();
+                        break;
+                    case "create":
+                        this.categories.createView.create();
+                        break;
+                    case "store":
+                        this.categories.createView.store(data_opl[1]);
+                        break;
+                    case "delete":
+                        this.categories.indexView.delete(data_opl[1]);
+                        break;
+                    case "show":
+                        this.categories.showView.show(data_opl[1]);
+                        break;
+                    case "update":
+                        this.categories.showView.update(data_opl[1]);
+                        break;
+                }
+                break;
         }
     }
 
@@ -81,6 +109,7 @@ class Application_cl {
         APPUTIL.es_o.subscribe_px(this, "templates.loaded");
         APPUTIL.es_o.subscribe_px(this, "templates.failed");
         APPUTIL.es_o.subscribe_px(this, "app.cmd");
-        APPUTIL.es_o.subscribe_px(this, "employee");
+        APPUTIL.es_o.subscribe_px(this, "employees");
+        APPUTIL.es_o.subscribe_px(this, "categories");
     }
 }

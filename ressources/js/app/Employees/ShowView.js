@@ -14,6 +14,6 @@ Employee.ShowView = class ShowView extends Core.ShowView {
             'type': 'required|min:1|max:2'
         };
 
-        super(template_spl, 'employee', 'qsmitarbeiter', validation);
+        super(template_spl, 'employees', 'qsmitarbeiter', validation);
     }
 };

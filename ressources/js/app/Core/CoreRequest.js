@@ -8,7 +8,7 @@ Core.CoreRequest = class CoreRequest {
 
         if (!fetchResult.ok) {
             const errMessage = await fetchResult.json();
-            throw new Error(`Status code: ${fetchResult.status}. Cannot reach: ${url}\n\nServer result: ${errMessage.message}`);
+            throw new Core.HTTPRequestError(`Status code: ${fetchResult.status}. Cannot reach: ${url}\n\nServer result: ${errMessage.message}`);
         }
 
         return await fetchResult.json();
@@ -25,7 +25,7 @@ Core.CoreRequest = class CoreRequest {
 
         if (!fetchResult.ok) {
             const errMessage = await fetchResult.json();
-            throw new Error(`Status code: ${fetchResult.status}. Cannot reach: ${url}\n\nServer result: ${errMessage.message}`);
+            throw new Core.HTTPRequestError(`Status code: ${fetchResult.status}. Cannot reach: ${url}\n\nServer result: ${errMessage.message}`);
         }
 
         return await fetchResult.json();
@@ -42,7 +42,7 @@ Core.CoreRequest = class CoreRequest {
 
         if (!fetchResult.ok) {
             const errMessage = await fetchResult.json();
-            throw new Error(`Status code: ${fetchResult.status}. Cannot reach: ${url}\n\nServer result: ${errMessage.message}`);
+            throw new Core.HTTPRequestError(`Status code: ${fetchResult.status}. Cannot reach: ${url}\n\nServer result: ${errMessage.message}`);
         }
 
         return await fetchResult.json();
@@ -55,9 +55,16 @@ Core.CoreRequest = class CoreRequest {
 
         if (!fetchResult.ok) {
             const errMessage = await fetchResult.json();
-            throw new Error(`Status code: ${fetchResult.status}. Cannot reach: ${url}\n\nServer result: ${errMessage.message}`);
+            throw new Core.HTTPRequestError(`Status code: ${fetchResult.status}. Cannot reach: ${url}\n\nServer result: ${errMessage.message}`);
         }
 
         return await fetchResult.json();
+    }
+};
+
+Core.HTTPRequestError = class HTTPRequestError extends Error {
+    constructor(...args) {
+        super(...args);
+        Error.captureStackTrace(this, HTTPRequestError);
     }
 };

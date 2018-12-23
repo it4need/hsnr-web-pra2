@@ -1,0 +1,11 @@
+<!-- Template -->
+<!-- Contentbereich -->
+<form>
+    <input type="hidden" name="id" id="id" value="#context['data']['id']#">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" value="#context['data']['name']#"/>
+    <input type="hidden" name="type" value="#context['data']['type']#">
+    <button id="idBack" data-controller="categories">Zurück</button>
+    <button id="updateSubmit" data-controller="categories" type="submit">Speichern</button>
+</form>
+<!-- EOF -->
