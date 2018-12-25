@@ -48,15 +48,15 @@ Core.CoreValidator = class CoreValidator {
     }
 
     static required(value) {
-        return value != '' ? true : false;
+        return value != '';
     }
 
     static min(value, minVal) {
-        return value >= minVal;
+        return Number(value) >= minVal;
     }
 
     static max(value, maxVal) {
-        return value <= maxVal;
+        return Number(value) <= maxVal;
     }
 
     static in(value, params) {
