@@ -1,0 +1,29 @@
+<h2>Komponenten</h2>
+@if (context['data']['projects']['data'].length < 1)@
+    <p>Bevor Komponenten hinzugefügt werden können, müssen Projekte erstellt sein.</p>
+@else@
+    @if context['data']['components']['data'].length > 0@
+       <table>
+          <tr>
+             <th>ID</th>
+             <th>Name</th>
+             <th>Projekt</th>
+          </tr>
+          @var entry_a;@
+          @var loop_i;@
+          @context['data']['components']['data'].forEach(function(value){@
+             <tr id="#value['id']#">
+                <td>#value['id']#</td>
+                <td>#value['name']#</td>
+                <td>#value['project']['name']#</td>
+             </tr>
+          @});@
+       </table>
+    @else@
+       <p>Momentan sind noch keine Datensätze vorhanden.</p>
+    @endif@
+
+    <button id="showEntry" data-controller="components">Anzeigen</button>
+    <button id="createEntry" data-controller="components">Neu anlegen</button>
+    <button id="deleteEntry" data-controller="components">Löschen</button>
+@endif@
