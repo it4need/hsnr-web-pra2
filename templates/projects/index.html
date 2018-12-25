@@ -1,0 +1,23 @@
+@if context['data'].length > 0@
+   <table>
+      <tr>
+         <th>ID</th>
+         <th>Name</th>
+      </tr>
+      @var entry_a;@
+      @var loop_i;@
+      @context['data'].forEach(function(value){@
+         <tr id="#value['id']#">
+            <td>#value['id']#</td>
+            <td>#value['name']#</td>
+         </tr>
+      @});@
+   </table>
+@else@
+   <p>Momentan sind noch keine Datensätze vorhanden.</p>
+@endif@
+
+<button id="showEntry" data-controller="projects">Anzeigen</button>
+<button id="createEntry" data-controller="projects">Neu anlegen</button>
+<button id="deleteEntry" data-controller="projects">Löschen</button>
+<!-- EOF -->

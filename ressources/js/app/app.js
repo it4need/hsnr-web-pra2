@@ -6,6 +6,7 @@ class Application_cl {
         this.partials = {};
         this.employees = {};
         this.categories = {};
+        this.projects = {};
 
         this.partials.sidebarView = new Partials.SidebarView("aside", "sidebar.tpl.html");
 
@@ -16,6 +17,10 @@ class Application_cl {
         this.categories.indexView = new Categories.IndexView("categories.index.html");
         this.categories.showView = new Categories.ShowView("categories.show.html");
         this.categories.createView = new Categories.CreateView("categories.create.html");
+
+        this.projects.indexView = new Projects.IndexView("projects.index.html");
+        this.projects.showView = new Projects.ShowView("projects.show.html");
+        this.projects.createView = new Projects.CreateView("projects.create.html");
     }
 
     notify_px(self, message_spl, data_opl) {
@@ -35,8 +40,9 @@ class Application_cl {
                 }
                 let nav_a = [
                     ["home", "Startseite"],
+                    ["projects.index", "Projektverwaltung"],
                     ["employees.index", "Mitarbeiterverwaltung"],
-                    ["categories.index", "Kategorieverwaltung"]
+                    ["categories.index", "Kategorieverwaltung"],
                 ];
                 self.partials.sidebarView.render_px(nav_a);
                 markup_s = APPUTIL.tm_o.execute_px("home.tpl.html", null);
@@ -102,6 +108,28 @@ class Application_cl {
                         break;
                 }
                 break;
+            case "projects":
+                switch (data_opl[0]) {
+                    case "index":
+                        this.projects.indexView.index();
+                        break;
+                    case "create":
+                        this.projects.createView.create();
+                        break;
+                    case "store":
+                        this.projects.createView.store(data_opl[1]);
+                        break;
+                    case "show":
+                        this.projects.showView.show(data_opl[1]);
+                        break;
+                    case "update":
+                        this.projects.showView.update(data_opl[1]);
+                        break;
+                    case "delete":
+                        this.projects.indexView.delete(data_opl[1]);
+                        break;
+                }
+                break;
         }
     }
 
@@ -111,5 +139,6 @@ class Application_cl {
         APPUTIL.es_o.subscribe_px(this, "app.cmd");
         APPUTIL.es_o.subscribe_px(this, "employees");
         APPUTIL.es_o.subscribe_px(this, "categories");
+        APPUTIL.es_o.subscribe_px(this, "projects");
     }
 }
