@@ -4,9 +4,9 @@ requires:
 app/Core/CoreShowView.js
 
  */
-window.Employee = window.Employee || {};
+window.Employees = window.Employees || {};
 
-Employee.ShowView = class ShowView extends Core.ShowView {
+Employees.ShowView = class ShowView extends Core.ShowView {
     constructor(template_spl) {
         const validation = {
             'first_name': 'required',

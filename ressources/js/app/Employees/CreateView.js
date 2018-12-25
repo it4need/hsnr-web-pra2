@@ -4,9 +4,9 @@ requires:
 app/Core/CoreCreateView.js
 
  */
-window.Employee = window.Employee || {};
+window.Employees = window.Employees || {};
 
-Employee.CreateView = class CreateView extends Core.CreateView {
+Employees.CreateView = class CreateView extends Core.CreateView {
     constructor(template_spl) {
         const validation = {
             'first_name': 'required',

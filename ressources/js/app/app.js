@@ -9,9 +9,9 @@ class Application_cl {
 
         this.partials.sidebarView = new Partials.SidebarView("aside", "sidebar.tpl.html");
 
-        this.employees.indexView = new Employee.IndexView("employees.index.html");
-        this.employees.showView = new Employee.ShowView("employees.show.html");
-        this.employees.createView = new Employee.CreateView("employees.create.html");
+        this.employees.indexView = new Employees.IndexView("employees.index.html");
+        this.employees.showView = new Employees.ShowView("employees.show.html");
+        this.employees.createView = new Employees.CreateView("employees.create.html");
 
         this.categories.indexView = new Categories.IndexView("categories.index.html");
         this.categories.showView = new Categories.ShowView("categories.show.html");

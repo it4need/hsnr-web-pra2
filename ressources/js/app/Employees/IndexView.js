@@ -4,9 +4,9 @@ requires:
 app/Core/CoreIndexView.js
 
  */
-window.Employee = window.Employee || {};
+window.Employees = window.Employees || {};
 
-Employee.IndexView = class IndexView extends Core.IndexView {
+Employees.IndexView = class IndexView extends Core.IndexView {
     constructor(template_spl) {
         super(template_spl, 'employees', 'qsmitarbeiter');
     }
