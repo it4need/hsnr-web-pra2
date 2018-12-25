@@ -1,0 +1,48 @@
+<h2>Fehler</h2>
+@if (context['data']['causes']['data'].length < 1)@
+    <p>Bevor Fehler hinzugefügt werden können, müssen Fehlerursachen erstellt sein.</p>
+@} else if (context['data']['components']['data'].length < 1) {@
+    <p>Bevor Fehler hinzugefügt werden können, müssen Komponenten erstellt sein.</p>
+@} else if (context['data']['qs_employees']['data'].length < 1) {@
+    <p>Bevor Fehler hinzugefügt werden können, müssen QS-Mitarbeiter erstellt sein.</p>
+@else@
+   @if Object.keys(context['data']['bugs']['data']).length > 0@
+      <table>
+         <tr>
+            <th>ID</th>
+            <th>Fehlername</th>
+            <th>Projekt</th>
+            <th>Komponente</th>
+            <th>Typ</th>
+         </tr>
+         @console.log(context['data']['bugs']['data']);@
+         @context['data'].forEach(function(bug){@
+            <tr id="#bug.id#">
+               <td>#bug.id#</td>
+               <td>#bug.name#</td>
+               <td>#bug.component[0].project.name#</td>
+               <td>#bug.component[0].name#</td>
+               <td>
+                  @if bug.type == 0@
+                     Gemeldet
+                  @endif@
+
+                  @if bug.type == 1@
+                     Erledigt
+                  @endif@
+
+                  @if bug.type == 2@
+                     Verifiziert
+                  @endif@
+               </td>
+            </tr>
+         @});@
+      </table>
+   @else@
+      <p>Momentan sind noch keine Datensätze vorhanden.</p>
+   @endif@
+
+   <button id="showEntry"  data-controller="bugs">Anzeigen</button>
+   <button id="createEntry" data-controller="bugs">Neu anlegen</button>
+   <button id="deleteEntry" data-controller="bugs">Löschen</button>
+@endif

@@ -104,5 +104,5 @@ class BugController(RESTController):
 
     def __isValidBugTypeForUpdate(self):
         return 'type' in cherrypy.request.json and \
-               (cherrypy.request.json['type'] > Bug.TYPE_SOULTION_VERIFIED or cherrypy.request.json[
-                   'type'] < Bug.TYPE_RESOLVED)
+               (int(cherrypy.request.json['type']) > Bug.TYPE_SOULTION_VERIFIED or int(cherrypy.request.json[
+                   'type']) < Bug.TYPE_RESOLVED)
