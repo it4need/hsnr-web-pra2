@@ -15,8 +15,7 @@
             <th>Komponente</th>
             <th>Typ</th>
          </tr>
-         @console.log(context['data']['bugs']['data']);@
-         @context['data'].forEach(function(bug){@
+         @context['data']['bugs']['data'].forEach(function(bug){@
             <tr id="#bug.id#">
                <td>#bug.id#</td>
                <td>#bug.name#</td>
