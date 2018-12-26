@@ -26,7 +26,7 @@ class Bug(BaseModel):
             cause = None
 
             bug['component'] = ProjectComponents().all({'id': bug['component_id']})
-            bug['solved_categories'] = BugCategories().withoutTransform().all({'bug_id': bug['id']})
+            bug['categories'] = BugCategories().withoutTransform().all({'bug_id': bug['id']})
 
             if isinstance(bug['qs_employee_id'], int):
                 qs_employee = Employee().withoutTransform().find(bug['qs_employee_id'])

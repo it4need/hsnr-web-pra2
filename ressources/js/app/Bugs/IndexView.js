@@ -26,7 +26,7 @@ Bugs.IndexView = class IndexView extends Core.IndexView {
 
         let qs_employees = await Core.CoreRequest.get('qsmitarbeiter')
             .then(data => data)
-            .catch(err => alert(err));
+            .catch(err => alert(err)); /** @todo: What's which SW-dev */
 
         qs_employees['data'] = qs_employees['data'].filter(employee => employee['type'] === 1);
 

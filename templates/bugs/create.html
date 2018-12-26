@@ -1,4 +1,42 @@
 <h2>Fehler</h2>
-<!-- Template -->
-<!-- Contentbereich -->
-<!-- TODO!!! -->
+<form>
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name"/>
+
+    <label for="description">Beschreibung</label>
+    <textarea id="description" name="description"></textarea>
+
+    <label for="qs_employee_id">QS-Mitarbeiter</label>
+    <select name="qs_employee_id" id="qs_employee_id">
+      <option value="">- Bitte QS-Mitarbeiter auswählen -</option>
+      @context['data']['qs_employees']['data'].forEach(function(value){@
+         @if(value['type'] == 1)@
+             <option value="#value['id']#">
+                #value['name']# (ID: #value['id']#)
+             </option>
+         @endif@
+      @});@
+    </select>
+
+    <label for="component_id">Komponente</label>
+    <select name="component_id" id="component_id">
+      <option value="">- Bitte Komponente auswählen -</option>
+      @context['data']['components']['data'].forEach(function(value){@
+         <option value="#value['id']#">
+            #value['name']# (ID: #value['id']#)
+         </option>
+      @});@
+    </select>
+
+    <label for="component_id">Kategorien</label>
+    <select name="categories" id="categories" multiple>
+      @context['data']['categories']['data'].forEach(function(value){@
+         <option value="#value['id']#">
+            #value['name']# (ID: #value['id']#)
+         </option>
+      @});@
+    </select>
+
+    <button id="idBack" data-controller="bugs">Zurück</button>
+    <button id="createSubmit" data-controller="bugs" type="submit">Speichern</button>
+</form>
