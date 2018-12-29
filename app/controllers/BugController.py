@@ -29,11 +29,10 @@ class BugController(RESTController):
             self._checkRequestForExistingModelEntry(
                 [ProjectComponents(), 'component_id'],
                 [Employee(), 'qs_employee_id'],
-                [Employee(), 'sw_employee_id'],
-                [Cause(), 'cause_id']
+                [Employee(), 'sw_employee_id']
             )
 
-            if self.__isValidBugTypeForUpdate():
+            if self.__isInvalidBugTypeForUpdate(Bug().find(int(id))[0]['type']):
                 raise ValidationException("An existing bug can only update their type to 1 or 2.")
 
             if 'type' in cherrypy.request.json and cherrypy.request.json['type'] == Bug.TYPE_RESOLVED and \
@@ -118,7 +117,11 @@ class BugController(RESTController):
 
         return True
 
-    def __isValidBugTypeForUpdate(self):
+    def __isInvalidBugTypeForUpdate(self, currentBugType):
+        if 'type' in cherrypy.request.json:
+            if int(cherrypy.request.json['type']) == currentBugType:
+                return False
+
         return 'type' in cherrypy.request.json and \
                (int(cherrypy.request.json['type']) > Bug.TYPE_SOULTION_VERIFIED or int(cherrypy.request.json[
                                                                                            'type']) < Bug.TYPE_RESOLVED)

@@ -1,5 +1,8 @@
 <h2>Fehler</h2>
-@console.log(context['data']);@
+@let selected_categories = context['data']['bug']['data']['categories'].map(function(value) {@
+    @return value['category_id'];@
+@});@
+
 <form>
     <input type="hidden" name="id" id="id" value="#context['data']['bug']['data']['id']#">
     <label for="name">Name</label>
@@ -55,7 +58,14 @@
       @});@
     </select>
 
-    <!-- TODO: SOLVED CATEGORIES -->
+        <label for="component_id">Kategorien</label>
+    <select name="categories" id="categories" multiple>
+      @context['data']['categories']['data'].forEach(function(value){@
+         <option value="#value['id']#" @if selected_categories.includes(value['id'])@selected@endif@>
+            #value['name']# (ID: #value['id']#)
+         </option>
+      @});@
+    </select>
 
     <input type="radio" name="type" id="type0" value="0" #context['data']['bug']['data']['type'] == 0 ? 'checked' : ''#><label
         for="type0">Gemeldet</label>

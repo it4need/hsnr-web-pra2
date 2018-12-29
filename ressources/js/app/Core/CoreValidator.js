@@ -48,15 +48,24 @@ Core.CoreValidator = class CoreValidator {
     }
 
     static required(value) {
-        return value != '';
+        return value != '' && value != null;
     }
 
     static min(value, minVal) {
-        return Number(value) >= minVal;
+        if (typeof value === 'object') {
+            return true; // todo: check if 'every element' of list is minimum
+        } else {
+            return Number(value) >= minVal && value != null;
+
+        }
     }
 
     static max(value, maxVal) {
-        return Number(value) <= maxVal;
+         if (typeof value === 'object') {
+            return true; // todo: check if 'every element' of list is maximum
+        } else {
+             return Number(value) <= maxVal && value != null;
+         }
     }
 
     static in(value, params) {

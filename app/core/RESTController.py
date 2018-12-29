@@ -85,7 +85,6 @@ class RESTController(BaseController):
         except Exception as e:
             return self.withError(str(e))
 
-
     @cherrypy.tools.json_out()
     def delete(self, id):
         self.__setModel()
@@ -118,7 +117,8 @@ class RESTController(BaseController):
         for modelEntry in kwargs:
             model, key = modelEntry
 
-            if key in cherrypy.request.json and not model.find(cherrypy.request.json[key]):
+            if key in cherrypy.request.json and cherrypy.request.json[key] is not None and not model.find(
+                    int(cherrypy.request.json[key])):
                 raise ValidationException(
                     "A " + model.__class__.__name__ + " with the given `" + key + "´ does not exist.")
 
@@ -127,7 +127,8 @@ class RESTController(BaseController):
             for non_allowable_attribute in non_allowable_attributes:
                 if non_allowable_attribute in cherrypy.request.json:
                     raise ValidationException(
-                        "A " + self.__class__.__name__.replace('Controller', '') +" cannot have a key-value pair of `" + non_allowable_attribute + "´")
+                        "A " + self.__class__.__name__.replace('Controller',
+                                                               '') + " cannot have a key-value pair of `" + non_allowable_attribute + "´")
 
     def __checkRequestForMissingRequiredAttrbiutes(self):
         for attr in self.required_attr:
@@ -137,5 +138,5 @@ class RESTController(BaseController):
     def __checkRequestForEmptyRequiredAttrbiutes(self):
         for attr in self.required_attr:
             if attr in cherrypy.request.json and cherrypy.request.json[attr] == '':
-                raise ValidationException("You must pass a key-value pair of key `" + attr + "´. Empty values are not allowed!")
-
+                raise ValidationException(
+                    "You must pass a key-value pair of key `" + attr + "´. Empty values are not allowed!")

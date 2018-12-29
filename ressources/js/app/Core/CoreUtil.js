@@ -2,19 +2,28 @@ window.Core = window.Core || {};
 
 Core.CoreUtil = class CoreUtil {
     static getFormData(form_element) {
-        let formData = new FormData(form_element);
-        let data = {};
-
-        for (let key_value of formData.entries()) {
-            if (data[key_value[0]] !== undefined) {
-                data[key_value[0]] = [data[key_value[0]]];
-            } else {
-                data[key_value[0]] = key_value[1];
+        let output = {};
+        new FormData(form_element).forEach(
+            (value, key) => {
+                // Check if property already exist
+                if (Object.prototype.hasOwnProperty.call(output, key)) {
+                    let current = output[key];
+                    if (!Array.isArray(current)) {
+                        // If it's not an array, convert it to an array.
+                        current = output[key] = [current];
+                    }
+                    current.push(value); // Add the new value to the array.
+                } else {
+                    if (document.querySelector(`[name=${key}]`).type === 'select-multiple') {
+                        output[key] = [value];
+                    } else if (document.querySelector(`[name=${key}]`).type === 'select-one' && value === '') {
+                        output[key] = null;
+                    } else {
+                        output[key] = value;
+                    }
+                }
             }
-        }
-
-        // todo: make {test: "abc", test: "ted"} -> {test: ["abc", "ted"]}
-
-        return data;
+        );
+        return output;
     }
 };

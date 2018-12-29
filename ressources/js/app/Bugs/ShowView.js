@@ -11,10 +11,9 @@ Bugs.ShowView = class ShowView extends Core.ShowView {
         const validation = {
             'name': 'required',
             'description': 'required',
-            'type': 'min:0|max:2',
-            'qs_employee_id': 'min:1',
-            'component_id': 'min:1',
-            'cause_id': 'min:1'
+            'type': 'required|min:0|max:2',
+            'qs_employee_id': 'required|min:1',
+            'component_id': 'required|min:1'
         };
 
         super(template_spl, 'bugs', 'fehler', validation);
@@ -37,6 +36,10 @@ Bugs.ShowView = class ShowView extends Core.ShowView {
             .then(data => data)
             .catch(err => alert(err));
 
+        let categories = await Core.CoreRequest.get('katfehler')
+            .then(data => data)
+            .catch(err => alert(err));
+
         let components = await Core.CoreRequest.get('komponente')
             .then(data => data)
             .catch(err => alert(err));
@@ -47,6 +50,7 @@ Bugs.ShowView = class ShowView extends Core.ShowView {
                 qs_employees,
                 sw_employees,
                 causes,
+                categories,
                 components
             }
         });
