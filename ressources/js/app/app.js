@@ -11,7 +11,7 @@ class Application_cl {
         this.bugs = {};
         this.reports = {};
 
-        this.partials.sidebarView = new Partials.SidebarView("aside", "sidebar.tpl.html");
+        this.partials.sidebarView = new Partials.SidebarView("aside", "sidebar.html");
 
         this.employees.indexView = new Employees.IndexView("employees.index.html");
         this.employees.showView = new Employees.ShowView("employees.show.html");
@@ -47,7 +47,7 @@ class Application_cl {
                 // hier zur Vereinfachung direkt
                 let markup_s;
                 let el_o;
-                markup_s = APPUTIL.tm_o.execute_px("header.tpl.html", null);
+                markup_s = APPUTIL.tm_o.execute_px("header.html", null);
                 el_o = document.querySelector("header");
                 if (el_o != null) {
                     el_o.innerHTML = markup_s;
@@ -63,7 +63,7 @@ class Application_cl {
                     ["reports.projects", "Auswertung Projekte/Fehler"]
                 ];
                 self.partials.sidebarView.render_px(nav_a);
-                markup_s = APPUTIL.tm_o.execute_px("home.tpl.html", null);
+                markup_s = APPUTIL.tm_o.execute_px("home.html", null);
                 el_o = document.querySelector("main");
                 if (el_o != null) {
                     el_o.innerHTML = markup_s;
@@ -74,7 +74,7 @@ class Application_cl {
                 // hier müsste man überprüfen, ob der Inhalt gewechselt werden darf
                 switch (data_opl[0]) {
                     case "home":
-                        let markup_s = APPUTIL.tm_o.execute_px("home.tpl.html", null);
+                        let markup_s = APPUTIL.tm_o.execute_px("home.html", null);
                         let el_o = document.querySelector("main");
                         if (el_o != null) {
                             el_o.innerHTML = markup_s;
