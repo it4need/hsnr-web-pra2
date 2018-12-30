@@ -11,7 +11,7 @@ Bugs.IndexView = class IndexView extends Core.IndexView {
         super(template_spl, 'bugs', 'fehler');
     }
 
-    async index() {
+    async index(type) {
         let bugs = await Core.CoreRequest.get(this.ressource_path)
             .then(data => data)
             .catch(err => alert(err));
@@ -30,13 +30,41 @@ Bugs.IndexView = class IndexView extends Core.IndexView {
 
         qs_employees['data'] = qs_employees['data'].filter(employee => employee['type'] === 1);
 
+        if (type == 0) {
+            bugs['data'] = bugs['data'].filter(bug => bug['type'] === 0);
+        }
+
+        if (type == 1) {
+            bugs['data'] = bugs['data'].filter(bug => bug['type'] === 1);
+        }
+
+        if (type == 2) {
+            bugs['data'] = bugs['data'].filter(bug => bug['type'] === 2);
+        }
+
         this.render({
             data: {
                 bugs,
                 causes,
                 components,
-                qs_employees
+                qs_employees,
+                type
             }
         });
+    }
+
+    registerAdditionalEventHandlers() {
+        let displayedElement = document.querySelector(this.displayedElement);
+        if (displayedElement != null) {
+            if (this.eventHandler !== undefined) {
+                displayedElement.addEventListener("change", (event) => this.eventHandlerChange(event, this));
+            }
+        }
+    }
+
+    eventHandlerChange(event, that) {
+        if (event.target.id === "filter" && event.target.dataset.controller === this.eventController) {
+            APPUTIL.es_o.publish_px("bugs", ["index", event.target.value]);
+        }
     }
 };

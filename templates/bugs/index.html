@@ -1,4 +1,12 @@
 <h2>Fehler</h2>
+<form action="">
+         <select name="filter" data-controller="bugs" id="filter">
+            <option value="all" #context['data']['type'] == 'all' ? 'selected' : ''#>Alle</option>
+            <option value="0" #context['data']['type'] == '0' ? 'selected' : ''#>Gemeldet</option>
+            <option value="1" #context['data']['type'] == '1' ? 'selected' : ''#>Gelöst</option>
+             <option value="2" #context['data']['type'] == '2' ? 'selected' : ''#>Verifiziert</option>
+         </select>
+    </form>
 @if (context['data']['causes']['data'].length < 1)@
     <p>Bevor Fehler hinzugefügt werden können, müssen Fehlerursachen erstellt sein.</p>
 @} else if (context['data']['components']['data'].length < 1) {@

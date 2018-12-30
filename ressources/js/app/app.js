@@ -200,7 +200,12 @@ class Application_cl {
             case "bugs":
                 switch (data_opl[0]) {
                     case "index":
-                        this.bugs.indexView.index();
+                         if(data_opl[1] == null || data_opl[1] === undefined) {
+                            this.bugs.indexView.index('all');
+                            break;
+                        }
+
+                        this.bugs.indexView.index(data_opl[1]);
                         break;
                     case "create":
                         this.bugs.createView.create();
