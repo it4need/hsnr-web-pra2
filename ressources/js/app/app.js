@@ -9,6 +9,7 @@ class Application_cl {
         this.projects = {};
         this.components = {};
         this.bugs = {};
+        this.reports = {};
 
         this.partials.sidebarView = new Partials.SidebarView("aside", "sidebar.tpl.html");
 
@@ -31,6 +32,9 @@ class Application_cl {
         this.bugs.indexView = new Bugs.IndexView("bugs.index.html");
         this.bugs.showView = new Bugs.ShowView("bugs.show.html");
         this.bugs.createView = new Bugs.CreateView("bugs.create.html");
+
+        this.reports.categories = new Reports.CategoriesReport("reports.categories.html");
+        this.reports.projects = new Reports.ProjectsReport("reports.projects.html");
     }
 
     notify_px(self, message_spl, data_opl) {
@@ -55,6 +59,8 @@ class Application_cl {
                     ["components.index", "Komponentenverwaltung"],
                     ["employees.index", "Mitarbeiterverwaltung"],
                     ["categories.index", "Kategorieverwaltung"],
+                    ["reports.categories", "Auswertung Kategorie/Fehler"],
+                    ["reports.projects", "Auswertung Projekte/Fehler"]
                 ];
                 self.partials.sidebarView.render_px(nav_a);
                 markup_s = APPUTIL.tm_o.execute_px("home.tpl.html", null);
@@ -186,6 +192,17 @@ class Application_cl {
                         break;
                 }
                 break;
+             case "reports":
+                switch (data_opl[0]) {
+                    case "categories":
+                        console.log("tst");
+                        this.reports.categories.index();
+                        break;
+                    case "projects":
+                        this.reports.projects.index();
+                        break;
+                }
+                break;
         }
     }
 
@@ -198,5 +215,6 @@ class Application_cl {
         APPUTIL.es_o.subscribe_px(this, "projects");
         APPUTIL.es_o.subscribe_px(this, "components");
         APPUTIL.es_o.subscribe_px(this, "bugs");
+        APPUTIL.es_o.subscribe_px(this, "reports");
     }
 }

@@ -1,0 +1,38 @@
+<h2>Auswertung Kategorien</h2>
+
+@if Object.keys(context['data']).length > 0@
+    <table>
+        <thead>
+            <tr>
+                <td>Kategorie - Ursache</td>
+                <td>gemeldete Fehler</td>
+                <td>gelöste Fehler</td>
+                <td>verifizierte Fehler</td>
+            </tr>
+        </thead>
+        <tbody>
+        @for const key of Object.keys(context['data'])@
+            @let maximum_iteration = context['data'][key]['bugs'].reported.length@
+            @maximum_iteration += context['data'][key]['bugs'].resolved.length@
+            @maximum_iteration += context['data'][key]['bugs'].soultion_verified.length@
+            <tr>
+                <td>#`${key} (ID: ${context['data'][key]['id']})`#</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            @for let i = 0; i <= maximum_iteration; i++@
+                @let category_bugs = context['data'][key]['bugs'];@
+                <tr>
+                    <td></td>
+                    <td>#(i in category_bugs.reported) ? `${category_bugs.reported[i].name} (ID: ${category_bugs.reported[i].id})` : ''#</td>
+                    <td>#(i in category_bugs.resolved) ? `${category_bugs.resolved[i].name} (ID: ${category_bugs.resolved[i].id})` : ''#</td>
+                    <td>#(i in category_bugs.soultion_verified) ? `${category_bugs.soultion_verified[i].name} (ID: ${category_bugs.soultion_verified[i].id})` : ''#</td>
+                </tr>
+            @endfor@
+        @endfor@
+        </tbody>
+    </table>
+@else@
+    <p>Die Auswertung kann erst stattfinden, wenn bereits Ursachen vorliegen.</p>
+@endif@

@@ -1,0 +1,50 @@
+<h2>Auswertung Projekte</h2>
+
+@if Object.keys(context['data']).length > 0@
+    <table>
+        <thead>
+            <tr>
+                <td>Projekt</td>
+                <td>Komponenten</td>
+                <td>gemeldete Fehler</td>
+                <td>gelöste Fehler</td>
+                <td>verifizierte Fehler</td>
+            </tr>
+        </thead>
+        <tbody>
+        @for const project_name of Object.keys(context['data'])@
+            <tr>
+                <td>#`${project_name} (ID: ${context['data'][project_name].id})`#</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            @context['data'][project_name]['components'].forEach(function(component){@
+                <tr>
+                    <td></td>
+                    <td>#`${component.name} (ID: ${component.id})`#</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                @let maximum_iteration = component['bugs'].reported.length@
+                @maximum_iteration += component['bugs'].resolved.length@
+                @maximum_iteration += component['bugs'].soultion_verified.length@
+
+                @for let i = 0; i <= maximum_iteration; i++@
+                    @let bugs = component['bugs'];@
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>#(i in bugs.reported) ? `${bugs.reported[i].name} (ID: ${bugs.reported[i].id})` : ''#</td>
+                        <td>#(i in bugs.resolved) ? `${bugs.resolved[i].name} (ID: ${bugs.resolved[i].id})` : ''#</td>
+                        <td>#(i in bugs.soultion_verified) ? `${bugs.soultion_verified[i].name} (ID: ${bugs.soultion_verified[i].id})` : ''#</td>
+                    </tr>
+                @endfor@
+            @});@
+        @endfor@
+        </tbody>
+    </table>
+@else@
+    <p>Die Auswertung kann erst stattfinden, wenn bereits Projekte vorliegen.</p>
+@endif@
