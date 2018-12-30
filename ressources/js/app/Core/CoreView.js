@@ -18,7 +18,9 @@ Core.CoreView = class {
     registerEventHandlers(eventHandler) {
         let displayedElement = document.querySelector(this.displayedElement);
         if (displayedElement != null) {
-            displayedElement.addEventListener("click", (event) => this.eventHandler(event, this));
+            if (this.eventHandler !== undefined) {
+                displayedElement.addEventListener("click", (event) => this.eventHandler(event, this));
+            }
         }
     }
 
@@ -27,10 +29,10 @@ Core.CoreView = class {
 
         Object.keys(error_messages).forEach(function (dataKey) {
 
-            document.getElementsByName(dataKey).forEach(function(error_element) {
+            document.getElementsByName(dataKey).forEach(function (error_element) {
                 error_element.classList.add('error');
 
-                error_element.addEventListener('keyup', function() {
+                error_element.addEventListener('keyup', function () {
                     error_element.classList.remove('error');
                 });
             });

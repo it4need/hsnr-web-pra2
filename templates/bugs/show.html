@@ -3,6 +3,9 @@
     @return value['category_id'];@
 @});@
 
+@let isQSEmployee = localStorage.getItem('auth') == 1@
+@let isSWEmployee = localStorage.getItem('auth') == 2@
+
 <form>
     <input type="hidden" name="id" id="id" value="#context['data']['bug']['data']['id']#">
     <label for="name">Name</label>
@@ -49,7 +52,7 @@
     </select>
 
     <label for="cause_id">Ursache</label>
-    <select name="cause_id" id="cause_id">
+    <select name="cause_id" id="cause_id" #isQSEmployee ? 'disabled' : ''#>
       <option value="">- Bitte Ursache auswählen -</option>
       @context['data']['causes']['data'].forEach(function(value){@
          <option value="#value['id']#" @if value['id'] == context['data']['bug']['data']['cause_id']@selected@endif@>
@@ -67,18 +70,18 @@
       @});@
     </select>
 
-    <input type="radio" name="type" id="type0" value="0" #context['data']['bug']['data']['type'] == 0 ? 'checked' : ''#><label
+    <input type="radio" name="type" id="type0" value="0" #context['data']['bug']['data']['type'] == 0 ? 'checked' : ''# #isSWEmployee || context['data']['bug']['data']['type'] >= 1 ? 'disabled' : ''#><label
         for="type0">Gemeldet</label>
-    <input type="radio" name="type" id="type1" value="1" #context['data']['bug']['data']['type'] == 1 ? 'checked' : ''#><label
+    <input type="radio" name="type" id="type1" value="1" #context['data']['bug']['data']['type'] == 1 ? 'checked' : ''# #isQSEmployee ? 'disabled' : ''#><label
         for="type1">Gelöst</label>
-    <input type="radio" name="type" id="type2" value="2" #context['data']['bug']['data']['type'] == 2 ? 'checked' : ''#><label
+    <input type="radio" name="type" id="type2" value="2" #context['data']['bug']['data']['type'] == 2 ? 'checked' : ''# #context['data']['bug']['data']['type'] == 0 || isSWEmployee ? 'disabled' : ''#><label
         for="type2">Verifiziert</label>
 
     <label for="solved_date">Lösungsdatum</label>
     <input type="text" id="solved_date" name="solved_date" disabled value="#context['data']['bug']['data']['solved_date']#"/>
 
     <label for="solution_description">Lösung</label>
-    <textarea id="solution_description" name="solution_description">#context['data']['bug']['data']['solution_description']#</textarea>
+    <textarea id="solution_description" #isQSEmployee ? 'disabled' : ''# name="solution_description">#context['data']['bug']['data']['solution_description']#</textarea>
 
     <button id="idBack" data-controller="bugs">Zurück</button>
     <button id="updateSubmit" data-controller="bugs" type="submit">Speichern</button>

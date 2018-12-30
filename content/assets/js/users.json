@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "name": "Peter - QS-Mitarbeiter",
+      "type": 1
+    },
+    {
+      "name": "Jan - SW-Entwickler",
+      "type": 2
+    },
+    {
+      "name": "Hanno - SW-Entwickler",
+      "type": 2
+    }
+  ]
+}

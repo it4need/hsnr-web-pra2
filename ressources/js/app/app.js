@@ -3,6 +3,7 @@ class Application_cl {
     constructor() {
         this.registerEventSubscribers();
 
+        this.auth = {};
         this.partials = {};
         this.employees = {};
         this.categories = {};
@@ -11,6 +12,7 @@ class Application_cl {
         this.bugs = {};
         this.reports = {};
 
+        this.auth.indexView = new Auth.IndexView("auth.index.html");
         this.partials.sidebarView = new Partials.SidebarView("aside", "sidebar.html");
 
         this.employees.indexView = new Employees.IndexView("employees.index.html");
@@ -43,6 +45,7 @@ class Application_cl {
                 alert("Vorlagen konnten nicht geladen werden.");
                 break;
             case "templates.loaded":
+                console.log("templated_loaded_again");
                 // Templates stehen zur Verfügung, Bereiche mit Inhalten füllen
                 // hier zur Vereinfachung direkt
                 let markup_s;
@@ -52,33 +55,46 @@ class Application_cl {
                 if (el_o != null) {
                     el_o.innerHTML = markup_s;
                 }
-                let nav_a = [
-                    ["home", "Startseite"],
-                    ["bugs.index", "Fehlerverwaltung"],
-                    ["projects.index", "Projektverwaltung"],
-                    ["components.index", "Komponentenverwaltung"],
-                    ["employees.index", "Mitarbeiterverwaltung"],
-                    ["categories.index", "Kategorieverwaltung"],
-                    ["reports.categories", "Auswertung Kategorie/Fehler"],
-                    ["reports.projects", "Auswertung Projekte/Fehler"]
-                ];
+
+                let nav_a = [];
+
+                if (localStorage.getItem('auth') == null) {
+                    nav_a.push(["auth.index", "Login"]);
+                }
+
+                if (localStorage.getItem('auth') == 1 || localStorage.getItem('auth') == 2) {
+                    nav_a.push(
+                        ["bugs.index", "Fehlerverwaltung"],
+                        ["projects.index", "Projektverwaltung"],
+                        ["components.index", "Komponentenverwaltung"],
+                        ["employees.index", "Mitarbeiterverwaltung"],
+                        ["categories.index", "Kategorieverwaltung"],
+                        ["reports.categories", "Auswertung Kategorie/Fehler"],
+                        ["reports.projects", "Auswertung Projekte/Fehler"], ["auth.logout", "Logout"]
+                    );
+                }
+
                 self.partials.sidebarView.render_px(nav_a);
-                markup_s = APPUTIL.tm_o.execute_px("home.html", null);
-                el_o = document.querySelector("main");
-                if (el_o != null) {
-                    el_o.innerHTML = markup_s;
+                this.auth.indexView.index();
+                break;
+            case "app.cmd":
+                switch (data_opl[0]) {
+                    case 'home':
+                        this.auth.indexView.index();
+                        break;
                 }
                 break;
-
-            case "app.cmd":
+            case "auth":
                 // hier müsste man überprüfen, ob der Inhalt gewechselt werden darf
                 switch (data_opl[0]) {
-                    case "home":
-                        let markup_s = APPUTIL.tm_o.execute_px("home.html", null);
-                        let el_o = document.querySelector("main");
-                        if (el_o != null) {
-                            el_o.innerHTML = markup_s;
-                        }
+                    case "index":
+                        this.auth.indexView.index();
+                        break;
+                    case "login":
+                        this.auth.indexView.login(data_opl[1]);
+                        break;
+                    case "logout":
+                        this.auth.indexView.logout();
                         break;
                 }
                 break;
@@ -192,10 +208,9 @@ class Application_cl {
                         break;
                 }
                 break;
-             case "reports":
+            case "reports":
                 switch (data_opl[0]) {
                     case "categories":
-                        console.log("tst");
                         this.reports.categories.index();
                         break;
                     case "projects":
@@ -210,6 +225,7 @@ class Application_cl {
         APPUTIL.es_o.subscribe_px(this, "templates.loaded");
         APPUTIL.es_o.subscribe_px(this, "templates.failed");
         APPUTIL.es_o.subscribe_px(this, "app.cmd");
+        APPUTIL.es_o.subscribe_px(this, "auth");
         APPUTIL.es_o.subscribe_px(this, "employees");
         APPUTIL.es_o.subscribe_px(this, "categories");
         APPUTIL.es_o.subscribe_px(this, "projects");

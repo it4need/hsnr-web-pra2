@@ -11,7 +11,6 @@ Bugs.ShowView = class ShowView extends Core.ShowView {
         const validation = {
             'name': 'required',
             'description': 'required',
-            'type': 'required|min:0|max:2',
             'qs_employee_id': 'required|min:1',
             'component_id': 'required|min:1'
         };

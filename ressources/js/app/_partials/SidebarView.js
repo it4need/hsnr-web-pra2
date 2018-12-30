@@ -29,7 +29,7 @@ Partials.SidebarView = class SidebarView {
          publish_event_category = controllerActionArray[0];
          action = controllerActionArray[1];
       } else {
-         publish_event_category = 'app.cmd';
+         publish_event_category = 'auth';
       }
 
       console.log(publish_event_category, action);

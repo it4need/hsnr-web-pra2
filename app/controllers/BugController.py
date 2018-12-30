@@ -43,7 +43,7 @@ class BugController(RESTController):
                                                                        cherrypy.request.json[
                                                                            'type'] == Bug.TYPE_RESOLVED):
 
-                if Bug().find(int(id))[0]['solved_date'] is None:
+                if Bug().find(int(id))[0]['solved_date'] is None or Bug().find(int(id))[0]['solved_date'] == '':
                     additional_params = {'solved_date': str(strftime("%Y-%m-%d %H:%M:%S", localtime()))}
 
             self.__updateSolvedCategories(id)
