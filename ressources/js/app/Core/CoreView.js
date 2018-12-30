@@ -5,6 +5,7 @@ Core.CoreView = class {
         this.displayedElement = displayedElement;
         this.template = templateToRender;
         this.registerEventHandlers();
+        this.registerAdditionalEventHandlers();
     }
 
     render(data_opl) {
@@ -15,13 +16,17 @@ Core.CoreView = class {
         }
     }
 
-    registerEventHandlers(eventHandler) {
+    registerEventHandlers() {
         let displayedElement = document.querySelector(this.displayedElement);
         if (displayedElement != null) {
             if (this.eventHandler !== undefined) {
                 displayedElement.addEventListener("click", (event) => this.eventHandler(event, this));
             }
         }
+    }
+
+    registerAdditionalEventHandlers() {
+        // do nothing
     }
 
     displayErrors(error_messages) {

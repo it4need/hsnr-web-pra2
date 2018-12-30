@@ -1,5 +1,12 @@
 <h2>Kategorien</h2>
 @if Object.keys(context['data']).length > 0@
+   <form action="">
+      <select name="filter" data-controller="categories" id="filter">
+         <option value="all" #context['type'] == 'all' ? 'selected' : ''#>Alle</option>
+         <option value="causes" #context['type'] == 'causes' ? 'selected' : ''#>Ursachen</option>
+         <option value="categories" #context['type'] == 'categories' ? 'selected' : ''#>Kategorien</option>
+      </select>
+   </form>
    <table>
       <tr>
          <th>ID</th>

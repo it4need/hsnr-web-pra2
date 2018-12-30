@@ -1,5 +1,12 @@
 <h2>Mitarbeiter</h2>
 @if context['data'].length > 0@
+    <form action="">
+         <select name="filter" data-controller="employees" id="filter">
+            <option value="all" #context['type'] == 'all' ? 'selected' : ''#>Alle</option>
+            <option value="1" #context['type'] == '1' ? 'selected' : ''#>QS-Mitarbeiter</option>
+            <option value="2" #context['type'] == '2' ? 'selected' : ''#>SW-Entwickler</option>
+         </select>
+    </form>
    <table>
       <tr>
          <th>ID</th>

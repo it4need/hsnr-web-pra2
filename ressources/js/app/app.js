@@ -101,7 +101,12 @@ class Application_cl {
             case "employees":
                 switch (data_opl[0]) {
                     case "index":
-                        this.employees.indexView.index();
+                        if(data_opl[1] == null || data_opl[1] === undefined) {
+                            this.employees.indexView.index('all');
+                            break;
+                        }
+
+                        this.employees.indexView.index(data_opl[1]);
                         break;
                     case "create":
                         this.employees.createView.create();
@@ -123,7 +128,13 @@ class Application_cl {
             case "categories":
                 switch (data_opl[0]) {
                     case "index":
-                        this.categories.indexView.index();
+                        if (data_opl[1] == null || data_opl[1] == undefined) {
+                            this.categories.indexView.index('all');
+                            break;
+                        }
+
+                        this.categories.indexView.index(data_opl[1]);
+
                         break;
                     case "create":
                         this.categories.createView.create();

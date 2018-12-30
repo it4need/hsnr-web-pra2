@@ -11,26 +11,31 @@ Categories.IndexView = class IndexView extends Core.IndexView {
         super(template_spl, 'categories', 'katursache');
     }
 
-    async index() {
-        let result = {data: {}};
+    async index(type) {
+        let result = {data: {}, type};
 
-        let causes = await Core.CoreRequest.get(this.ressource_path)
-            .then(data => data)
-            .catch(err => alert(err));
+        if (type === 'all' || type === 'causes') {
+            let causes = await Core.CoreRequest.get(this.ressource_path)
+                .then(data => data)
+                .catch(err => alert(err));
 
-        let categories = await Core.CoreRequest.get('katfehler')
-            .then(data => data)
-            .catch(err => alert(err));
+            Object.keys(causes.data).forEach(function (key) {
+                const resultKey = Number(causes.data[key].id);
+                result.data['CAUSE' + resultKey] = causes.data[key];
+            });
+        }
 
-        Object.keys(causes.data).forEach(function (key) {
-            const resultKey = Number(causes.data[key].id);
-            result.data['CAUSE' + resultKey] = causes.data[key];
-        });
+        if (type === 'all' || type === 'categories') {
+            let categories = await Core.CoreRequest.get('katfehler')
+                .then(data => data)
+                .catch(err => alert(err));
 
-        Object.keys(categories.data).forEach(function (key) {
-            const resultKey = Number(categories.data[key].id);
-            result.data['CATEGORY' + resultKey] = categories.data[key];
-        });
+            Object.keys(categories.data).forEach(function (key) {
+                const resultKey = Number(categories.data[key].id);
+                result.data['CATEGORY' + resultKey] = categories.data[key];
+            });
+        }
+
 
         this.render(result);
     }
@@ -77,5 +82,20 @@ Categories.IndexView = class IndexView extends Core.IndexView {
         }
 
         event.preventDefault();
+    }
+
+    registerAdditionalEventHandlers() {
+        let displayedElement = document.querySelector(this.displayedElement);
+        if (displayedElement != null) {
+            if (this.eventHandler !== undefined) {
+                displayedElement.addEventListener("change", (event) => this.eventHandlerChange(event, this));
+            }
+        }
+    }
+
+    eventHandlerChange(event, that) {
+        if (event.target.id === "filter" && event.target.dataset.controller === this.eventController) {
+            APPUTIL.es_o.publish_px("categories", ["index", event.target.value]);
+        }
     }
 };
