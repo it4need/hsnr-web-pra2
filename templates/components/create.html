@@ -2,17 +2,19 @@
 <!-- Template -->
 <!-- Contentbereich -->
 <form>
-   <label for="name">Name</label>
-   <input type="text" id="name" name="name" />
-   <select name="project_id" id="project_id">
-      <option>- Bitte Projekt auswählen -</option>
-      @context['data'].forEach(function(value){@
-         <option value="#value['id']#">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name"/>
+    <select name="project_id" id="project_id">
+        <option>- Bitte Projekt auswählen -</option>
+        @context['data'].forEach(function(value){@
+        <option value="#value['id']#">
             <td>#value['name']# (ID: #value['id']#)</td>
-         </option>
-      @});@
-   </select>
-   <button id="idBack" data-controller="components">Zurück</button>
-   <button id="createSubmit" type="submit" data-controller="components">Speichern</button>
+        </option>
+        @});@
+    </select>
+    <div class="buttons">
+        <button id="idBack" data-controller="components">Zurück</button>
+        <button id="createSubmit" type="submit" data-controller="components">Speichern</button>
+    </div>
 </form>
 <!-- EOF -->

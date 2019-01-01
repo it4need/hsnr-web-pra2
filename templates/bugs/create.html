@@ -8,35 +8,36 @@
 
     <label for="qs_employee_id">QS-Mitarbeiter</label>
     <select name="qs_employee_id" id="qs_employee_id">
-      <option value="">- Bitte QS-Mitarbeiter auswählen -</option>
-      @context['data']['qs_employees']['data'].forEach(function(value){@
-         @if(value['type'] == 1)@
-             <option value="#value['id']#">
-                #value['name']# (ID: #value['id']#)
-             </option>
-         @endif@
-      @});@
+        <option value="">- Bitte QS-Mitarbeiter auswählen -</option>
+        @context['data']['qs_employees']['data'].forEach(function(value){@
+        @if(value['type'] == 1)@
+        <option value="#value['id']#">
+            #value['name']# (ID: #value['id']#)
+        </option>
+        @endif@
+        @});@
     </select>
 
     <label for="component_id">Komponente</label>
     <select name="component_id" id="component_id">
-      <option value="">- Bitte Komponente auswählen -</option>
-      @context['data']['components']['data'].forEach(function(value){@
-         <option value="#value['id']#">
+        <option value="">- Bitte Komponente auswählen -</option>
+        @context['data']['components']['data'].forEach(function(value){@
+        <option value="#value['id']#">
             #value['name']# (ID: #value['id']#)
-         </option>
-      @});@
+        </option>
+        @});@
     </select>
 
     <label for="component_id">Kategorien</label>
     <select name="categories" id="categories" multiple>
-      @context['data']['categories']['data'].forEach(function(value){@
-         <option value="#value['id']#">
+        @context['data']['categories']['data'].forEach(function(value){@
+        <option value="#value['id']#">
             #value['name']# (ID: #value['id']#)
-         </option>
-      @});@
+        </option>
+        @});@
     </select>
-
-    <button id="idBack" data-controller="bugs">Zurück</button>
-    <button id="createSubmit" data-controller="bugs" type="submit">Speichern</button>
+    <div class="buttons">
+        <button id="idBack" data-controller="bugs">Zurück</button>
+        <button id="createSubmit" data-controller="bugs" type="submit">Speichern</button>
+    </div>
 </form>

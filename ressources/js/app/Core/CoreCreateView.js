@@ -44,7 +44,7 @@ Core.CreateView = class CreateView extends Core.CoreView {
     }
 
     eventStoreEntry(event, that) {
-        let data = Core.CoreUtil.getFormData(event.target.parentNode);
+        let data = Core.CoreUtil.getFormData(event.target.parentNode.parentNode);
 
         APPUTIL.es_o.publish_px(that.eventController, ["store", data]);
         event.preventDefault();

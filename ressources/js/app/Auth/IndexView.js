@@ -22,6 +22,7 @@ Auth.IndexView = class IndexView extends Core.IndexView {
 
     login(type) {
         localStorage.setItem('auth', type);
+        console.log(type);
         location.reload();
     }
 
@@ -37,7 +38,7 @@ Auth.IndexView = class IndexView extends Core.IndexView {
     }
 
     eventLogin(event, that) {
-        let data = Core.CoreUtil.getFormData(event.target.parentNode);
+        let data = Core.CoreUtil.getFormData(document.querySelector('#loginForm'));
         APPUTIL.es_o.publish_px(that.eventController, ["login", data["users"]]);
     }
 

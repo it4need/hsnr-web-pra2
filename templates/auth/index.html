@@ -1,12 +1,14 @@
 <!-- Template -->
 <h2>Anmeldung</h2>
-<form action="">
+<form action="##" id="loginForm">
     <select name="users" id="users">
         @context['users'].forEach(function(user){@
-            <option value="#user.type#">#user.name#</option>
+        <option value="#user.type#">#user.name#</option>
         @});@
     </select>
-    <button type="submit" id="login" data-controller="auth">Anmelden</button>
+    <div class="buttons">
+        <button type="submit" id="login" data-controller="auth">Anmelden</button>
+    </div>
 </form>
 
 @include footer.html@

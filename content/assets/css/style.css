@@ -58,29 +58,44 @@ p {
     margin-bottom: 3rem; }
 
 header {
-  position: absolute;
+  /*position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  height: 100px;
+  right: 0;*/
+  height: 5vh;
   background-color: blue;
   color: white; }
 
+.main {
+  display: flex;
+  height: 95vh; }
+
 aside {
-  position: absolute;
+  /*position: absolute;
   top: 100px;
   left: 0;
   width: 200px;
   bottom: 100px;
   background-color: lightgrey;
-  color: blue; }
+  color: blue;*/
+  color: blue;
+  background-color: lightgrey;
+  flex: 1 6;
+  padding: 20px; }
+
+aside ul {
+  list-style-type: none; }
 
 main {
-  position: absolute;
+  /*position: absolute;
   top: 100px;
   left: 200px;
   right: 0;
-  bottom: 100px; }
+  bottom: 100px;*/
+  padding: 20px;
+  flex: 5 0;
+  position: relative;
+  width: 100%; }
 
 footer {
   position: absolute;
@@ -108,3 +123,18 @@ form input {
 
 form button {
   display: block; }
+
+.buttons {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 20px;
+  background-color: grey;
+  width: 100%; }
+
+.buttons button {
+  padding: 10px;
+  float: left; }
+
+.buttons button:not(:last-child) {
+  margin-right: 10px; }

@@ -6,56 +6,97 @@
 @import 'pages/_loader';
 
 header {
-   position: absolute;
-   top: 0;
-   left: 0;
-   right: 0;
-   height: 100px;
-   background-color: blue;
-   color: white;
+  /*position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;*/
+  height: 5vh;
+  background-color: blue;
+  color: white;
 }
+
+.main {
+  display: flex;
+  height: 95vh;
+}
+
 aside {
-   position: absolute;
-   top: 100px;
-   left: 0;
-   width: 200px;
-   bottom: 100px;
-   background-color: lightgrey;
-   color: blue;
+  /*position: absolute;
+  top: 100px;
+  left: 0;
+  width: 200px;
+  bottom: 100px;
+  background-color: lightgrey;
+  color: blue;*/
+  color: blue;
+  background-color: lightgrey;
+  flex: 1 6;
+  padding: 20px;
 }
+
+aside ul {
+  list-style-type: none;
+}
+
 main {
-   position: absolute;
-   top: 100px;
-   left: 200px;
-   right: 0;
-   bottom: 100px;
+  /*position: absolute;
+  top: 100px;
+  left: 200px;
+  right: 0;
+  bottom: 100px;*/
+  padding: 20px;
+  flex: 5 0;
+  position: relative;
+  width: 100%;
 }
+
 footer {
-   position: absolute;
-   bottom: 0;
-   left: 0;
-   right: 0;
-   height: 100px;
-   background-color: blue;
-   color: white;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background-color: blue;
+  color: white;
 }
+
 footer p {
-   text-align: center;
+  text-align: center;
 }
 
 .clSelected {
-   background-color: blue;
-   color: white;
+  background-color: blue;
+  color: white;
 }
 
 form label {
-   display: block;
-   width: 200px;
+  display: block;
+  width: 200px;
 }
+
 form input {
-   display: block;
-   width: 300px;
+  display: block;
+  width: 300px;
 }
+
 form button {
-   display: block;
+  display: block;
+}
+
+.buttons {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 20px;
+  background-color: grey;
+  width: 100%;
+}
+
+.buttons button {
+  padding: 10px;
+  float: left;
+}
+
+.buttons button:not(:last-child) {
+  margin-right: 10px;
 }

@@ -1,34 +1,39 @@
 <h2>Kategorien</h2>
 @if Object.keys(context['data']).length > 0@
-   <form action="">
-      <select name="filter" data-controller="categories" id="filter">
-         <option value="all" #context['type'] == 'all' ? 'selected' : ''#>Alle</option>
-         <option value="causes" #context['type'] == 'causes' ? 'selected' : ''#>Ursachen</option>
-         <option value="categories" #context['type'] == 'categories' ? 'selected' : ''#>Kategorien</option>
-      </select>
-   </form>
-   <table>
-      <tr>
-         <th>ID</th>
-         <th>Name</th>
-         <th>Typ</th>
-      </tr>
-      @var entry_a;@
-      @var loop_i;@
-      @for category in context['data']@
-         <tr id="#category#">
-            <td>#category#</td>
-            <td>#context['data'][category].name#</td>
-            <td>#category.includes('CAUSE') ? 'Ursache' : 'Fehlerkateogrie'#</td>
-         </tr>
-      @endfor@
-   </table>
+<form action="##">
+    <select name="filter" data-controller="categories" id="filter">
+        <option value="all" #context[
+        'type'] == 'all' ? 'selected' : ''#>Alle</option>
+        <option value="causes" #context[
+        'type'] == 'causes' ? 'selected' : ''#>Ursachen</option>
+        <option value="categories" #context[
+        'type'] == 'categories' ? 'selected' : ''#>Kategorien</option>
+    </select>
+</form>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Typ</th>
+    </tr>
+    @var entry_a;@
+    @var loop_i;@
+    @for category in context['data']@
+    <tr id="#category#">
+        <td>#category#</td>
+        <td>#context['data'][category].name#</td>
+        <td>#category.includes('CAUSE') ? 'Ursache' : 'Fehlerkateogrie'#</td>
+    </tr>
+    @endfor@
+</table>
 @else@
 @console.log(Object.keys(context['data']).length);@
-   <p>Momentan sind noch keine Datensätze vorhanden.</p>
+<p>Momentan sind noch keine Datensätze vorhanden.</p>
 @endif@
 
-<button id="showEntry"  data-controller="categories">Anzeigen</button>
-<button id="createEntry" data-controller="categories">Neu anlegen</button>
-<button id="deleteEntry" data-controller="categories">Löschen</button>
+<div class="buttons">
+    <button id="showEntry" data-controller="categories">Anzeigen</button>
+    <button id="createEntry" data-controller="categories">Neu anlegen</button>
+    <button id="deleteEntry" data-controller="categories">Löschen</button>
+</div>
 <!-- EOF -->

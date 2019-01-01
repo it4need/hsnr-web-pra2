@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Jan André Schlösser">
+    <meta name="author" content="Hanno Siebel">
+    <meta name="dcterms.date" content="">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/print.css" media="print" />
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/highlight.css" media="screen" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <script src="assets/javascripts/highlight.pack.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Bug-Tracker</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>WEB-PRA 2</h1>
+        <h2>Jan André Schlösser (1085978)<br>Hanno Siebel (1082670)<br>Gruppe G</h2>
+        <a href="https://github.com/it4need/hsnr-web-pra2" class="button"><small>Projekt ansehen auf</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+
+<h1 id="aufgabe-der-anwendung">Aufgabe der Anwendung</h1>
+<p>Der Bug-Tracker ist eine Webapplikation, mit welcher ein Unternehmen relevante Informationen bei der Qualitätssicherung von Softwareprodukten erfasst.</p>
+<h1 id="übersicht-der-fachlichen-funktionen">Übersicht der fachlichen Funktionen</h1>
+<p>Erkannte Fehler werden dokumentiert; dabei werden erfasst:</p>
+<ul>
+<li>
+erkannte Fehler werden dokumentiert; dabei werden erfasst:
+<ul>
+<li>
+Beschreibung des Fehlers
+</li>
+<li>
+der Bearbeiter der Fehlererfassung (QS-Mitarbeiter)
+</li>
+<li>
+das Datum der Erfassung
+</li>
+<li>
+die Fehler werden Komponenten, die in Projekten entwickelt werden, zugeordnet
+</li>
+<li>
+die Fehler werden Kategorien zugeordnet
+</li>
+</ul>
+</li>
+<li>
+die Beseitigung von Fehlern wird mit einer Beschreibung erfasst, zusätzlich werden:
+<ul>
+<li>
+der Bearbeiter der Fehlerbeseitigung (SW-Entwickler) vermerkt
+</li>
+<li>
+das Datum der Beseitigung dokumentiert
+</li>
+<li>
+die Fehlerursache beschrieben und einer Kategorie zugeordnet
+</li>
+</ul>
+</li>
+<li>
+zur Zuordnung der Fehler werden Projekte und die darin vorgesehenen Komponenten verwaltet
+</li>
+<li>
+es werden Kategorien für die Fehler und die Fehlerursachen verwaltet
+</li>
+<li>
+es werden drei Auswertungen vorgesehen:
+<ul>
+<li>
+Zusammenstellung der Fehler nach Projekt / Komponente / Status Fehler (erkannt/beseitigt) – Zusammenstellung der beseitigten Fehler nach Projekt / Komponente / Zeitdifferenz Beseitigung - Erkennung
+</li>
+<li>
+Zusammenstellung der Fehler nach Kategorie / Status Fehler (erkannt/beseitigt).
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="allgemeines-zum-applikationsaufbau">Allgemeines zum Applikationsaufbau</h1>
+<p>Die Applikation wurde mit CherryPy in Python entwickelt. Es wird das Model-View-Controller (MVC) Entwurfsmuster zur Strukturierung der Applikation verwendet, wobei die Views über ein Event-Subscriber-Pattern clientseitig umgesetzt wird. Die erzeugten Daten der Models werden in JSON-Dateien gespeichert. Die gesamte Applikation ist API-getrieben und über öffentliche REST-Schnittstellen erreichbar.</p>
+<h1 id="grundsätzliches">Grundsätzliches</h1>
+<h2 id="order-struktur">Order-Struktur</h2>
+<dl>
+<dt>/app</dt>
+<dd>enthält die gesamte serverseitige Applikationslogik
+</dd>
+<dt>/app/config</dt>
+<dd>enthält die gesamten Konfigurations-Dateien
+</dd>
+<dt>/app/controllers</dt>
+<dd>enthält die spezifischen Applikations-Controller
+</dd>
+<dt>/app/core</dt>
+<dd>enthält die Basis-Klassen zur globalen Verwendung
+</dd>
+<dt>/app/models</dt>
+<dd>enthält die spezifischen Models für die Interaktion mit den JSON-Dateien
+</dd>
+<dt>/content/assets</dt>
+<dd>enthält alle statischen und kompilierten Elemente
+</dd>
+<dt>/content/assets/css</dt>
+<dd>enthält alle statischen und kompilierten CSS-Elemente
+</dd>
+<dt>/content/assets/js</dt>
+<dd>enthält alle statischen und konkardinieren JS-Elemente
+</dd>
+<dt>/data</dt>
+<dd>enthält die erzeugten JSON-Dateien des Models
+</dd>
+<dt>/docs</dt>
+<dd>enthält die Dokumentation der Anwendung
+</dd>
+<dt>/ressources/</dt>
+<dd>enthält alle vorkompilierten Dateien
+</dd>
+<dt>/ressources/js</dt>
+<dd>enthält alle nicht-konkardinieren JavaScript-Dateien
+</dd>
+<dt>/ressources/js/app</dt>
+<dd>enthält die gesamte clientseitige Applikationslogik
+</dd>
+<dt>/ressources/js/vendor</dt>
+<dd>enthält die gesamten clientseitigen Drittressourcen`
+</dd>
+<dt>/ressources/saas</dt>
+<dd>enthält alle vorkompilierten CSS-Dateien in Saas `` /templates
+</dd>
+<dd>enthält die tco-Templates zur Anzeige im JavaScript-Format (Dokumentation dazu seperat erhältlich)
+</dd>
+<dt>/test</dt>
+<dd>enthält die Tests des REST-Interfaces mit cURL
+</dd>
+</dl>
+<h2 id="starten-des-cherrypy-servers">Starten des Cherrypy-Servers</h2>
+<p>Damit der Cherrypy-Applikationsserver gestartet werden kann, wird folgende Kommandozeile ausgeführt:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1">$ <span class="ex">python3</span> server.py</a></code></pre></div>
+<p>Die Applikation ist anschließend unter http://localhost:8080 erreichbar.</p>
+<h2 id="generierung-des-test-outputs">Generierung des <code>test</code>-Outputs</h2>
+<p>Voraussetzung zur Generierung des <code>test</code>-Outputs:</p>
+<ul>
+<li>
+jq: brew install jq
+</li>
+<li>
+json: npm install json
+</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" title="1">$ <span class="ex">./test/tests.sh</span> -v <span class="kw">|</span> <span class="ex">./test/ansi_html.sh</span> <span class="op">&gt;</span> test/output.html</a></code></pre></div>
+<h2 id="routing">Routing</h2>
+<p>Die Applikation nutzt einen eigenen Routing-Dispatcher, welcher explizites REST-Routing ermöglicht. Weiterhin ist die Bennung der Funktionen unabhängig von der URL-Struktur und es können verschiedene Parameter übergeben werden. Die gesamte Konfiguration des Routings ist in der app/config/routes.py zu finden.</p>
+<h1 id="komponenten">Komponenten</h1>
+<h2 id="beschreibung-der-basiskomponenten">Beschreibung der Basiskomponenten</h2>
+<p>In Allgemeinen besteht die gesamte Applikation aus vier Klassen: BaseController.py, RESTContorller, Model.py, Router.py. Diese Klassen sind für grundsätzliche applikationsunabhängige Aufgaben zuständig. Sie generalisieren also die Grund-Prozesse der Applikation. Im Einzelnen gehen wir auf diese kurz ein und beschreiben die Benutzung dieser.</p>
+<h3 id="basecontroller.py">BaseController.py</h3>
+<p>Die Basis-Klasse des Controllers beinhaltet allgemeine Funktionen, welche für alle abgeleiteten Controller sinnvoll sind. Der Controller arbeitet im MVC-Pattern hauptsächlich mit den Models zur Dateninteraktion und dem Views zur Präsentation zusammen. Der Controller nimmt vom Router die entsprechende Funktion entgegen und verarbeitet diese dann.</p>
+<h3 id="restcontroller.py">RESTController.py</h3>
+<p>Der REST-Controller stellt alle generalisierten Methoden für die REST-Schnittstellen zur Verfügung. Die abgeleiteten Controller haben immer folgenden beispielsweisen Aufbau:</p>
+<table>
+<thead>
+<tr class="header">
+<th>URI</th>
+<th>HTTP-Verb</th>
+<th>Action</th>
+<th>Route Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>/employees</td>
+<td>GET</td>
+<td>index</td>
+<td>employees.index</td>
+</tr>
+<tr class="even">
+<td>/employees/create</td>
+<td>GET</td>
+<td>create</td>
+<td>employees.create</td>
+</tr>
+<tr class="odd">
+<td>/employees/store</td>
+<td>POST</td>
+<td>store</td>
+<td>employees.store</td>
+</tr>
+<tr class="even">
+<td>/employees/:id</td>
+<td>GET</td>
+<td>show</td>
+<td>employees.show</td>
+</tr>
+<tr class="odd">
+<td>/employees/:id</td>
+<td>PUT</td>
+<td>update</td>
+<td>employees.update</td>
+</tr>
+<tr class="even">
+<td>/employees/:id/delete</td>
+<td>DELETE</td>
+<td>delete</td>
+<td>employees.delete</td>
+</tr>
+</tbody>
+</table>
+<p>Zusätzlich bietet der REST-Controller die Möglichkeit, einfache Validierungen auf <code>store</code>/<code>update</code>-Requests durchzuführen.</p>
+<h3 id="model.py">Model.py</h3>
+<p>Die Basis-Klasse des Models liefert generalisierte Möglichkeiten zur Datenmanipulation und -interaktion, welche durch das abgeleitete Model durchgeführt werden können. Das Model wird hauptsächlich mit den Controllern interagieren.</p>
+<h3 id="router.py">Router.py</h3>
+<p>Der Router ist für das Routing der Applikation zuständig. Er kümmert sich um die Zuordnung der jeweiligen URI-Endpunkte mit den dafür verantwortlichen Controllern. Er kommuniziert ausschließlich mit den Controllern.</p>
+<h2 id="programmierschnittstellen">Programmierschnittstellen</h2>
+<h3 id="basecontroller.py-1">BaseController.py</h3>
+<ul>
+<li>
+<code>redirect(string url, dictionary params = {}, dictionary notificationData = {}) : null</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd>erzeugt einen HTTP-Redirect an <code>url</code> mit <code>params</code> als HTTP-Argumente und <code>notificationData</code> als Flash-Message.
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>null</code>
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li>
+<code>route(string route, dictionary params = {}) : string</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd>generiert eine fertige Route aus <code>route</code> mithilfe der angegebenen Parameter in <code>params</code>
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>string</code> Konstrutierte Route, welche <code>params</code> enthält
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="restcontroller.py-1">RESTController.py</h3>
+<ul>
+<li>
+<code>__init__(list required_attributes) : null</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd>erstellt eine Instanz und setzt alle benötigten Attribute für die Existenz einer Ressource
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>null</code>
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li>
+<code>index() : HTTP-Response</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd><code>GET</code>-Request: gibt eine List mit allen Daten einer Ressource zurück
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>json</code>-HTTP-Response (Statuscode: 200 im Erfolgsfall)
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li>
+<code>store(dictonary additional_params = None, list non_allowable_attributes = None) : HTTP-Response</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd><code>POST</code>-Request: speichert die übermittelten POST-Daten nach Validierung von <code>non_allowable_attributes</code> und fügt <code>additional_params</code> an.
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Werfende Exceptions</dt>
+<dd><code>ValidationException</code>: falls Request ein <code>non_allowable_attributes</code> enthält
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>json</code>-HTTP-Response mit erstellter Ressource (Statuscode: 201 im Erfolgsfall)
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li>
+<code>show(int id) : HTTP-Response</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd><code>GET</code>-Request: gibt die Daten einer Ressource mit der ID <code>id</code> zurück
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Werfende Exceptions</dt>
+<dd><code>NotFoundException</code>: falls Ressource mit der ID <code>id</code> nicht existiert
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>json</code>-HTTP-Response (Statuscode: 200 im Erfolgsfall)
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li>
+<code>update(int id, dictonary additional_params = None, list non_allowable_attributes = None) : HTTP-Response</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd><code>PUT</code>-Request: ändert die übermittelten PUT-Daten nach Validierung von <code>non_allowable_attributes</code> und fügt <code>additional_params</code> an.
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Werfende Exceptions</dt>
+<dd><code>ValidationException</code>: falls Request ein <code>non_allowable_attributes</code> enthält <code>NotFoundException</code>: falls Ressource mit der ID <code>id</code> nicht existiert
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>json</code>-HTTP-Response mit erstellter Ressource (Statuscode: 200 im Erfolgsfall)
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li>
+<code>delete(int id) : HTTP-Response</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd><code>DELETE</code>-Request: löscht die Ressource mit der ID <code>id</code>
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Werfende Exceptions</dt>
+<dd><code>NotFoundException</code>: falls Ressource mit der ID <code>id</code> nicht existiert
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>json</code>-HTTP-Response (Statuscode: 200 im Erfolgsfall)
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="model.py-1">Model.py</h3>
+<ul>
+<li>
+<code>__init__(string fileName, list data_attributes) : null</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd>erstellt <code>fileName</code> als Datei im dazugehörigen Speicherpfad und definiert <code>data_attributes</code> als Felder des Models
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>null</code>
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Werfende Exceptions</dt>
+<dd><code>Exception</code>: falls <code>data_attributes</code> den Key <code>id</code> beinhaltet
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li>
+<code>create(dictionary values) : integer|boolean</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd>erstellt einen Eintrag in der zum Model zugehörigen JSON-Datei mit den Argumenten <code>values</code>
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>int</code>, falls Eintrag mit der ID des übergebenen Eintrags erfolgreich persistiert werden konnte, ansonsten <code>false</code>
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li>
+<code>find(int id) : list|boolean</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd>liefert den zur <code>id</code> zugehörigen Dateneintrag
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>list</code> mit untergeordneten <code>dictionary</code>, falls Eintrag erfolgreich gefunden werden konnte, ansonsten <code>false</code>
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li>
+<code>findOrFail(int id) : list</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd>siehe <code>find()</code>
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>list</code> mit untergeordneten <code>dictionary</code>: falls Eintrag erfolgreich gefunden werden konnte
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Werfende Exceptions</dt>
+<dd><code>Exception</code>, falls der Eintrag nicht erfolgreich gefunden werden konnte
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li>
+<code>all(dictionary where = None) : list</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd>liefert alle Einträge zurück, welche mit <code>where</code> als Bedingung vereinbar sind
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>list</code>: alle Einträge, welche mit <code>where</code> als Bedingung vereinbar sind
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li>
+<code>update(integer id, dictionary values) : boolean</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd>Aktualisiert den Eintrag mit der <code>id</code> mit den Werten in <code>values</code>
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>true</code>: falls der Eintrag aktualisiert werden konnten, ansonsten <code>false</code>
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Werfende Exceptions</dt>
+<dd><code>Exception</code>: falls <code>values</code> den Key <code>id</code> beinhaltet
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li>
+<code>delete(integer id) : boolean</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd>Löscht den Eintrag mit der <code>id</code> permanent
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>true</code>: falls der Eintrag gelöscht werden konnte, ansonsten <code>false</code>
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="router.py-1">Router.py</h3>
+<ul>
+<li>
+<code>getAllRoutes(list routerConfig) : RoutesDispatcher</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd>generiert eine <code>RoutesDispatcher</code> anhand der übergebenen Liste in <code>routerConfig</code> und importiert dynamisch die jeweiligen Controller für die Verwendung (Autoloading)
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>object</code>: RoutesDispatcher
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="datenablage">Datenablage</h1>
+<p>Die Models generieren bei initialen Aufruf die JSON-Dateien, welche zur Datenablage verwendet werden. Diese liegen standardmäßig im Ordner <code>/data</code>. Jedes Model benutzt ein dazugehöriges individuelles Datenerzeugnis. Pivotelemente werden ebenso in einzelnen Models verwaltet wie die eigentlichen Daten selbst.</p>
+<h2 id="beispiel-einer-json-datei">Beispiel einer JSON-Datei</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb3-1" title="1"><span class="fu">{</span></a>
+<a class="sourceLine" id="cb3-2" title="2">   <span class="dt">&quot;meta&quot;</span><span class="fu">:</span> <span class="fu">{</span></a>
+<a class="sourceLine" id="cb3-3" title="3">      <span class="dt">&quot;maxId&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb3-4" title="4">      <span class="dt">&quot;columns&quot;</span><span class="fu">:</span> <span class="ot">[</span></a>
+<a class="sourceLine" id="cb3-5" title="5">         <span class="ot">[</span></a>
+<a class="sourceLine" id="cb3-6" title="6">            <span class="st">&quot;id&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb3-7" title="7">            <span class="st">&quot;name&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb3-8" title="8">            <span class="st">&quot;description&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb3-9" title="9">            <span class="st">&quot;created_date&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb3-10" title="10">            <span class="st">&quot;qs_employee_id&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb3-11" title="11">            <span class="st">&quot;component_id&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb3-12" title="12">            <span class="st">&quot;cause_id&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb3-13" title="13">            <span class="st">&quot;sw_employee_id&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb3-14" title="14">            <span class="st">&quot;type&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb3-15" title="15">            <span class="st">&quot;solution_description&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb3-16" title="16">            <span class="st">&quot;solved_date&quot;</span></a>
+<a class="sourceLine" id="cb3-17" title="17">         <span class="ot">]</span></a>
+<a class="sourceLine" id="cb3-18" title="18">      <span class="ot">]</span></a>
+<a class="sourceLine" id="cb3-19" title="19">   <span class="fu">},</span></a>
+<a class="sourceLine" id="cb3-20" title="20">   <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="ot">[</span></a>
+<a class="sourceLine" id="cb3-21" title="21">      <span class="ot">[</span></a>
+<a class="sourceLine" id="cb3-22" title="22">         <span class="dv">2</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb3-23" title="23">         <span class="st">&quot;Fehler B&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb3-24" title="24">         <span class="st">&quot;Description 2&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb3-25" title="25">         <span class="st">&quot;2018-12-10 18:04:15&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb3-26" title="26">         <span class="dv">10</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb3-27" title="27">         <span class="dv">3</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb3-28" title="28">         <span class="dv">1</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb3-29" title="29">         <span class="dv">11</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb3-30" title="30">         <span class="dv">1</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb3-31" title="31">         <span class="st">&quot;test&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb3-32" title="32">         <span class="st">&quot;2018-12-10 18:04:15&quot;</span></a>
+<a class="sourceLine" id="cb3-33" title="33">      <span class="ot">]</span></a>
+<a class="sourceLine" id="cb3-34" title="34">   <span class="ot">]</span></a>
+<a class="sourceLine" id="cb3-35" title="35"><span class="fu">}</span></a></code></pre></div>
+<h2 id="transformierung-der-daten">Transformierung der Daten</h2>
+<p>Da es über normale 1-n-Beziehungen ebenso Pivottabellen geben muss und grundsätzlich eine Transformierung der Daten manchmal sinnvoll erscheint, kann in der eigentlich Model-Klasse eine spezielle Funktion mit dem Namen <code>_transformData</code> implementiert werden. Diese Funktion wird dann vor der Datenausgabe aufgerufen und manipuliert das entsprechende Ergebnis. Als Übergabeparameter enthält diese die aktuelle Liste und muss dann die manipulierte Liste zurückgeben.</p>
+<h3 id="beispiel-der-transformierung-im-employee-model">Beispiel der Transformierung im Employee-Model</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" title="1">    <span class="kw">def</span> _transformData(<span class="va">self</span>, bugs):</a>
+<a class="sourceLine" id="cb4-2" title="2">        <span class="im">from</span> app.models.Employee <span class="im">import</span> Employee</a>
+<a class="sourceLine" id="cb4-3" title="3">        <span class="im">from</span> app.models.ProjectComponents <span class="im">import</span> ProjectComponents</a>
+<a class="sourceLine" id="cb4-4" title="4">        <span class="im">from</span> app.models.Cause <span class="im">import</span> Cause</a>
+<a class="sourceLine" id="cb4-5" title="5">        <span class="im">from</span> app.models.BugCategories <span class="im">import</span> BugCategories</a>
+<a class="sourceLine" id="cb4-6" title="6"></a>
+<a class="sourceLine" id="cb4-7" title="7">        formattedBugs <span class="op">=</span> <span class="bu">list</span>(bugs)</a>
+<a class="sourceLine" id="cb4-8" title="8"></a>
+<a class="sourceLine" id="cb4-9" title="9">        <span class="cf">for</span> bug <span class="kw">in</span> formattedBugs:</a>
+<a class="sourceLine" id="cb4-10" title="10">            qs_employee <span class="op">=</span> <span class="va">None</span></a>
+<a class="sourceLine" id="cb4-11" title="11">            cause <span class="op">=</span> <span class="va">None</span></a>
+<a class="sourceLine" id="cb4-12" title="12"></a>
+<a class="sourceLine" id="cb4-13" title="13">            bug[<span class="st">&#39;component&#39;</span>] <span class="op">=</span> ProjectComponents().<span class="bu">all</span>({<span class="st">&#39;id&#39;</span>: bug[<span class="st">&#39;component_id&#39;</span>]})</a>
+<a class="sourceLine" id="cb4-14" title="14">            bug[<span class="st">&#39;categories&#39;</span>] <span class="op">=</span> BugCategories().withoutTransform().<span class="bu">all</span>({<span class="st">&#39;bug_id&#39;</span>: bug[<span class="st">&#39;id&#39;</span>]})</a>
+<a class="sourceLine" id="cb4-15" title="15"></a>
+<a class="sourceLine" id="cb4-16" title="16">            <span class="cf">if</span> <span class="bu">isinstance</span>(bug[<span class="st">&#39;qs_employee_id&#39;</span>], <span class="bu">int</span>):</a>
+<a class="sourceLine" id="cb4-17" title="17">                qs_employee <span class="op">=</span> Employee().withoutTransform().find(bug[<span class="st">&#39;qs_employee_id&#39;</span>])</a>
+<a class="sourceLine" id="cb4-18" title="18"></a>
+<a class="sourceLine" id="cb4-19" title="19">            <span class="cf">if</span> <span class="bu">isinstance</span>(bug[<span class="st">&#39;cause_id&#39;</span>], <span class="bu">int</span>):</a>
+<a class="sourceLine" id="cb4-20" title="20">                cause <span class="op">=</span> Cause().withoutTransform().find(bug[<span class="st">&#39;cause_id&#39;</span>])</a>
+<a class="sourceLine" id="cb4-21" title="21"></a>
+<a class="sourceLine" id="cb4-22" title="22">            <span class="cf">if</span> bug[<span class="st">&#39;sw_employee_id&#39;</span>] <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</a>
+<a class="sourceLine" id="cb4-23" title="23">                sw_employee <span class="op">=</span> Employee().withoutTransform().find(bug[<span class="st">&#39;sw_employee_id&#39;</span>])</a>
+<a class="sourceLine" id="cb4-24" title="24"></a>
+<a class="sourceLine" id="cb4-25" title="25">                <span class="cf">if</span> sw_employee:</a>
+<a class="sourceLine" id="cb4-26" title="26">                    bug[<span class="st">&#39;sw_employee&#39;</span>] <span class="op">=</span> sw_employee[<span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb4-27" title="27"></a>
+<a class="sourceLine" id="cb4-28" title="28">            <span class="cf">if</span> qs_employee:</a>
+<a class="sourceLine" id="cb4-29" title="29">                bug[<span class="st">&#39;qs_employee&#39;</span>] <span class="op">=</span> qs_employee[<span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb4-30" title="30"></a>
+<a class="sourceLine" id="cb4-31" title="31">            <span class="cf">if</span> cause:</a>
+<a class="sourceLine" id="cb4-32" title="32">                bug[<span class="st">&#39;cause&#39;</span>] <span class="op">=</span> cause[<span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb4-33" title="33"></a>
+<a class="sourceLine" id="cb4-34" title="34">        <span class="cf">return</span> formattedBugs</a></code></pre></div>
+<h1 id="rest-responses">REST-Responses</h1>
+<p>Alle Routen geben immer eine einheitliche Antwort auf alle REST-Anfragen. Damit ist sichergestellt, dass man die Responses einheitlich verarbeiten kann.</p>
+<h2 id="beispiel-einer-rest-antwort-nach-erfolgreichen-ändern-einer-ressource">Beispiel einer REST-Antwort nach erfolgreichen Ändern einer Ressource</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb5-1" title="1"><span class="fu">{</span></a>
+<a class="sourceLine" id="cb5-2" title="2">    <span class="dt">&quot;status&quot;</span><span class="fu">:</span> <span class="st">&quot;success&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="dt">&quot;message&quot;</span><span class="fu">:</span> <span class="st">&quot;You have successfully updated the ressource.&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="dt">&quot;code&quot;</span><span class="fu">:</span> <span class="dv">200</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-5" title="5">    <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="fu">{</span></a>
+<a class="sourceLine" id="cb5-6" title="6">        <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">9</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-7" title="7">        <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;Fehler B&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-8" title="8">        <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;Description B&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-9" title="9">        <span class="dt">&quot;created_date&quot;</span><span class="fu">:</span> <span class="st">&quot;2018-12-30 21:29:06&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-10" title="10">        <span class="dt">&quot;qs_employee_id&quot;</span><span class="fu">:</span> <span class="dv">12</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-11" title="11">        <span class="dt">&quot;component_id&quot;</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-12" title="12">        <span class="dt">&quot;cause_id&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-13" title="13">        <span class="dt">&quot;sw_employee_id&quot;</span><span class="fu">:</span> <span class="dv">11</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-14" title="14">        <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-15" title="15">        <span class="dt">&quot;solution_description&quot;</span><span class="fu">:</span> <span class="st">&quot;Solution Description B&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-16" title="16">        <span class="dt">&quot;solved_date&quot;</span><span class="fu">:</span> <span class="st">&quot;2018-12-30 21:33:25&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-17" title="17">        <span class="dt">&quot;component&quot;</span><span class="fu">:</span> <span class="ot">[</span></a>
+<a class="sourceLine" id="cb5-18" title="18">            <span class="fu">{</span></a>
+<a class="sourceLine" id="cb5-19" title="19">                <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-20" title="20">                <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;Testkomponente&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-21" title="21">                <span class="dt">&quot;project_id&quot;</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-22" title="22">                <span class="dt">&quot;project&quot;</span><span class="fu">:</span> <span class="fu">{</span></a>
+<a class="sourceLine" id="cb5-23" title="23">                    <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-24" title="24">                    <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;Projekt A&quot;</span></a>
+<a class="sourceLine" id="cb5-25" title="25">                <span class="fu">}</span></a>
+<a class="sourceLine" id="cb5-26" title="26">            <span class="fu">}</span></a>
+<a class="sourceLine" id="cb5-27" title="27">        <span class="ot">]</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-28" title="28">        <span class="dt">&quot;categories&quot;</span><span class="fu">:</span> <span class="ot">[</span></a>
+<a class="sourceLine" id="cb5-29" title="29">            <span class="fu">{</span></a>
+<a class="sourceLine" id="cb5-30" title="30">                <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">164</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-31" title="31">                <span class="dt">&quot;bug_id&quot;</span><span class="fu">:</span> <span class="dv">9</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-32" title="32">                <span class="dt">&quot;category_id&quot;</span><span class="fu">:</span> <span class="dv">3</span></a>
+<a class="sourceLine" id="cb5-33" title="33">            <span class="fu">}</span></a>
+<a class="sourceLine" id="cb5-34" title="34">        <span class="ot">]</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-35" title="35">        <span class="dt">&quot;sw_employee&quot;</span><span class="fu">:</span> <span class="fu">{</span></a>
+<a class="sourceLine" id="cb5-36" title="36">            <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">11</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-37" title="37">            <span class="dt">&quot;last_name&quot;</span><span class="fu">:</span> <span class="st">&quot;Entwickler&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-38" title="38">            <span class="dt">&quot;first_name&quot;</span><span class="fu">:</span> <span class="st">&quot;SW&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-39" title="39">            <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="dv">2</span></a>
+<a class="sourceLine" id="cb5-40" title="40">        <span class="fu">},</span></a>
+<a class="sourceLine" id="cb5-41" title="41">        <span class="dt">&quot;qs_employee&quot;</span><span class="fu">:</span> <span class="fu">{</span></a>
+<a class="sourceLine" id="cb5-42" title="42">            <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">12</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-43" title="43">            <span class="dt">&quot;last_name&quot;</span><span class="fu">:</span> <span class="st">&quot;Mitarbeiter&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-44" title="44">            <span class="dt">&quot;first_name&quot;</span><span class="fu">:</span> <span class="st">&quot;QS&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb5-45" title="45">            <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb5-46" title="46">        <span class="fu">}</span></a>
+<a class="sourceLine" id="cb5-47" title="47">    <span class="fu">}</span></a>
+<a class="sourceLine" id="cb5-48" title="48"><span class="fu">}</span></a></code></pre></div>
+<h1 id="datenablage-1">Datenablage</h1>
+<p>Die Models generieren bei initialen Aufruf die JSON-Dateien, welche zur Datenablage verwendet werden. Diese liegen standardmäßig im Ordner <code>/data</code>. Jedes Model benutzt ein dazugehöriges individuelles Datenerzeugnis. Pivotelemente werden ebenso in einzelnen Models verwaltet wie die eigentlichen Daten selbst.</p>
+<h2 id="beispiel-einer-json-datei-1">Beispiel einer JSON-Datei</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb6-1" title="1"><span class="fu">{</span></a>
+<a class="sourceLine" id="cb6-2" title="2">   <span class="dt">&quot;meta&quot;</span><span class="fu">:</span> <span class="fu">{</span></a>
+<a class="sourceLine" id="cb6-3" title="3">      <span class="dt">&quot;maxId&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb6-4" title="4">      <span class="dt">&quot;columns&quot;</span><span class="fu">:</span> <span class="ot">[</span></a>
+<a class="sourceLine" id="cb6-5" title="5">         <span class="ot">[</span></a>
+<a class="sourceLine" id="cb6-6" title="6">            <span class="st">&quot;id&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb6-7" title="7">            <span class="st">&quot;name&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb6-8" title="8">            <span class="st">&quot;description&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb6-9" title="9">            <span class="st">&quot;created_date&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb6-10" title="10">            <span class="st">&quot;qs_employee_id&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb6-11" title="11">            <span class="st">&quot;component_id&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb6-12" title="12">            <span class="st">&quot;cause_id&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb6-13" title="13">            <span class="st">&quot;sw_employee_id&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb6-14" title="14">            <span class="st">&quot;type&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb6-15" title="15">            <span class="st">&quot;solution_description&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb6-16" title="16">            <span class="st">&quot;solved_date&quot;</span></a>
+<a class="sourceLine" id="cb6-17" title="17">         <span class="ot">]</span></a>
+<a class="sourceLine" id="cb6-18" title="18">      <span class="ot">]</span></a>
+<a class="sourceLine" id="cb6-19" title="19">   <span class="fu">},</span></a>
+<a class="sourceLine" id="cb6-20" title="20">   <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="ot">[</span></a>
+<a class="sourceLine" id="cb6-21" title="21">      <span class="ot">[</span></a>
+<a class="sourceLine" id="cb6-22" title="22">         <span class="dv">2</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb6-23" title="23">         <span class="st">&quot;Fehler B&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb6-24" title="24">         <span class="st">&quot;Description 2&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb6-25" title="25">         <span class="st">&quot;2018-12-10 18:04:15&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb6-26" title="26">         <span class="dv">10</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb6-27" title="27">         <span class="dv">3</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb6-28" title="28">         <span class="dv">1</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb6-29" title="29">         <span class="dv">11</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb6-30" title="30">         <span class="dv">1</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb6-31" title="31">         <span class="st">&quot;test&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb6-32" title="32">         <span class="st">&quot;2018-12-10 18:04:15&quot;</span></a>
+<a class="sourceLine" id="cb6-33" title="33">      <span class="ot">]</span></a>
+<a class="sourceLine" id="cb6-34" title="34">   <span class="ot">]</span></a>
+<a class="sourceLine" id="cb6-35" title="35"><span class="fu">}</span></a></code></pre></div>
+<h2 id="transformierung-der-daten-1">Transformierung der Daten</h2>
+<p>Da es über normale 1-n-Beziehungen ebenso Pivottabellen geben muss und grundsätzlich eine Transformierung der Daten manchmal sinnvoll erscheint, kann in der eigentlich Model-Klasse eine spezielle Funktion mit dem Namen <code>_transformData</code> implementiert werden. Diese Funktion wird dann vor der Datenausgabe aufgerufen und manipuliert das entsprechende Ergebnis. Als Übergabeparameter enthält diese die aktuelle Liste und muss dann die manipulierte Liste zurückgeben.</p>
+<h3 id="beispiel-der-transformierung-im-employee-model-1">Beispiel der Transformierung im Employee-Model</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb7-1" title="1">    <span class="kw">def</span> _transformData(<span class="va">self</span>, bugs):</a>
+<a class="sourceLine" id="cb7-2" title="2">        <span class="im">from</span> app.models.Employee <span class="im">import</span> Employee</a>
+<a class="sourceLine" id="cb7-3" title="3">        <span class="im">from</span> app.models.ProjectComponents <span class="im">import</span> ProjectComponents</a>
+<a class="sourceLine" id="cb7-4" title="4">        <span class="im">from</span> app.models.Cause <span class="im">import</span> Cause</a>
+<a class="sourceLine" id="cb7-5" title="5">        <span class="im">from</span> app.models.BugCategories <span class="im">import</span> BugCategories</a>
+<a class="sourceLine" id="cb7-6" title="6"></a>
+<a class="sourceLine" id="cb7-7" title="7">        formattedBugs <span class="op">=</span> <span class="bu">list</span>(bugs)</a>
+<a class="sourceLine" id="cb7-8" title="8"></a>
+<a class="sourceLine" id="cb7-9" title="9">        <span class="cf">for</span> bug <span class="kw">in</span> formattedBugs:</a>
+<a class="sourceLine" id="cb7-10" title="10">            qs_employee <span class="op">=</span> <span class="va">None</span></a>
+<a class="sourceLine" id="cb7-11" title="11">            cause <span class="op">=</span> <span class="va">None</span></a>
+<a class="sourceLine" id="cb7-12" title="12"></a>
+<a class="sourceLine" id="cb7-13" title="13">            bug[<span class="st">&#39;component&#39;</span>] <span class="op">=</span> ProjectComponents().<span class="bu">all</span>({<span class="st">&#39;id&#39;</span>: bug[<span class="st">&#39;component_id&#39;</span>]})</a>
+<a class="sourceLine" id="cb7-14" title="14">            bug[<span class="st">&#39;categories&#39;</span>] <span class="op">=</span> BugCategories().withoutTransform().<span class="bu">all</span>({<span class="st">&#39;bug_id&#39;</span>: bug[<span class="st">&#39;id&#39;</span>]})</a>
+<a class="sourceLine" id="cb7-15" title="15"></a>
+<a class="sourceLine" id="cb7-16" title="16">            <span class="cf">if</span> <span class="bu">isinstance</span>(bug[<span class="st">&#39;qs_employee_id&#39;</span>], <span class="bu">int</span>):</a>
+<a class="sourceLine" id="cb7-17" title="17">                qs_employee <span class="op">=</span> Employee().withoutTransform().find(bug[<span class="st">&#39;qs_employee_id&#39;</span>])</a>
+<a class="sourceLine" id="cb7-18" title="18"></a>
+<a class="sourceLine" id="cb7-19" title="19">            <span class="cf">if</span> <span class="bu">isinstance</span>(bug[<span class="st">&#39;cause_id&#39;</span>], <span class="bu">int</span>):</a>
+<a class="sourceLine" id="cb7-20" title="20">                cause <span class="op">=</span> Cause().withoutTransform().find(bug[<span class="st">&#39;cause_id&#39;</span>])</a>
+<a class="sourceLine" id="cb7-21" title="21"></a>
+<a class="sourceLine" id="cb7-22" title="22">            <span class="cf">if</span> bug[<span class="st">&#39;sw_employee_id&#39;</span>] <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</a>
+<a class="sourceLine" id="cb7-23" title="23">                sw_employee <span class="op">=</span> Employee().withoutTransform().find(bug[<span class="st">&#39;sw_employee_id&#39;</span>])</a>
+<a class="sourceLine" id="cb7-24" title="24"></a>
+<a class="sourceLine" id="cb7-25" title="25">                <span class="cf">if</span> sw_employee:</a>
+<a class="sourceLine" id="cb7-26" title="26">                    bug[<span class="st">&#39;sw_employee&#39;</span>] <span class="op">=</span> sw_employee[<span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb7-27" title="27"></a>
+<a class="sourceLine" id="cb7-28" title="28">            <span class="cf">if</span> qs_employee:</a>
+<a class="sourceLine" id="cb7-29" title="29">                bug[<span class="st">&#39;qs_employee&#39;</span>] <span class="op">=</span> qs_employee[<span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb7-30" title="30"></a>
+<a class="sourceLine" id="cb7-31" title="31">            <span class="cf">if</span> cause:</a>
+<a class="sourceLine" id="cb7-32" title="32">                bug[<span class="st">&#39;cause&#39;</span>] <span class="op">=</span> cause[<span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb7-33" title="33"></a>
+<a class="sourceLine" id="cb7-34" title="34">        <span class="cf">return</span> formattedBugs</a></code></pre></div>
+<h1 id="validierungen">Validierungen</h1>
+<p>Die HTML5-Validierungen wurden mithilfe des <a href="https://validator.w3.org/nu/#textarea">“Nu Html Checker”</a> vom W3C durchgeführt. Die Ergebnisse befinden sich in folgender Tabelle:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Route</th>
+<th>Fehler</th>
+<th>Warnungen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>/</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>/employees</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>/employees/create</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>/employees/{id}</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>/projects</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>/projects/create</td>
+<td>0</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>/projects/{id}</td>
+<td>0</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>/customers</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>/customers/create</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>/customers/{id}</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Die Warnungen können ignoriert werden, da diese lediglich für ältere Browser relevant sind (HTML5 polyfilling).</p>
+
+        <br /><br /><p class="repo-owner"><small>Gültigkeitsdatum: 31.12.2018. Das <a href="https://github.com/jasonlong/architect-theme">architect-theme</a> ist ein Produkt von <a href="https://github.com/jasonlong">jasonlong</a>.</small></p>
+        </section>
+        <aside id="sidebar">
+          <a href="https://github.com/it4need/hsnr-web-pra2/archive/master.zip" class="button">
+            <small>Projekt-Download</small>
+            .zip
+           </a>
+          <a href="https://github.com/it4need/hsnr-web-pra2/archive/master.tar.gz" class="button">
+            <small>Projekt-Download</small>
+            .tar.gz
+          </a>
+        </aside>
+      </div>
+    </div>
+    <script src="assets/javascripts/custom.js"></script>
+  </body>
+</html>

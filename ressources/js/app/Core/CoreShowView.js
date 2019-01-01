@@ -42,7 +42,7 @@ Core.ShowView = class ShowView extends Core.CoreView {
     }
 
     eventUpdateEntry(event, that) {
-        let data = Core.CoreUtil.getFormData(event.target.parentNode);
+        let data = Core.CoreUtil.getFormData(event.target.parentNode.parentNode);
 
         APPUTIL.es_o.publish_px(that.eventController, ["update", data]);
         event.preventDefault();

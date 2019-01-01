@@ -1,33 +1,38 @@
 <h2>Mitarbeiter</h2>
 @if context['data'].length > 0@
-    <form action="">
-         <select name="filter" data-controller="employees" id="filter">
-            <option value="all" #context['type'] == 'all' ? 'selected' : ''#>Alle</option>
-            <option value="1" #context['type'] == '1' ? 'selected' : ''#>QS-Mitarbeiter</option>
-            <option value="2" #context['type'] == '2' ? 'selected' : ''#>SW-Entwickler</option>
-         </select>
-    </form>
-   <table>
-      <tr>
-         <th>ID</th>
-         <th>Vollstädniger Name</th>
-         <th>Typ</th>
-      </tr>
-      @var entry_a;@
-      @var loop_i;@
-      @context['data'].forEach(function(value){@
-         <tr id="#value['id']#">
-            <td>#value['id']#</td>
-            <td>#value['name']#</td>
-            <td>#value['type'] == 1 ? 'QS-Mitarbeiter' : 'SW-Entwicker'#</td>
-         </tr>
-      @});@
-   </table>
+<form action="##">
+    <select name="filter" data-controller="employees" id="filter">
+        <option value="all" #context[
+        'type'] == 'all' ? 'selected' : ''#>Alle</option>
+        <option value="1" #context[
+        'type'] == '1' ? 'selected' : ''#>QS-Mitarbeiter</option>
+        <option value="2" #context[
+        'type'] == '2' ? 'selected' : ''#>SW-Entwickler</option>
+    </select>
+</form>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Vollstädniger Name</th>
+        <th>Typ</th>
+    </tr>
+    @var entry_a;@
+    @var loop_i;@
+    @context['data'].forEach(function(value){@
+    <tr id="#value['id']#">
+        <td>#value['id']#</td>
+        <td>#value['name']#</td>
+        <td>#value['type'] == 1 ? 'QS-Mitarbeiter' : 'SW-Entwicker'#</td>
+    </tr>
+    @});@
+</table>
 @else@
-   <p>Momentan sind noch keine Datensätze vorhanden.</p>
+<p>Momentan sind noch keine Datensätze vorhanden.</p>
 @endif@
 
-<button id="showEntry" data-controller="employees">Anzeigen</button>
-<button id="createEntry" data-controller="employees">Neu anlegen</button>
-<button id="deleteEntry" data-controller="employees">Löschen</button>
+<div class="buttons">
+    <button id="showEntry" data-controller="employees">Anzeigen</button>
+    <button id="createEntry" data-controller="employees">Neu anlegen</button>
+    <button id="deleteEntry" data-controller="employees">Löschen</button>
+</div>
 <!-- EOF -->

@@ -2,10 +2,12 @@
 <!-- Template -->
 <!-- Contentbereich -->
 <form>
-   <input type="hidden" name="id" id="id" value="#context['data']['id']#">
-   <label for="name">Name</label>
-   <input type="text" id="name" name="name" value="#context['data']['name']#" />
-   <button id="idBack" data-controller="projects">Zurück</button>
-   <button id="updateSubmit" type="submit" data-controller="projects">Speichern</button>
+    <input type="hidden" name="id" id="id" value="#context['data']['id']#">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" value="#context['data']['name']#"/>
+    <div class="buttons">
+        <button id="idBack" data-controller="projects">Zurück</button>
+        <button id="updateSubmit" type="submit" data-controller="projects">Speichern</button>
+    </div>
 </form>
 <!-- EOF -->

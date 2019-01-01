@@ -2,18 +2,21 @@
 <!-- Template -->
 <!-- Contentbereich -->
 <form>
-   <input type="hidden" name="id" id="id" value="#context['data']['component']['data']['id']#">
-   <label for="name">Name</label>
-   <input type="text" id="name" name="name" value="#context['data']['component']['data']['name']#" />
-   <select name="project_id" id="project_id">
-      <option value="">- Bitte Projekt auswählen -</option>
-      @context['data']['projects']['data'].forEach(function(value){@
-         <option value="#value['id']#" @if value['id'] == context['data']['component']['data']['project_id']@selected@endif@>
-            <td>#value['name']# (ID: #value['id']#)</td>
-         </option>
-      @});@
-   </select>
-   <button id="idBack" data-controller="components">Zurück</button>
-   <button id="updateSubmit" type="submit" data-controller="components">Speichern</button>
+    <input type="hidden" name="id" id="id" value="#context['data']['component']['data']['id']#">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" value="#context['data']['component']['data']['name']#"/>
+    <select name="project_id" id="project_id">
+        <option value="">- Bitte Projekt auswählen -</option>
+        @context['data']['projects']['data'].forEach(function(value){@
+        <option value="#value['id']#" @if value[
+        'id'] == context['data']['component']['data']['project_id']@selected@endif@>
+        <td>#value['name']# (ID: #value['id']#)</td>
+        </option>
+        @});@
+    </select>
+    <div class="buttons">
+        <button id="idBack" data-controller="components">Zurück</button>
+        <button id="updateSubmit" type="submit" data-controller="components">Speichern</button>
+    </div>
 </form>
 <!-- EOF -->

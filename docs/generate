@@ -1,0 +1,17 @@
+#!/bin/bash
+
+CURRENT_PWD=$(pwd)
+cd content
+echo "1. Delete maybe already exists combined.md"
+rm -f combined.md || true
+echo "1. Combine everything into combined.md"
+awk 'FNR==1{print ""}1' *.md > combined.md
+echo "4. Running pandoc on combined.md for creating html docs"
+pandoc  --lua-filter="$CURRENT_PWD"/src/task-list_architect.lua \
+        --from       markdown \
+        --to         html5 \
+        --template   "$CURRENT_PWD"/src/architect.template \
+        --output     "$CURRENT_PWD"/output/index.html \
+        "$CURRENT_PWD"/content/combined.md "$CURRENT_PWD"/src/configuration_architect.yaml
+echo "5. Clean everything"
+rm ./content/combined.md

@@ -1,0 +1,15 @@
+---
+website_title:   'WEB-PRA 2'
+website_tagline: 'Jan André Schlösser (1085978)<br>Hanno Siebel (1082670)<br>Gruppe G'
+your_github_username: it4need
+your_github_reponame: hsnr-web-pra2
+title: 'Bug-Tracker'
+lang:   de
+date:   31.12.2018
+author:
+  - Jan André Schlösser
+  - Hanno Siebel
+header-includes: |
+include-before: |
+include-after: |
+...
