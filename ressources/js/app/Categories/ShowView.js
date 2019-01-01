@@ -50,11 +50,4 @@ Categories.ShowView = class ShowView extends Core.ShowView {
                 .catch(err => alert(err));
         }
     }
-
-    eventUpdateEntry(event, that) {
-        let data = Core.CoreUtil.getFormData(event.target.parentNode);
-
-        APPUTIL.es_o.publish_px(that.eventController, ["update", data]);
-        event.preventDefault();
-    }
 };
