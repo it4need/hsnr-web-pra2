@@ -22,7 +22,6 @@ Auth.IndexView = class IndexView extends Core.IndexView {
 
     login(type) {
         localStorage.setItem('auth', type);
-        console.log(type);
         location.reload();
     }
 
