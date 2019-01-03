@@ -1,87 +1,100 @@
-# Datenablage
-Die Models generieren bei initialen Aufruf die JSON-Dateien, welche zur Datenablage verwendet werden. Diese liegen 
-standardmäßig im Ordner `/data`. Jedes Model benutzt ein dazugehöriges individuelles Datenerzeugnis. Pivotelemente
-werden ebenso in einzelnen Models verwaltet wie die eigentlichen Daten selbst.
+# Clientseitige Komponenten
+## Beschreibung der Basiskomponenten
+Im Allgemeinen besteht die gesamte Applikation aus sieben Klassen: CoreView.js, CoreIndexView.js, CoreCreateView.js, 
+CoreShowView.js, CoreRequest.js, CoreUtil.js, CoreValidator.js. Diese 
+Klassen sind für grundsätzliche applikationsunabhängige Aufgaben zuständig. Sie generalisieren also die Grund-Prozesse 
+der clientseitigen Applikation. Im Einzelnen gehen wir auf diese kurz ein und beschreiben die Benutzung dieser.
 
-## Beispiel einer JSON-Datei
-```json
-{
-   "meta": {
-      "maxId": 2,
-      "columns": [
-         [
-            "id",
-            "name",
-            "description",
-            "created_date",
-            "qs_employee_id",
-            "component_id",
-            "cause_id",
-            "sw_employee_id",
-            "type",
-            "solution_description",
-            "solved_date"
-         ]
-      ]
-   },
-   "data": [
-      [
-         2,
-         "Fehler B",
-         "Description 2",
-         "2018-12-10 18:04:15",
-         10,
-         3,
-         1,
-         11,
-         1,
-         "test",
-         "2018-12-10 18:04:15"
-      ]
-   ]
+### CoreView.js
+Das CoreView.js beinhaletet allgemeine Methoden zur Verwendung des Event-Subscriber-Pattern und Hilfsmethoden.
+
+### CoreIndexView.js
+Registriert die notwendigen Eventhandles für das IndexView einer Ressource und stellt standardmäßig alle Daten bereit.
+
+### CoreCreateView.js
+Registriert die notwendigen Eventhandles für das CreateView einer Ressource. Die Daten werden dann mithilfe eines 
+Validators beim Speichern validiert.
+
+### CoreShowViw.js
+Registriert die notwendigen Eventhandles für das ShowView einer Ressource. Die Daten werden dann mithilfe eines 
+Validators beim Aktualisieren validiert.
+
+### CoreRequest.js
+Stellt Hilfsmethoden zur Verfügung, welche mit welcher man mit der Fetch-API REST-Requests durchführen kann.
+
+### CoreRequest.js
+Stellt Hilfsmethoden zur Verfügung, welche mit welcher man mit der Fetch-API REST-Requests durchführen kann.
+
+### CoreUtil.js
+Stellt eine Hilfsmethode zur Verfügung, um alle Formulardaten eines Formulars als Objekt zu erhalten.
+
+### CoreValidator.js
+Stellt Hilfsmethoden zur Verfügung, um Objekte auf Regeln zur Validierung zu untersuchen.
+
+## Event-Service
+Events werden ausgelöst und durch das Subscriben der jeweiligen Events wird eine vordefinierte Aktion getriggert.
+Diese Aktionen befinden sich in der eigentlichen `app.js`. Ein Beispiel dafür:
+
+```javascript
+switch (message_spl) {
+case "employees":
+    switch (data_opl[0]) {
+        case "index":
+            if(data_opl[1] == null || data_opl[1] === undefined) {
+                this.employees.indexView.index('all');
+                break;
+            }
+            
+            this.employees.indexView.index(data_opl[1]);
+            break;
+        case "create":
+            this.employees.createView.create();
+            break;
+        case "store":
+            this.employees.createView.store(data_opl[1]);
+            break;
+        case "show":
+            this.employees.showView.show(data_opl[1]);
+            break;
+        case "update":
+            this.employees.showView.update(data_opl[1]);
+            break;
+        case "delete":
+            this.employees.indexView.delete(data_opl[1]);
+            break;
+    }
+    break;
 }
 ```
 
-## Transformierung der Daten
-Da es über normale 1-n-Beziehungen ebenso Pivottabellen geben muss und grundsätzlich eine Transformierung der Daten
-manchmal sinnvoll erscheint, kann in der eigentlich Model-Klasse eine spezielle Funktion mit dem Namen `_transformData`
-implementiert werden. Diese Funktion wird dann vor der Datenausgabe aufgerufen und manipuliert das entsprechende Ergebnis.
-Als Übergabeparameter enthält diese die aktuelle Liste und muss dann die manipulierte Liste zurückgeben.
+## Template-Verarbeitung
+Die Templates werden durch einen Parser verarbeitet, welcher in einer seperaten Dokumentation beschrieben wird. 
+Beispielhaft kann man sich an folgenden Codeausschnitt orientieren:
 
-### Beispiel der Transformierung im Employee-Model
-```python
-    def _transformData(self, bugs):
-        from app.models.Employee import Employee
-        from app.models.ProjectComponents import ProjectComponents
-        from app.models.Cause import Cause
-        from app.models.BugCategories import BugCategories
+ ```html
+<h2>Projekte</h2>
+@if context['data'].length > 0@
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+    </tr>
+    @var entry_a;@
+    @var loop_i;@
+    @context['data'].forEach(function(value){@
+    <tr id="#value['id']#">
+        <td>#value['id']#</td>
+        <td>#value['name']#</td>
+    </tr>
+    @});@
+</table>
+@else@
+<p>Momentan sind noch keine Datensätze vorhanden.</p>
+@endif@
 
-        formattedBugs = list(bugs)
-
-        for bug in formattedBugs:
-            qs_employee = None
-            cause = None
-
-            bug['component'] = ProjectComponents().all({'id': bug['component_id']})
-            bug['categories'] = BugCategories().withoutTransform().all({'bug_id': bug['id']})
-
-            if isinstance(bug['qs_employee_id'], int):
-                qs_employee = Employee().withoutTransform().find(bug['qs_employee_id'])
-
-            if isinstance(bug['cause_id'], int):
-                cause = Cause().withoutTransform().find(bug['cause_id'])
-
-            if bug['sw_employee_id'] is not None:
-                sw_employee = Employee().withoutTransform().find(bug['sw_employee_id'])
-
-                if sw_employee:
-                    bug['sw_employee'] = sw_employee[0]
-
-            if qs_employee:
-                bug['qs_employee'] = qs_employee[0]
-
-            if cause:
-                bug['cause'] = cause[0]
-
-        return formattedBugs
+<div class="buttons">
+    <button id="showEntry" data-controller="projects">Anzeigen</button>
+    <button id="createEntry" data-controller="projects">Neu anlegen</button>
+    <button id="deleteEntry" data-controller="projects">Löschen</button>
+</div>
 ```

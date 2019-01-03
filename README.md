@@ -1,4 +1,4 @@
-# hsnr-web-pra1
+# hsnr-web-pra2
 Die Dokumentation befindet sich im `/docs`-Verzeichnis. 
 
 ## Generate 'test'-output

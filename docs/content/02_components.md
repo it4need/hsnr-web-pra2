@@ -1,4 +1,4 @@
-# Komponenten
+# Serverseitige Komponenten
 ## Beschreibung der Basiskomponenten
 In Allgemeinen besteht die gesamte Applikation aus vier Klassen: BaseController.py, RESTContorller, Model.py, Router.py. Diese 
 Klassen sind für grundsätzliche applikationsunabhängige Aufgaben zuständig. Sie generalisieren also die Grund-Prozesse 
