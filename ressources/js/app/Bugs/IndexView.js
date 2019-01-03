@@ -16,7 +16,7 @@ Bugs.IndexView = class IndexView extends Core.IndexView {
             .then(data => data)
             .catch(err => alert(err));
 
-        let causes = await Core.CoreRequest.get('katursache')
+        let categories = await Core.CoreRequest.get('katfehler')
             .then(data => data)
             .catch(err => alert(err));
 
@@ -45,7 +45,7 @@ Bugs.IndexView = class IndexView extends Core.IndexView {
         this.render({
             data: {
                 bugs,
-                causes,
+                categories,
                 components,
                 qs_employees,
                 type
